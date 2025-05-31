@@ -1,2 +1,4 @@
-<h1><%= current_page.title %></h1>
-<%= content.html :text %>
+<div class="flex flex-col items-center justify-center py-64 bg-gradient-to-br from-light-peach to-cream">
+  <h1 class="font-bold text-7xl text-warm-orange"><%= content.text(:hero_title) %></h1>
+  <h2 class="text-xl text-center font-poppins text-dark-charcoal"><%= content.html(:hero_description) %></h2>
+</div>

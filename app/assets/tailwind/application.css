@@ -28,10 +28,11 @@
     --color-dark-charcoal: #343A40;
 
     /* Background Colors - Creating a warm, inviting foundation */
-    --color-cream: #FFFBF8;
+    --color-cream: #FFF7ED;
     --color-white: #FFFFFF;
-    --color-light-peach: #FDF6F3;
+    --color-light-peach: #FEF2F2;
     --color-dark-bg: #2C1810;
+    --color-grey-bg: #F9FAFB;
 
     /* Dark Mode Variants - Maintaining warmth in dark theme */
     --color-dark-surface: #2C1810;

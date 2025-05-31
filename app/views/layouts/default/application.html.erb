@@ -6,8 +6,9 @@
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
   </head>
   <body>
-    <%= render 'default/shared/navigation' %>
+    <%# <%= render 'default/shared/navigation' %>
     
     <%= yield %>
+    <%= render 'default/shared/footer' %>
   </body>
 </html>
