@@ -1,5 +1,6 @@
 /* Les Dés'Calés Tailwind CSS Theme Configuration */
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @theme {
     /* === COLOR PALETTE === */

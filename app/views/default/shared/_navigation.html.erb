@@ -1,2 +1,6 @@
 <% presenter = Spina::MenuPresenter.new(Spina::Page.all) %>
-<%= presenter.to_html %>
+
+<div class="flex items-center justify-between w-full px-12">
+    <%= link_to current_spina_account.name, root_path, class: 'text-2xl font-bold text-light-orange' %>
+    <%= presenter.to_html %>
+</div>

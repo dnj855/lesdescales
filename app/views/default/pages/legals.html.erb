@@ -1,0 +1,161 @@
+<!-- Hero Section avec gradient brand -->
+<div class="flex flex-col items-center justify-center py-16 sm:py-24 md:py-32 lg:py-48 bg-gradient-to-br from-light-peach to-cream">
+  <h1 class="px-4 text-3xl font-bold leading-tight tracking-tight text-center font-poppins sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl text-warm-orange">
+    <%= content.text(:title) %>
+  </h1>
+</div>
+
+<!-- Contenu principal -->
+<div class="min-h-screen">
+  <div class="px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8 sm:py-16 md:py-24">
+    <div class="p-6 border border-gray-100 shadow-lg bg-light-peach rounded-2xl sm:p-8 md:p-12">
+      <!-- Contenu avec typographie optimisée -->
+      <div class="prose max-w-none text-dark-charcoal">
+        <!-- Styles personnalisés utilisant les variables du thème -->
+        <style>
+          .prose h1 { 
+            font-family: var(--font-poppins);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--text-h2);
+            line-height: var(--text-h2--line-height);
+            color: var(--color-warm-orange);
+            margin-bottom: var(--spacing-6);
+            margin-top: var(--spacing-8);
+            letter-spacing: var(--tracking-tight);
+          }
+          .prose h2 { 
+            font-family: var(--font-poppins);
+            font-weight: var(--font-weight-semibold);
+            font-size: var(--text-h3);
+            line-height: var(--text-h3--line-height);
+            color: var(--color-deep-red);
+            margin-bottom: var(--spacing-4);
+            margin-top: var(--spacing-6);
+            letter-spacing: var(--tracking-tight);
+          }
+          .prose h3 { 
+            font-family: var(--font-poppins);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--text-h4);
+            line-height: var(--text-h4--line-height);
+            color: var(--color-warm-orange);
+            margin-bottom: var(--spacing-3);
+            margin-top: var(--spacing-6);
+            letter-spacing: var(--tracking-normal);
+          }
+          .prose h4 { 
+            font-family: var(--font-poppins);
+            font-weight: var(--font-weight-medium);
+            font-size: var(--text-body-large);
+            line-height: var(--text-body-large--line-height);
+            color: var(--color-dark-charcoal);
+            margin-bottom: var(--spacing-2);
+            margin-top: var(--spacing-4);
+            letter-spacing: var(--tracking-normal);
+          }
+          .prose p { 
+            font-family: var(--font-inter);
+            font-weight: var(--font-weight-regular);
+            font-size: var(--text-body);
+            line-height: var(--text-body--line-height);
+            color: var(--color-dark-charcoal);
+            margin-bottom: var(--spacing-4);
+            text-align: justify;
+            letter-spacing: var(--tracking-normal);
+          }
+          .prose a { 
+            color: var(--color-warm-orange);
+            font-weight: var(--font-weight-medium);
+            text-decoration: none;
+            transition: color var(--duration-standard) var(--ease-standard);
+            letter-spacing: var(--tracking-normal);
+          }
+          .prose a:hover { 
+            color: var(--color-deep-red);
+            text-decoration: underline;
+          }
+          .prose strong { 
+            font-weight: var(--font-weight-semibold);
+            color: var(--color-dark-charcoal);
+          }
+          .prose ul, .prose ol { 
+            margin-bottom: var(--spacing-4);
+            padding-left: var(--spacing-6);
+          }
+          .prose li { 
+            margin-bottom: var(--spacing-2);
+            font-family: var(--font-inter);
+            font-size: var(--text-body);
+            line-height: var(--text-body--line-height);
+            color: var(--color-dark-charcoal);
+            letter-spacing: var(--tracking-normal);
+          }
+          .prose li::marker { 
+            color: var(--color-warm-orange);
+          }
+          .prose blockquote { 
+            border-left: 4px solid var(--color-light-orange);
+            background-color: var(--color-light-peach);
+            padding-left: var(--spacing-4);
+            padding-top: var(--spacing-3);
+            padding-bottom: var(--spacing-3);
+            margin: var(--spacing-4) 0;
+            font-style: italic;
+            color: var(--color-warm-gray);
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            font-size: var(--text-body);
+            line-height: var(--text-body--line-height);
+          }
+          .prose table { 
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid #E5E7EB;
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            margin-bottom: var(--spacing-6);
+          }
+          .prose th { 
+            background-color: var(--color-light-peach);
+            color: var(--color-dark-charcoal);
+            font-weight: var(--font-weight-semibold);
+            padding: var(--spacing-3);
+            border: 1px solid #E5E7EB;
+            text-align: left;
+            font-size: var(--text-small);
+            line-height: var(--text-small--line-height);
+          }
+          .prose td { 
+            padding: var(--spacing-3);
+            border: 1px solid #E5E7EB;
+            color: var(--color-dark-charcoal);
+            font-size: var(--text-small);
+            line-height: var(--text-small--line-height);
+          }
+          .prose tr:nth-child(even) { 
+            background-color: var(--color-cream);
+          }
+          .prose code { 
+            background-color: var(--color-light-peach);
+            color: var(--color-deep-red);
+            padding: var(--spacing-1) var(--spacing-2);
+            border-radius: var(--radius-sm);
+            font-family: monospace;
+            font-size: var(--text-small);
+          }
+          .prose pre { 
+            background-color: var(--color-dark-charcoal);
+            color: var(--color-white);
+            padding: var(--spacing-4);
+            border-radius: var(--radius-md);
+            overflow-x: auto;
+            margin-bottom: var(--spacing-6);
+            font-size: var(--text-small);
+            line-height: var(--text-small--line-height);
+          }
+        </style>
+        
+        <%= content.html :content %>
+      </div>
+    </div>
+  </div>
+</div>

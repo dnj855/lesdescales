@@ -1,7 +1,7 @@
 <!-- Footer principal -->
-<footer class="bg-[var(--color-dark-surface)] text-[var(--color-dark-text-primary)]">
-  <div class="max-w-[var(--container-7xl)] mx-auto px-[var(--spacing-4)] py-[var(--spacing-12)]">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--spacing-8)] lg:gap-[var(--spacing-12)]">
+<footer class="bg-[var(--color-dark-surface)] text-[var(--color-dark-text-primary)] py-[var(--spacing-12)]">
+  <div class="max-w-[var(--container-7xl)] mx-auto px-[var(--spacing-4)]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--spacing-8)] lg:gap-[var(--spacing-12)] pb-[var(--spacing-6)]">
       
       <!-- Colonne de gauche - À propos -->
       <div class="space-y-[var(--spacing-4)]">
@@ -12,7 +12,7 @@
             </svg>
           </div>
           <h3 class="text-[var(--text-h3)] font-[var(--font-weight-bold)] text-white">
-            Les Dés'Calés
+            <%= current_spina_account.name %>
           </h3>
         </div>
         
@@ -22,13 +22,18 @@
         
         <div class="space-y-[var(--spacing-2)] text-[var(--text-small)] text-[var(--color-dark-text-secondary)]">
           <p class="font-[var(--font-weight-medium)]">
-            Barentin, Seine-Maritime (76)
-          </p>
-          <p class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]">
-            contact@lesdescales.fr
+            <%= current_spina_account.address %><br />
+            <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
           </p>
           <p>
-            06 XX XX XX XX
+          <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" href="mailto:<%= current_spina_account.email %>">
+            <%= current_spina_account.email %>
+          </a>
+          </p>
+          <p>
+          <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" href="tel:<%= current_spina_account.phone %>">
+            <%= current_spina_account.phone %>
+          </a>
           </p>
         </div>
       </div>
@@ -44,86 +49,39 @@
 
       </div>
 
-      <!-- Colonne de droite - Newsletter et réseaux sociaux -->
+      <!-- Colonne de droite - Réseaux sociaux -->
       <div class="space-y-[var(--spacing-6)]">
         <h4 class="text-[var(--text-h4)] font-[var(--font-weight-semibold)] text-[var(--color-warm-orange)]">
-          Restez connectés
+          Restons en contact
         </h4>
         
         <!-- Réseaux sociaux -->
         <div class="flex space-x-[var(--spacing-4)]">
-          <a href="#" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]" 
-             aria-label="Facebook">
-            <svg class="w-[var(--icon-standard)] h-[var(--icon-standard)] text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-            </svg>
+          <% social_networks.each do |network, url| %>
+          <a href="<%= url %>" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
+             aria-label="<%= network %>">
+            <i class="fa-brands fa-<%= network %> fa-xl"></i>
           </a>
-          
-          <a href="#" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
-             aria-label="Instagram">
-            <svg class="w-[var(--icon-standard)] h-[var(--icon-standard)] text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.621 5.367 11.988 11.988 11.988 6.62 0 11.988-5.367 11.988-11.988C24.005 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.348-1.051-2.348-2.348 0-1.297 1.051-2.348 2.348-2.348 1.297 0 2.348 1.051 2.348 2.348 0 1.297-1.051 2.348-2.348 2.348z"/>
-            </svg>
-          </a>
-          
-          <a href="#" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
-             aria-label="Twitter">
-            <svg class="w-[var(--icon-standard)] h-[var(--icon-standard)] text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-            </svg>
-          </a>
-          
-          <a href="#" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
-             aria-label="YouTube">
-            <svg class="w-[var(--icon-standard)] h-[var(--icon-standard)] text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-            </svg>
-          </a>
-        </div>
-        
-        <!-- Newsletter -->
-        <div class="space-y-[var(--spacing-4)]">
-          <p class="text-[var(--text-body)] text-[var(--color-dark-text-secondary)]">
-            Recevez nos actualités et les dates de nos prochains événements
-          </p>
-          
-          <form class="flex space-x-[var(--spacing-2)]">
-            <input type="email" 
-                   placeholder="Votre email"
-                   class="flex-1 h-[var(--button-height-compact)] px-[var(--input-padding-x)] rounded-[var(--radius-md)] bg-[var(--color-warm-gray)] border-2 border-transparent text-white placeholder-[var(--color-dark-text-secondary)] focus:outline-none focus:border-[var(--color-warm-orange)] focus:bg-[var(--color-dark-charcoal)] transition-colors duration-[var(--duration-micro)]">
-            
-            <button type="submit" 
-                    class="h-[var(--button-height-compact)] px-[var(--spacing-6)] bg-[var(--color-warm-orange)] hover:bg-[var(--color-deep-red)] text-white font-[var(--font-weight-medium)] rounded-[var(--radius-md)] transition-colors duration-[var(--duration-micro)] focus:outline-none focus:ring-[var(--focus-ring-width)] focus:ring-[var(--color-warm-orange)] focus:ring-offset-[var(--focus-ring-offset)] focus:ring-offset-[var(--color-dark-surface)]">
-              S'inscrire
-            </button>
-          </form>
-        </div>
+          <% end %>
+
       </div>
     </div>
   </div>
 
   <!-- Ligne de séparation et copyright -->
   <div class="border-t border-[var(--color-dark-border)]">
-    <div class="max-w-[var(--container-7xl)] mx-auto px-[var(--spacing-4)] py-[var(--spacing-6)]">
+    <div class="max-w-[var(--container-7xl)] pt-[var(--spacing-6)]">
       <div class="flex flex-col md:flex-row justify-between items-center space-y-[var(--spacing-4)] md:space-y-0">
         <p class="text-[var(--text-small)] text-[var(--color-dark-text-secondary)]">
-          © 2025 Les Dés'Calés. Tous droits réservés.
+          <% require 'date'%>
+          © <%= Date.today.year %> Les Dés'Calés. Tous droits réservés.
         </p>
         
         <nav class="flex space-x-[var(--spacing-6)]">
-          <a href="#" class="text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]">
-            Mentions légales
-          </a>
-          
-          <a href="#" class="text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]">
-            Politique de confidentialité
-          </a>
-          
-          <a href="#" class="text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]">
-            CGU
-          </a>
+          <%= link_to 'Mentions légales', page_path('mentions-legales'), class: 'text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]' %>
         </nav>
       </div>
     </div>
   </div>
+</div>
 </footer>
