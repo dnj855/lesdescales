@@ -1,11 +1,30 @@
-<div class="flex flex-col items-center justify-center py-64 bg-gradient-to-br from-light-peach to-cream">
-  <h1 class="font-bold text-7xl text-warm-orange">Nos évenements à venir</h1>
-  <h2 class="text-xl text-center font-poppins text-dark-charcoal">
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-    <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-    </p>
-  </h2>
+<!-- Page de liste des événements -->
+<div class="min-h-screen py-16 bg-gradient-to-br from-light-peach to-cream">
+  <div class="max-w-6xl px-6 mx-auto">
+    
+    <!-- En-tête de la page -->
+    <div class="mb-16 text-center">
+      <h1 class="mb-6 font-bold text-7xl text-warm-orange">
+        <%= content(:hero_title) || "Nos soirées" %>
+      </h1>
+      <div class="max-w-3xl mx-auto text-xl text-center font-poppins text-dark-charcoal">
+        <%= content.html(:hero_description) || "Elles font le sel de notre association." %>
+      </div>
+    </div>
+
+    <ul>
+      <% events.each do |event| %>
+        <li>
+          <%= link_to event.materialized_path, class: 'block' do %>
+            <span class="font-extrabold">
+              <%= event.title %>
+            </span>
+            <span class="text-sm text-dark-charcoal">
+              <%= event.date.strftime('%d/%m/%Y') %>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 </div>

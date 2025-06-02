@@ -30,7 +30,7 @@ Spina::Theme.register do |theme|
     { name: 'hero_title',
       title: 'Titre principal',
       part_type: 'Spina::Parts::Line',
-      hint: "Le titre en gros sur la page d'accueil" },
+      hint: 'Le titre en gros' },
     { name: 'hero_description',
       title: 'Description principale',
       part_type: 'Spina::Parts::MultiLine',
@@ -45,7 +45,9 @@ Spina::Theme.register do |theme|
     { name: 'tiktok_url', title: 'URL TikTok', part_type: 'Spina::Parts::Line' },
     { name: 'twitter_url', title: 'URL Twitter', part_type: 'Spina::Parts::Line' },
     { name: 'linkedin_url', title: 'URL LinkedIn', part_type: 'Spina::Parts::Line' },
-    { name: 'pinterest_url', title: 'URL Pinterest', part_type: 'Spina::Parts::Line' }
+    { name: 'pinterest_url', title: 'URL Pinterest', part_type: 'Spina::Parts::Line' },
+    { name: 'date', title: 'Date', part_type: 'Spina::Parts::Line' },
+    { name: 'pictures', title: 'Galerie de photos', part_type: 'Spina::Parts::ImageCollection' }
   ]
 
   # View templates
@@ -55,7 +57,8 @@ Spina::Theme.register do |theme|
   theme.view_templates = [
     { name: 'homepage', title: 'Homepage', parts: %w[hero_title hero_description main_picture] },
     { name: 'events', title: 'Evénements', parts: %w[hero_title hero_description] },
-    { name: 'legals', title: 'Mentions légales', parts: %w[title content] }
+    { name: 'legals', title: 'Mentions légales', parts: %w[title content] },
+    { name: 'event', title: 'Evénement', parts: %w[title content date pictures] }
   ]
 
   # Custom pages
@@ -83,7 +86,7 @@ Spina::Theme.register do |theme|
   # Think of resources as a collection of pages. They are managed separately in Spina
   # allowing you to separate these pages from the 'main' collection of pages.
   theme.resources = [
-    { name: 'events' }
+    { name: 'events', label: 'Evénements', view_template: 'event', slug: 'evenements' }
   ]
 
   # Plugins (optional)
