@@ -1,76 +1,81 @@
 <!-- Footer principal -->
 <footer class="bg-[var(--color-dark-surface)] text-[var(--color-dark-text-primary)] py-[var(--spacing-12)]">
   <div class="max-w-[var(--container-7xl)] mx-auto px-[var(--spacing-4)]">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--spacing-8)] lg:gap-[var(--spacing-12)] pb-[var(--spacing-6)]">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--spacing-8)] lg:gap-[var(--spacing-12)] pb-[var(--spacing-8)]">
       
       <!-- Colonne de gauche - À propos -->
       <div class="space-y-[var(--spacing-4)]">
-        <div class="flex items-center space-x-[var(--spacing-2)]">
+        <div class="space-y-[var(--spacing-3)]">
           <div class="w-[var(--icon-large)] h-[var(--icon-large)] bg-[var(--color-warm-orange)] rounded-[var(--radius-sm)] flex items-center justify-center">
-            <svg class="w-[var(--icon-standard)] h-[var(--icon-standard)] text-white" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M5 3a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h14v14H5V5zm2 2v2h2V7H7zm4 0v2h2V7h-2zm4 0v2h2V7h-2zM7 11v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2zM7 15v2h2v-2H7zm4 0v2h2v-2h-2zm4 0v2h2v-2h-2z"/>
-            </svg>
+            <i class="fa-solid fa-dice"></i>
           </div>
-          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-bold)] text-white">
+          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
             <%= current_spina_account.name %>
           </h3>
         </div>
         
-        <p class="text-[var(--text-body)] text-[var(--color-dark-text-secondary)] leading-[var(--text-body--line-height)]">
+        <p class="text-[var(--text-body)] leading-[var(--text-body--line-height)] text-[var(--color-dark-text-secondary)]">
           Association de jeux de société à Barentin. Plus de 240 jeux à découvrir, des soirées conviviales et des événements toute l'année. Rejoignez notre communauté passionnée !
         </p>
-        
-        <div class="space-y-[var(--spacing-2)] text-[var(--text-small)] text-[var(--color-dark-text-secondary)]">
-          <p class="font-[var(--font-weight-medium)]">
-            <%= current_spina_account.address %><br />
-            <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
-          </p>
-          <p>
-          <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" href="mailto:<%= current_spina_account.email %>">
-            <%= current_spina_account.email %>
-          </a>
-          </p>
-          <p>
-          <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" href="tel:<%= current_spina_account.phone %>">
-            <%= current_spina_account.phone %>
-          </a>
-          </p>
-        </div>
+
       </div>
 
       <!-- Colonne du milieu - Liens rapides -->
       <div class="space-y-[var(--spacing-4)]">
-        <h4 class="text-[var(--text-h4)] font-[var(--font-weight-semibold)] text-[var(--color-warm-orange)]">
-          Liens Rapides
-        </h4>
-        
-        <% presenter = Spina::MenuPresenter.new(Spina::Page.all) %>
-        <%= presenter.to_html %>
-
+        <div class="space-y-[var(--spacing-3)]">
+          <div class="w-[var(--icon-large)] h-[var(--icon-large)]"></div>
+          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
+            Liens Rapides
+          </h3>
+        </div>
+        <div class="flex flex-col">
+          <% nav_items.each do |nav_item| %>
+            <%= link_to nav_item.menu_title, nav_item.materialized_path, 
+                class: "text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" %>
+          <% end %>
+        </div>
       </div>
 
       <!-- Colonne de droite - Réseaux sociaux -->
-      <div class="space-y-[var(--spacing-6)]">
-        <h4 class="text-[var(--text-h4)] font-[var(--font-weight-semibold)] text-[var(--color-warm-orange)]">
-          Restons en contact
-        </h4>
+      <div class="space-y-[var(--spacing-4)]">
+        <div class="space-y-[var(--spacing-3)]">
+          <div class="w-[var(--icon-large)] h-[var(--icon-large)]"></div>
+          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
+            Restons en contact
+          </h3>
+        </div>
         
         <!-- Réseaux sociaux -->
         <div class="flex space-x-[var(--spacing-4)]">
           <% social_networks.each do |network, url| %>
-          <a href="<%= url %>" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
-             aria-label="<%= network %>">
-            <i class="fa-brands fa-<%= network %> fa-xl"></i>
-          </a>
+            <a href="<%= url %>" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
+               aria-label="<%= network %>">
+              <i class="fa-brands fa-<%= network %> fa-xl"></i>
+            </a>
           <% end %>
+        </div>
 
+        <div class="space-y-[var(--spacing-2)] text-[var(--text-small)]">
+          <p class="font-[var(--font-weight-medium)] text-[var(--color-dark-text-secondary)]">
+            <%= current_spina_account.address %><br />
+            <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
+          </p>
+          <p>
+            <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)] text-[var(--color-dark-text-secondary)]" href="mailto:<%= current_spina_account.email %>">
+              <%= current_spina_account.email %>
+            </a>
+          </p>
+          <p>
+            <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)] text-[var(--color-dark-text-secondary)]" href="tel:<%= current_spina_account.phone %>">
+              <%= current_spina_account.phone %>
+            </a>
+          </p>
+        </div>
       </div>
     </div>
-  </div>
 
-  <!-- Ligne de séparation et copyright -->
-  <div class="border-t border-[var(--color-dark-border)]">
-    <div class="max-w-[var(--container-7xl)] pt-[var(--spacing-6)]">
+    <!-- Ligne de séparation et copyright -->
+    <div class="border-t border-[var(--color-dark-border)] pt-[var(--spacing-6)]">
       <div class="flex flex-col md:flex-row justify-between items-center space-y-[var(--spacing-4)] md:space-y-0">
         <p class="text-[var(--text-small)] text-[var(--color-dark-text-secondary)]">
           <% require 'date'%>
@@ -83,5 +88,4 @@
       </div>
     </div>
   </div>
-</div>
 </footer>

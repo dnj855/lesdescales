@@ -1,4 +1,4 @@
-<nav class="sticky top-0 z-50 transition-all duration-300 border-b bg-white/95 backdrop-blur-md border-gray-200/50 ease-standard shadow-nav">
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-cream/70 backdrop-blur-md border-gray-200/50 ease-standard shadow-nav">
   <div class="px-6 mx-auto max-w-7xl lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo/Brand -->
@@ -40,7 +40,7 @@
 
   <!-- Mobile Navigation Menu -->
   <div class="hidden md:hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 border-t bg-white/98 backdrop-blur-md border-gray-200/50 shadow-card">
+    <div class="px-2 pt-2 pb-3 space-y-1 border-t bg-cream/70 backdrop-blur-md border-gray-200/50 shadow-card">
       <% nav_items.each do |nav_item| %>
         <% is_active = nav_item_active?(nav_item.materialized_path, current_page.materialized_path) %>
         <%= link_to nav_item.menu_title, nav_item.materialized_path, 
