@@ -3,7 +3,9 @@
   <head>
     <title><%= current_spina_account.name %></title>
     <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
     <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
   </head>
   <body>
     <%# <%= render 'default/shared/navigation' %>

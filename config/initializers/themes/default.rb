@@ -33,8 +33,12 @@ Spina::Theme.register do |theme|
       hint: "Le titre en gros sur la page d'accueil" },
     { name: 'hero_description',
       title: 'Description principale',
-      part_type: 'Spina::Parts::Text',
-      hint: 'La description en dessous du titre' }
+      part_type: 'Spina::Parts::MultiLine',
+      hint: 'La description en dessous du titre' },
+    { name: 'main_picture',
+      title: 'Image principale',
+      part_type: 'Spina::Parts::Image',
+      hint: "Celle qui s'affiche en dessous du titre" }
   ]
 
   # View templates
@@ -42,21 +46,23 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: 'homepage', title: 'Homepage', parts: %w[hero_title hero_description] }
+    { name: 'homepage', title: 'Homepage', parts: %w[hero_title hero_description main_picture] },
+    { name: 'events', title: 'Evénements', parts: %w[hero_title hero_description] }
   ]
 
   # Custom pages
   # Some pages should not be created by the user, but generated automatically.
   # By naming them you can reference them in your code.
   theme.custom_pages = [
-    { name: 'homepage', title: 'Homepage', deletable: false, view_template: 'homepage' }
+    { name: 'homepage', title: 'Homepage', deletable: false, view_template: 'homepage' },
+    { name: 'events', title: 'Evénements', deletable: true, view_template: 'events' }
   ]
 
   # Navigations (optional)
   # If your project has multiple navigations, it can be useful to configure multiple
   # navigations.
   theme.navigations = [
-    { name: 'main', label: 'Main navigation' }
+    { name: 'main', label: 'Navigation principale' }
   ]
 
   # Layout parts (optional)

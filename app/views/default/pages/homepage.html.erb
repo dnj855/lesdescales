@@ -1,4 +1,10 @@
-<div class="flex flex-col items-center justify-center py-64 bg-gradient-to-br from-light-peach to-cream">
-  <h1 class="font-bold text-7xl text-warm-orange"><%= content.text(:hero_title) %></h1>
-  <h2 class="text-xl text-center font-poppins text-dark-charcoal"><%= content.html(:hero_description) %></h2>
+<div class="relative flex flex-col items-center justify-center py-64">
+  <div class="absolute inset-0">
+    <img src="<%= content.image_url(:main_picture) %>" class="object-cover w-full h-full">
+      <div class="absolute inset-0 bg-gradient-to-b from-light-peach/40 to-cream/70"></div>
+  </div>
+  <div class="relative z-10 max-w-4xl px-4 mx-auto text-center">
+  <h1 class="font-bold text-7xl"><%= content.text(:hero_title) %></h1>
+  <h2 class="text-xl text-center font-poppins text-dark-charcoal"><%= simple_format content(:hero_description) %></h2>
+  </div>
 </div>
