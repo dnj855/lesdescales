@@ -52,7 +52,9 @@ gem 'tailwindcss-ruby', '~> 4.1'
 
 gem 'tailwindcss-rails', '~> 4.2'
 
-gem 'sassc-rails'
+# gem 'sassc-rails'
+
+gem 'dartsass-rails'
 
 gem 'font-awesome-sass', '~> 6.1'
 
