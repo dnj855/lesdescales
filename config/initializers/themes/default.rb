@@ -21,33 +21,36 @@ Spina::Theme.register do |theme|
   # - Option
   # - Repeater
   theme.parts = [
-    { name: 'title',
-      title: 'Titre',
-      part_type: 'Spina::Parts::Line' },
-    { name: 'content',
-      title: 'Contenu principal',
-      part_type: 'Spina::Parts::Text' },
-    { name: 'hero_title',
-      title: 'Titre principal',
-      part_type: 'Spina::Parts::Line',
-      hint: 'Le titre en gros' },
-    { name: 'hero_description',
-      title: 'Description principale',
-      part_type: 'Spina::Parts::MultiLine',
-      hint: 'La description en dessous du titre' },
-    { name: 'main_picture',
-      title: 'Image principale',
-      part_type: 'Spina::Parts::Image',
-      hint: "Celle qui s'affiche en dessous du titre" },
+    # --- Blocs Génériques ---
+    { name: 'title', title: 'Titre de la page', part_type: 'Spina::Parts::Line' },
+    { name: 'description', title: 'Description / Texte principal', part_type: 'Spina::Parts::Text' },
+    { name: 'image_full', title: 'Image pleine largeur', part_type: 'Spina::Parts::Image' },
+    { name: 'gallery', title: 'Galerie d\'images', part_type: 'Spina::Parts::ImageCollection' },
+
+    # --- Blocs Spécifiques à l'Accueil ---
+    { name: 'home_banner_image', title: 'Image de la bannière d\'accueil', part_type: 'Spina::Parts::Image' },
+    { name: 'home_intro_text', title: 'Texte d\'introduction', part_type: 'Spina::Parts::Text' },
+
+    # --- Blocs Spécifiques à la Mascotte ---
+    { name: 'mascotte_story', title: 'Histoire de la mascotte', part_type: 'Spina::Parts::Text' },
+    { name: 'mascotte_illustrations', title: 'Illustrations de la mascotte',
+      part_type: 'Spina::Parts::ImageCollection' },
+
+    # --- Blocs Spécifiques aux Galeries Photos ---
+    { name: 'photo_albums', title: 'Albums Photos', part_type: 'Spina::Parts::Repeater',
+      parts: %w[album_title album_gallery] },
+    { name: 'album_title', title: 'Titre de l\'album', part_type: 'Spina::Parts::Line' },
+    { name: 'album_gallery', title: 'Galerie de l\'album', part_type: 'Spina::Parts::ImageCollection' },
+
+    # --- Blocs Spécifiques au Contact et Adhésion ---
+    { name: 'map_embed_code', title: 'Code d\'intégration de la carte', part_type: 'Spina::Parts::MultiLine' },
+    { name: 'iframe_embed_code', title: 'Code d\'intégration (iframe)', part_type: 'Spina::Parts::MultiLine' },
+
+    # --- Blocs pour les Liens Sociaux (Layout Parts) ---
     { name: 'facebook_url', title: 'URL Facebook', part_type: 'Spina::Parts::Line' },
     { name: 'instagram_url', title: 'URL Instagram', part_type: 'Spina::Parts::Line' },
-    { name: 'youtube_url', title: 'URL YouTube', part_type: 'Spina::Parts::Line' },
-    { name: 'tiktok_url', title: 'URL TikTok', part_type: 'Spina::Parts::Line' },
-    { name: 'twitter_url', title: 'URL Twitter', part_type: 'Spina::Parts::Line' },
-    { name: 'linkedin_url', title: 'URL LinkedIn', part_type: 'Spina::Parts::Line' },
-    { name: 'pinterest_url', title: 'URL Pinterest', part_type: 'Spina::Parts::Line' },
-    { name: 'date', title: 'Date', part_type: 'Spina::Parts::Line' },
-    { name: 'pictures', title: 'Galerie de photos', part_type: 'Spina::Parts::ImageCollection' }
+    { name: 'youtube_url', title: 'URL YouTube', part_type: 'Spina::Parts::Line' }
+    # etc... pour les autres réseaux
   ]
 
   # View templates
@@ -55,19 +58,30 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: 'homepage', title: 'Homepage', parts: %w[hero_title hero_description main_picture] },
-    { name: 'events', title: 'Evénements', parts: %w[hero_title hero_description] },
-    { name: 'legals', title: 'Mentions légales', parts: %w[title content] },
-    { name: 'event', title: 'Evénement', parts: %w[title content date pictures] }
+    { name: 'homepage', title: 'Page d\'accueil', parts: %w[home_banner_image home_intro_text] },
+    { name: 'mascotte', title: 'Notre mascotte', parts: %w[title mascotte_story mascotte_illustrations] },
+    { name: 'festival', title: 'Festival annuel', parts: %w[title description image_full] },
+    { name: 'animations', title: 'Nos animations', parts: %w[title description] },
+    { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
+    { name: 'contact', title: 'Contact', parts: %w[title description map_embed_code] },
+    { name: 'adhesion', title: 'Adhésion', parts: %w[title description iframe_embed_code] },
+    { name: 'legal', title: 'Page légale', parts: %w[title description] },
+    { name: 'animation_show', title: 'Détail d\'une animation', parts: %w[title description gallery] },
+    { name: 'festival_edition_show', title: 'Détail d\'une édition du festival', parts: %w[title description gallery] }
   ]
 
   # Custom pages
   # Some pages should not be created by the user, but generated automatically.
   # By naming them you can reference them in your code.
   theme.custom_pages = [
-    { name: 'homepage', title: 'Homepage', deletable: false, view_template: 'homepage' },
-    { name: 'events', title: 'Evénements', deletable: false, view_template: 'events' },
-    { name: 'legals', title: 'Mentions légales', deletable: false, view_template: 'legals' }
+    { name: 'homepage', title: 'Accueil', deletable: false, view_template: 'homepage' },
+    { name: 'mascotte', title: 'Notre mascotte', deletable: false, view_template: 'mascotte' },
+    { name: 'festival', title: 'Festival annuel', deletable: false, view_template: 'festival' },
+    { name: 'animations', title: 'Nos animations', deletable: false, view_template: 'animations' },
+    { name: 'galleries', title: 'Galeries photos', deletable: false, view_template: 'gallery_index' },
+    { name: 'contact', title: 'Contact', deletable: false, view_template: 'contact' },
+    { name: 'adhesion', title: 'Adhésion', deletable: false, view_template: 'adhesion' },
+    { name: 'legal', title: 'Mentions légales', deletable: false, view_template: 'legal' }
   ]
 
   # Navigations (optional)
@@ -86,7 +100,9 @@ Spina::Theme.register do |theme|
   # Think of resources as a collection of pages. They are managed separately in Spina
   # allowing you to separate these pages from the 'main' collection of pages.
   theme.resources = [
-    { name: 'events', label: 'Evénements', view_template: 'event', slug: 'evenements' }
+    { name: 'animations', label: 'Animations', view_template: 'animation_show', slug: 'animations' },
+    { name: 'festival_editions', label: 'Éditions du Festival', view_template: 'festival_edition_show',
+      slug: 'festival' }
   ]
 
   # Plugins (optional)

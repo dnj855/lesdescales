@@ -1,293 +1,73 @@
-/* Les Dés'Calés Tailwind CSS Theme Configuration */
+/* Les Dés'Calés Tailwind CSS - Thème validé par le client */
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
 @theme {
-    /* === COLOR PALETTE === */
+    /* === PALETTE DE COULEURS === */
 
-    /* Primary Brand Colors */
-    --color-warm-orange: #FF6B35;
-    --color-deep-red: #C1272D;
+    /* Couleurs de marque primaires (Validées) */
+    --color-primary-red: #E31507;
+    --color-background-light: #FFE698;
 
-    /* Secondary Colors - Building the warm palette with proper Tailwind scaling */
-    --color-light-orange: #FF8F65;
-    --color-soft-peach: #FFF2EF;
-    --color-warm-yellow: #FFB830;
+    /* Couleurs secondaires et accents */
+    --color-primary-red-dark: #B80F05; /* Pour les hovers */
+    --color-background-pale: #FFF9E0; /* Pour les fonds de carte/section */
+    
+    /* Neutres et textes */
+    --color-text-primary: #333333;
+    --color-text-secondary: #666666;
+    --color-border-gray: #E0E0E0;
+    --color-white: #FFFFFF;
 
-    /* Accent Colors */
-    --color-bright-orange: #FF4500;
-    --color-golden-yellow: #FFC107;
-
-    /* Functional Colors - Essential for UI states */
+    /* Couleurs fonctionnelles */
     --color-success: #28A745;
     --color-error: #DC3545;
     --color-warning: #FD7E14;
-    --color-info: #17A2B8;
 
-    /* Neutral Colors */
-    --color-warm-gray: #6C757D;
-    --color-dark-charcoal: #343A40;
+    /* === SYSTÈME TYPOGRAPHIQUE === */
 
-    /* Background Colors - Creating a warm, inviting foundation */
-    --color-cream: #FFF7ED;
-    --color-white: #FFFFFF;
-    --color-light-peach: #FEF2F2;
-    --color-dark-bg: #2C1810;
-    --color-grey-bg: #F9FAFB;
+    /* Familles de polices (Validées) */
+    --font-display: 'Feeling Passionate', cursive;
+    --font-heading: 'Poppins', sans-serif;
+    --font-body: 'Sniglet', cursive;
 
-    /* Dark Mode Variants - Maintaining warmth in dark theme */
-    --color-dark-surface: #2C1810;
-    --color-dark-orange: #FF8F65;
-    --color-dark-text-primary: #F8F9FA;
-    --color-dark-text-secondary: #CED4DA;
-    --color-dark-border: #495057;
+    /* Tailles de texte */
+    --text-body: 1rem; /* 16px */
+    --text-body--line-height: 1.5; /* 24px */
+    --text-lg: 1.125rem; /* 18px */
+    --text-lg--line-height: 1.44; /* 26px */
+    --text-sm: 0.875rem; /* 14px */
 
-    /* === TYPOGRAPHY SYSTEM === */
-
-    /* Font Families - Modern, legible fonts for board game community */
-    --font-inter: Inter, system-ui, -apple-system, sans-serif;
-    --font-poppins: Poppins, system-ui, -apple-system, sans-serif;
-    --font-fallback: system-ui, -apple-system, sans-serif;
-
-    /* Text Sizes - Optimized for readability and hierarchy */
-    --text-caption: 0.75rem;
-    /* 12px - For metadata and small labels */
-    --text-caption--line-height: 1.33;
-    /* 16px line height */
-
-    --text-small: 0.875rem;
-    /* 14px - Secondary information */
-    --text-small--line-height: 1.43;
-    /* 20px line height */
-
-    --text-body: 1rem;
-    /* 16px - Standard UI text */
-    --text-body--line-height: 1.5;
-    /* 24px line height */
-
-    --text-body-large: 1.125rem;
-    /* 18px - Primary reading text */
-    --text-body-large--line-height: 1.44;
-    /* 26px line height */
-
-    --text-h4: 1.25rem;
-    /* 20px - Component headers */
-    --text-h4--line-height: 1.3;
-    /* 26px line height */
-
-    --text-h3: 1.5rem;
-    /* 24px - Subsection headers */
-    --text-h3--line-height: 1.25;
-    /* 30px line height */
-
-    --text-h2: 1.75rem;
-    /* 28px - Section headers */
-    --text-h2--line-height: 1.21;
-    /* 34px line height */
-
-    --text-h1: 2rem;
-    /* 32px - Page titles */
-    --text-h1--line-height: 1.19;
-    /* 38px line height */
-
-    /* Font Weights - Complete range for design flexibility */
-    --font-weight-light: 300;
+    --text-h3: 1.375rem; /* 22px */
+    --text-h2: 1.75rem; /* 28px */
+    --text-h1: 2.25rem; /* 36px */
+    
+    /* Graisses de police */
     --font-weight-regular: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
-    --font-weight-extrabold: 800;
 
-    /* Letter Spacing - Fine-tuned for optimal readability */
-    --tracking-tight: -0.3px;
-    /* For large headings */
-    --tracking-normal: 0px;
-    /* Standard text */
-    --tracking-wide: 0.1px;
-    /* Small text and buttons */
-    --tracking-wider: 0.2px;
-    /* Captions and badges */
-    --tracking-widest: 0.3px;
-    /* Very small elements */
+    /* === SYSTÈME D'ESPACEMENT === */
+    /* (Standard, conservé pour sa cohérence) */
+    --spacing-2: 0.5rem;  /* 8px */
+    --spacing-4: 1rem;   /* 16px */
+    --spacing-6: 1.5rem; /* 24px */
+    --spacing-8: 2rem;   /* 32px */
+    --spacing-12: 3rem;  /* 48px */
+    --spacing-16: 4rem;  /* 64px */
 
-    /* === SPACING SYSTEM === */
+    /* === RAYONS DE BORDURE === */
+    --radius-md: 0.5rem;   /* 8px */
+    --radius-lg: 0.75rem;  /* 12px */
+    --radius-full: 9999px;
 
-    /* Consistent spacing scale for layout harmony */
-    --spacing-0_5: 0.125rem;
-    /* 2px - Micro spacing */
-    --spacing-1: 0.25rem;
-    /* 4px - Tiny spacing */
-    --spacing-2: 0.5rem;
-    /* 8px - Small spacing */
-    --spacing-3: 0.75rem;
-    /* 12px - Compact spacing */
-    --spacing-4: 1rem;
-    /* 16px - Default spacing */
-    --spacing-6: 1.5rem;
-    /* 24px - Medium spacing */
-    --spacing-8: 2rem;
-    /* 32px - Large spacing */
-    --spacing-12: 3rem;
-    /* 48px - Extra large spacing */
-    --spacing-16: 4rem;
-    /* 64px - Maximum spacing */
-
-    /* === BORDER RADIUS === */
-
-    /* Rounded corners for friendly, modern feel */
-    --radius-sm: 0.5rem;
-    /* 8px - Small elements */
-    --radius-md: 0.75rem;
-    /* 12px - Standard components */
-    --radius-lg: 1rem;
-    /* 16px - Cards and containers */
-    --radius-xl: 1.5rem;
-    /* 24px - Special emphasis */
-    --radius-full: 50%;
-    /* Circular elements */
-
-    /* === SHADOWS === */
-
-    /* Layered shadow system for depth and hierarchy */
-    --shadow-button: 0 2px 8px rgba(255, 107, 53, 0.25);
-    --shadow-button-accent: 0 2px 8px rgba(193, 39, 45, 0.25);
-    --shadow-card: 0 4px 16px rgba(0, 0, 0, 0.08);
-    --shadow-card-featured: 0 6px 20px rgba(255, 107, 53, 0.15);
+    /* === OMBRES === */
+    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
     --shadow-nav: 0 2px 12px rgba(0, 0, 0, 0.06);
 
-    /* === MOTION & ANIMATION === */
-
-    /* Timing functions for smooth, natural interactions */
-    --ease-micro: cubic-bezier(0.4, 0, 0.2, 1);
-    /* 150ms - Button hovers */
-    --ease-standard: cubic-bezier(0, 0, 0.2, 1);
-    /* 250ms - Card effects */
-    --ease-content: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    /* 350ms - Page transitions */
-    --ease-spring: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    /* 400ms - Emphasis */
-
-    /* Animation Durations */
-    --duration-micro: 150ms;
-    --duration-standard: 250ms;
-    --duration-content: 350ms;
-    --duration-emphasis: 400ms;
-
-    /* === COMPONENT-SPECIFIC VARIABLES === */
-
-    /* Button Heights - Consistent touch targets */
-    --button-height-standard: 3rem;
-    /* 48px */
-    --button-height-compact: 2.75rem;
-    /* 44px */
-    --button-height-large: 3.5rem;
-    /* 56px */
-
-    /* Input Field Properties */
-    --input-height: 3.5rem;
-    /* 56px */
-    --input-padding-x: 1rem;
-    /* 16px */
-    --input-border-width: 2px;
-
-    /* Card Properties */
-    --card-padding: 1.5rem;
-    /* 24px */
-
-    /* Icon Sizes */
-    --icon-small: 1.25rem;
-    /* 20px */
-    --icon-standard: 1.5rem;
-    /* 24px */
-    --icon-large: 2rem;
-    /* 32px */
-    --icon-nav: 1.75rem;
-    /* 28px */
-
-    /* Focus States - Accessibility compliance */
-    --focus-ring-width: 3px;
+    /* === ACCESSIBILITÉ === */
+    --focus-ring-width: 2px;
     --focus-ring-offset: 2px;
-    --focus-ring-color: var(--color-warm-orange);
-
-    /* === BOARD GAME SPECIFIC === */
-
-    /* Game Status Colors - Clear visual communication */
-    --color-game-available: var(--color-success);
-    --color-game-reserved: var(--color-warning);
-    --color-game-unavailable: var(--color-warm-gray);
-
-    /* Event Card Styling */
-    --event-border-width: 4px;
-    --event-featured-color: var(--color-golden-yellow);
-
-    /* Member Interaction Elements */
-    --favorite-active-color: var(--color-bright-orange);
-    --share-theme-color: var(--color-light-orange);
-
-    /* Badge Properties */
-    --badge-radius: 1.25rem;
-    /* 20px - Pill shape */
-    --badge-padding-x: 0.75rem;
-    /* 12px */
-    --badge-padding-y: 0.375rem;
-    /* 6px */
-
-    /* === RESPONSIVE BREAKPOINTS === */
-
-    /* Mobile-first breakpoints for board game community site */
-    --breakpoint-xs: 30rem;
-    /* 480px - Small phones */
-    --breakpoint-sm: 40rem;
-    /* 640px - Large phones */
-    --breakpoint-md: 48rem;
-    /* 768px - Tablets */
-    --breakpoint-lg: 64rem;
-    /* 1024px - Small laptops */
-    --breakpoint-xl: 80rem;
-    /* 1280px - Large screens */
-    --breakpoint-2xl: 96rem;
-    /* 1536px - Very large screens */
-
-    /* === CONTAINER SIZES === */
-
-    /* Content containers for optimal reading experience */
-    --container-sm: 24rem;
-    /* 384px */
-    --container-md: 28rem;
-    /* 448px */
-    --container-lg: 32rem;
-    /* 512px */
-    --container-xl: 36rem;
-    /* 576px */
-    --container-2xl: 42rem;
-    /* 672px */
-    --container-3xl: 48rem;
-    /* 768px */
-    --container-4xl: 56rem;
-    /* 896px */
-    --container-5xl: 64rem;
-    /* 1024px */
-    --container-6xl: 72rem;
-    /* 1152px */
-    --container-7xl: 80rem;
-    /* 1280px */
-
-    /* === ACCESSIBILITY FEATURES === */
-
-    /* Minimum contrast ratios for WCAG compliance */
-    --contrast-aa-normal: 4.5;
-    /* Minimum for normal text */
-    --contrast-aa-large: 3;
-    /* Minimum for large text */
-    --contrast-aaa-normal: 7;
-    /* Enhanced for normal text */
-
-    /* Touch Target Minimums */
-    --touch-target-min: 2.75rem;
-    /* 44px - Minimum touch area */
-
-    /* Reduced Motion Support */
-    --motion-safe-duration: var(--duration-standard);
-    --motion-reduce-duration: 0ms;
-    /* Respects prefers-reduced-motion */
+    --focus-ring-color: var(--color-primary-red);
 }
