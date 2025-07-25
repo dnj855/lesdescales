@@ -1,10 +1,110 @@
-<div class="relative flex flex-col items-center justify-center pt-20 pb-64 md:pt-80">
-  <div class="absolute inset-0">
-    <img src="<%= content.image_url(:main_picture) %>" class="object-cover w-full h-full">
-      <div class="absolute inset-0 bg-gradient-to-b from-light-peach/40 to-cream/70"></div>
+<!-- Section Bannière -->
+<% if content(:home_banner_image).present? %>
+<section class="mt-16">
+  <% if content(:home_banner_image_mobile).present? || content(:home_banner_image_tablet).present? %>
+    <picture class="block w-full">
+      <% if content(:home_banner_image_mobile).present? %>
+        <% mobile_img_tag = content.image_tag(:home_banner_image_mobile, {}, {}) %>
+        <% mobile_src = mobile_img_tag.match(/src="([^"]+)"/)[1] %>
+        <source media="(max-width: 767px)" srcset="<%= mobile_src %>">
+      <% end %>
+      <% if content(:home_banner_image_tablet).present? %>
+        <% tablet_img_tag = content.image_tag(:home_banner_image_tablet, {}, {}) %>
+        <% tablet_src = tablet_img_tag.match(/src="([^"]+)"/)[1] %>
+        <source media="(min-width: 768px) and (max-width: 1023px)" srcset="<%= tablet_src %>">
+      <% end %>
+      <%= content.image_tag(:home_banner_image, {}, {class: "w-full h-full object-cover", alt: "Bannière Les Dés'Calés"}) %>
+    </picture>
+  <% else %>
+    <%= content.image_tag(:home_banner_image, {}, {class: "w-full h-full object-cover", alt: "Bannière Les Dés'Calés"}) %>
+  <% end %>
+</section>
+<% end %>
+
+<!-- Section Qui sommes-nous ? -->
+<% if content(:home_who_we_are_text).present? %>
+<section class="px-4 py-16 homepage-section fade-in" style="background-color: var(--color-background);">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="mb-8 text-3xl font-semibold text-center md:text-4xl" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+      Qui sommes-nous ?
+    </h2>
+    <div class="leading-relaxed prose prose-lg text-center max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+      <%= simple_format content(:home_who_we_are_text) %>
+    </div>
   </div>
-  <div class="relative z-10 max-w-4xl px-4 mx-auto text-center">
-  <h1 class="font-bold text-7xl"><%= content.text(:hero_title) %></h1>
-  <h2 class="text-xl text-center font-poppins text-dark-charcoal"><%= simple_format content(:hero_description) %></h2>
+</section>
+<% end %>
+
+<!-- Section Rendez-vous -->
+<% if content(:home_meetup_text).present? %>
+<section class="px-4 py-16 homepage-section fade-in" style="background-color: var(--color-white);">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="mb-8 text-3xl font-semibold text-center md:text-4xl" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+      Rendez-vous
+    </h2>
+    <div class="leading-relaxed prose prose-lg text-center max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+      <%= simple_format content(:home_meetup_text) %>
+    </div>
   </div>
-</div>
+</section>
+<% end %>
+
+<!-- Section Affiche -->
+<% if content(:home_poster_image).present? %>
+<section class="px-4 py-16 homepage-section fade-in" style="background-color: var(--color-background-pale);">
+  <div class="max-w-4xl mx-auto text-center">
+    <div class="inline-block overflow-hidden" style="border-radius: var(--radius-xl); box-shadow: var(--shadow-xl);">
+      <%= content.image_tag(:home_poster_image, {}, {class: "max-w-full h-auto", alt: "Affiche Les Dés'Calés"}) %>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Embeds -->
+<section class="px-4 py-16 homepage-section fade-in" style="background-color: var(--color-white);">
+  <div class="max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+      
+      <!-- Embed MyLudo -->
+      <% if content(:home_myludo_url).present? %>
+      <div class="p-6" style="background-color: var(--color-background-pale); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+        <h3 class="mb-6 text-2xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+          <i class="mr-2 fas fa-dice-d6" style="color: var(--color-primary);"></i>
+          Notre Ludothèque
+        </h3>
+        <div class="myludo-link-container">
+          <a href="<%= content(:home_myludo_url) %>" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="myludo-link-button">
+            <div class="myludo-preview">
+              <i class="fas fa-dice-d20 myludo-icon"></i>
+              <div class="myludo-content">
+                <h4 class="myludo-title">Découvrez notre collection</h4>
+                <p class="myludo-description">Consultez tous nos jeux sur myLudo</p>
+                <span class="myludo-cta">
+                  Voir la ludothèque <i class="fas fa-external-link-alt ml-2"></i>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+      <% end %>
+      
+      <!-- Embed HelloAsso -->
+      <% if content(:home_adhesion_embed).present? %>
+      <div class="p-6" style="background: linear-gradient(135deg, var(--color-background-pale) 0%, #FFE4E1 100%); border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+        <h3 class="mb-6 text-2xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+          <i class="mr-2 fas fa-heart" style="color: var(--color-primary);"></i>
+          Adhésion
+        </h3>
+        <div class="embed-container">
+          <%= content(:home_adhesion_embed).html_safe %>
+        </div>
+      </div>
+      <% end %>
+      
+    </div>
+  </div>
+</section>

@@ -28,8 +28,15 @@ Spina::Theme.register do |theme|
     { name: 'gallery', title: 'Galerie d\'images', part_type: 'Spina::Parts::ImageCollection' },
 
     # --- Blocs Spécifiques à l'Accueil ---
-    { name: 'home_banner_image', title: 'Image de la bannière d\'accueil', part_type: 'Spina::Parts::Image' },
+    { name: 'home_banner_image', title: 'Image de la bannière d\'accueil (Desktop)', part_type: 'Spina::Parts::Image' },
+    { name: 'home_banner_image_tablet', title: 'Image de la bannière d\'accueil (Tablette)', part_type: 'Spina::Parts::Image' },
+    { name: 'home_banner_image_mobile', title: 'Image de la bannière d\'accueil (Mobile)', part_type: 'Spina::Parts::Image' },
     { name: 'home_intro_text', title: 'Texte d\'introduction', part_type: 'Spina::Parts::Text' },
+    { name: 'home_who_we_are_text', title: 'Paragraphe "Qui sommes-nous ?"', part_type: 'Spina::Parts::Text' },
+    { name: 'home_meetup_text', title: 'Paragraphe "Rendez-vous"', part_type: 'Spina::Parts::Text' },
+    { name: 'home_poster_image', title: 'Image de l\'affiche', part_type: 'Spina::Parts::Image' },
+    { name: 'home_myludo_url', title: 'URL MyLudo', part_type: 'Spina::Parts::Line' },
+    { name: 'home_adhesion_embed', title: 'Code d\'intégration HelloAsso', part_type: 'Spina::Parts::MultiLine' },
 
     # --- Blocs Spécifiques à la Mascotte ---
     { name: 'mascotte_story', title: 'Histoire de la mascotte', part_type: 'Spina::Parts::Text' },
@@ -58,7 +65,7 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: 'homepage', title: 'Page d\'accueil', parts: %w[home_banner_image home_intro_text] },
+    { name: 'homepage', title: 'Page d\'accueil', parts: %w[home_banner_image home_banner_image_tablet home_banner_image_mobile home_who_we_are_text home_meetup_text home_poster_image home_myludo_url home_adhesion_embed] },
     { name: 'mascotte', title: 'Notre mascotte', parts: %w[title mascotte_story mascotte_illustrations] },
     { name: 'festival', title: 'Festival annuel', parts: %w[title description image_full] },
     { name: 'animations', title: 'Nos animations', parts: %w[title description] },
