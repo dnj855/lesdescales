@@ -2,21 +2,32 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Font Feeling Passionate chargée localement */
+@font-face {
+  font-family: 'Feeling Passionate';
+  src: url('feeling-passionate.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
     /* === PALETTE DE COULEURS === */
 
-    /* Couleurs de marque primaires (Validées) */
-    --color-primary-red: #E31507;
-    --color-background-light: #FFE698;
-
-    /* Couleurs secondaires et accents */
-    --color-primary-red-dark: #B80F05; /* Pour les hovers */
-    --color-background-pale: #FFF9E0; /* Pour les fonds de carte/section */
+    /* Couleurs de marque primaires */
+    --color-primary: #E31507;
+    --color-primary-dark: #B80F05;
+    --color-background: #FFE698;
+    --color-background-pale: #FFF9E0;
+    
+    /* Nouvelles couleurs inspirées du mascotte */
+    --color-orange: #FF8A00;
+    --color-orange-light: #FFB347;
     
     /* Neutres et textes */
-    --color-text-primary: #333333;
-    --color-text-secondary: #666666;
-    --color-border-gray: #E0E0E0;
+    --color-gray-900: #333333;
+    --color-gray-600: #666666;
+    --color-gray-200: #E0E0E0;
     --color-white: #FFFFFF;
 
     /* Couleurs fonctionnelles */
@@ -26,48 +37,58 @@
 
     /* === SYSTÈME TYPOGRAPHIQUE === */
 
-    /* Familles de polices (Validées) */
-    --font-display: 'Feeling Passionate', cursive;
-    --font-heading: 'Poppins', sans-serif;
-    --font-body: 'Sniglet', cursive;
+    /* Familles de polices */
+    --font-family-display: 'Feeling Passionate', 'Brush Script MT', cursive;
+    --font-family-heading: 'Antonio', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-family-body: 'Sniglet', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Tailles de texte */
-    --text-body: 1rem; /* 16px */
-    --text-body--line-height: 1.5; /* 24px */
-    --text-lg: 1.125rem; /* 18px */
-    --text-lg--line-height: 1.44; /* 26px */
-    --text-sm: 0.875rem; /* 14px */
-
-    --text-h3: 1.375rem; /* 22px */
-    --text-h2: 1.75rem; /* 28px */
-    --text-h1: 2.25rem; /* 36px */
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+    --font-size-4xl: 2.25rem;
+    
+    /* Hauteurs de ligne */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.625;
     
     /* Graisses de police */
-    --font-weight-regular: 400;
+    --font-weight-normal: 400;
     --font-weight-medium: 500;
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
     /* === SYSTÈME D'ESPACEMENT === */
-    /* (Standard, conservé pour sa cohérence) */
-    --spacing-2: 0.5rem;  /* 8px */
-    --spacing-4: 1rem;   /* 16px */
-    --spacing-6: 1.5rem; /* 24px */
-    --spacing-8: 2rem;   /* 32px */
-    --spacing-12: 3rem;  /* 48px */
-    --spacing-16: 4rem;  /* 64px */
+    --spacing-1: 0.25rem;
+    --spacing-2: 0.5rem;
+    --spacing-3: 0.75rem;
+    --spacing-4: 1rem;
+    --spacing-6: 1.5rem;
+    --spacing-8: 2rem;
+    --spacing-12: 3rem;
+    --spacing-16: 4rem;
+    --spacing-20: 5rem;
+    --spacing-24: 6rem;
 
     /* === RAYONS DE BORDURE === */
-    --radius-md: 0.5rem;   /* 8px */
-    --radius-lg: 0.75rem;  /* 12px */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
     --radius-full: 9999px;
 
     /* === OMBRES === */
-    --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.1);
-    --shadow-nav: 0 2px 12px rgba(0, 0, 0, 0.06);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
 
     /* === ACCESSIBILITÉ === */
-    --focus-ring-width: 2px;
-    --focus-ring-offset: 2px;
-    --focus-ring-color: var(--color-primary-red);
+    --ring-width: 2px;
+    --ring-offset-width: 2px;
+    --ring-color: var(--color-primary);
 }

@@ -13,6 +13,8 @@ _Guide de style pour le site de l'association de jeux de société Les Dés'Cal�
 
 - **Rouge Foncé (#B80F05)** - Pour les états survolés (`hover`) et pressés des éléments interactifs rouges.
 - **Jaune Pâle (#FFF9E0)** - Pour les arrière-plans de section ou de cartes, afin de créer une hiérarchie visuelle douce.
+- **Orange Chaud (#FF8A00)** - Inspiré de l'arrière-plan du mascotte, pour les accents et éléments décoratifs.
+- **Orange Doré (#FFB347)** - Pour les highlights et éléments d'attention secondaire.
 - **Gris Foncé (#333333)** - Pour le texte principal, afin de garantir une lisibilité maximale.
 - **Gris Moyen (#666666)** - Pour le texte secondaire, les descriptions et les labels.
 - **Bordure Grise (#E0E0E0)** - Pour les bordures fines des cartes et des champs de saisie.
@@ -27,15 +29,15 @@ _Guide de style pour le site de l'association de jeux de société Les Dés'Cal�
 
 ### Familles de Polices
 
-- **Police d'Affichage (Display)**: **Feeling Passionate**, cursive (Pour les grands titres de la page d'accueil).
-- **Police des Titres**: **Poppins**, sans-serif (Pour tous les titres H1, H2, H3...).
+- **Police d'Affichage (Display)**: **Feeling Passionate**, cursive (Pour les grands titres de la page d'accueil et éléments de branding).
+- **Police des Titres**: **Antonio**, sans-serif (Pour tous les titres H1, H2, H3...).
 - **Police du Corps de Texte**: **Sniglet**, cursive (Pour tous les paragraphes et textes courants).
 
-**Note :** Tu devras importer ces polices (ex: depuis Google Fonts) dans le layout de ton application pour qu'elles soient disponibles.
+**Note :** "Feeling Passionate" doit être hébergée localement car ce n'est pas une Google Font. Antonio et Sniglet peuvent être importées depuis Google Fonts.
 
 ### Styles de Texte
 
-#### Titres (Poppins)
+#### Titres (Antonio)
 
 - **H1**: 36px, Bold (700)
 - **H2**: 28px, Semibold (600)
@@ -49,7 +51,7 @@ _Guide de style pour le site de l'association de jeux de société Les Dés'Cal�
 
 #### Spécial
 
-- **Bouton**: 16px, Poppins, Medium (500)
+- **Bouton**: 16px, Antonio, Medium (500)
 - **Lien**: 16px, Sniglet, souligné au survol
 
 ## Composants
