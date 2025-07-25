@@ -1,10 +1,211 @@
-<div class="relative flex flex-col items-center justify-center pt-20 pb-64 md:pt-80">
-  <div class="absolute inset-0">
-    <img src="<%= content.image_url(:main_picture) %>" class="object-cover w-full h-full">
-      <div class="absolute inset-0 bg-gradient-to-b from-light-peach/40 to-cream/70"></div>
+<!-- Section Bannière -->
+<% if content(:home_banner_image).present? %>
+<section class="mt-16">
+  <% if content(:home_banner_image_mobile).present? || content(:home_banner_image_tablet).present? %>
+    <picture class="block w-full">
+      <% if content(:home_banner_image_mobile).present? %>
+        <% mobile_img_tag = content.image_tag(:home_banner_image_mobile, {}, {}) %>
+        <% mobile_src = mobile_img_tag.match(/src="([^"]+)"/)[1] %>
+        <source media="(max-width: 767px)" srcset="<%= mobile_src %>">
+      <% end %>
+      <% if content(:home_banner_image_tablet).present? %>
+        <% tablet_img_tag = content.image_tag(:home_banner_image_tablet, {}, {}) %>
+        <% tablet_src = tablet_img_tag.match(/src="([^"]+)"/)[1] %>
+        <source media="(min-width: 768px) and (max-width: 1023px)" srcset="<%= tablet_src %>">
+      <% end %>
+      <%= content.image_tag(:home_banner_image, {}, {class: "w-full h-full object-cover", alt: "Bannière Les Dés'Calés"}) %>
+    </picture>
+  <% else %>
+    <%= content.image_tag(:home_banner_image, {}, {class: "w-full h-full object-cover", alt: "Bannière Les Dés'Calés"}) %>
+  <% end %>
+</section>
+<% end %>
+
+<!-- Grille Bento principale -->
+<section class="px-4 py-12" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-7xl">
+    
+    <!-- Grille Desktop -->
+    <div class="hidden lg:grid lg:grid-cols-12 lg:grid-rows-6 gap-6 h-[800px]">
+      
+      <!-- Qui sommes-nous - Grande carte principale -->
+      <% if content(:home_who_we_are_text).present? %>
+      <div class="lg:col-span-8 lg:row-span-4 bento-card bento-card-large fade-in group">
+        <div class="flex flex-col justify-center h-full p-8">
+          <div class="flex items-center mb-6">
+            <i class="mr-4 text-3xl fas fa-users" style="color: var(--color-primary);"></i>
+            <h2 class="text-3xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              Qui sommes-nous ?
+            </h2>
+          </div>
+          <div class="leading-relaxed prose prose-lg max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+            <%= simple_format content(:home_who_we_are_text) %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <!-- Affiche - Carte verticale -->
+      <% if content(:home_poster_image).present? %>
+      <div class="lg:col-span-4 lg:row-span-6 bento-card bento-card-poster fade-in group">
+        <div class="flex flex-col h-full p-6">
+          <h3 class="mb-4 text-xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-3 fas fa-image" style="color: var(--color-primary);"></i>
+            À l'affiche
+          </h3>
+          <div class="flex items-center justify-center flex-1">
+            <div class="overflow-hidden transition-shadow duration-300 shadow-lg rounded-xl hover:shadow-2xl">
+              <%= content.image_tag(:home_poster_image, {}, {class: "max-w-full h-auto", alt: "Affiche Les Dés'Calés"}) %>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <!-- Rendez-vous -->
+      <% if content(:home_meetup_text).present? %>
+      <div class="lg:col-span-4 lg:row-span-2 bento-card bento-card-meetup fade-in group">
+        <div class="flex flex-col justify-center h-full p-6">
+          <div class="flex items-center mb-4">
+            <i class="mr-3 text-2xl fas fa-calendar-alt" style="color: var(--color-primary);"></i>
+            <h2 class="text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              Rendez-vous
+            </h2>
+          </div>
+          <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+            <%= simple_format content(:home_meetup_text) %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <!-- MyLudo -->
+      <% if content(:home_myludo_url).present? %>
+      <div class="lg:col-span-4 lg:row-span-2 bento-card bento-card-myludo fade-in group">
+        <a href="<%= content(:home_myludo_url) %>" 
+           target="_blank" 
+           rel="noopener noreferrer"
+           class="block h-full p-6 text-decoration-none">
+          <h3 class="mb-4 text-lg font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-2 fas fa-dice-d6" style="color: var(--color-primary);"></i>
+            Notre Ludothèque
+          </h3>
+          <div class="myludo-preview">
+            <i class="fas fa-dice myludo-icon"></i>
+            <div class="myludo-content">
+              <p class="myludo-description">Consultez tous nos jeux sur myLudo</p>
+              <span class="myludo-cta">
+                Voir la ludothèque <i class="ml-2 fas fa-external-link-alt"></i>
+              </span>
+            </div>
+          </div>
+        </a>
+      </div>
+      <% end %>
+      
+    </div>
+
+    <!-- Grille Mobile/Tablet -->
+    <div class="space-y-6 lg:hidden">
+      
+      <!-- Qui sommes-nous -->
+      <% if content(:home_who_we_are_text).present? %>
+      <div class="bento-card bento-card-large fade-in">
+        <div class="p-6">
+          <div class="flex items-center mb-6">
+            <i class="mr-4 text-2xl fas fa-users" style="color: var(--color-primary);"></i>
+            <h2 class="text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              Qui sommes-nous ?
+            </h2>
+          </div>
+          <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+            <%= simple_format content(:home_who_we_are_text) %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+      <!-- Grille 2 colonnes pour mobile -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        
+        <!-- Rendez-vous -->
+        <% if content(:home_meetup_text).present? %>
+        <div class="bento-card bento-card-meetup fade-in">
+          <div class="p-6">
+            <div class="flex items-center mb-4">
+              <i class="mr-3 text-2xl fas fa-calendar-alt" style="color: var(--color-primary);"></i>
+              <h2 class="text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                Rendez-vous
+              </h2>
+            </div>
+            <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+              <%= simple_format content(:home_meetup_text) %>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <!-- MyLudo -->
+        <% if content(:home_myludo_url).present? %>
+        <div class="bento-card bento-card-myludo fade-in">
+          <a href="<%= content(:home_myludo_url) %>" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="block h-full p-6 text-decoration-none">
+            <h3 class="mb-4 text-lg font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <i class="mr-2 fas fa-dice-d6" style="color: var(--color-primary);"></i>
+              Notre Ludothèque
+            </h3>
+            <div class="myludo-preview">
+              <i class="fas fa-dice-d20 myludo-icon"></i>
+              <div class="myludo-content">
+                <h4 class="myludo-title">Découvrez notre collection</h4>
+                <p class="myludo-description">Consultez tous nos jeux sur myLudo</p>
+                <span class="myludo-cta">
+                  Voir la ludothèque <i class="ml-2 fas fa-external-link-alt"></i>
+                </span>
+              </div>
+            </div>
+          </a>
+        </div>
+        <% end %>
+
+      </div>
+
+      <!-- Affiche -->
+      <% if content(:home_poster_image).present? %>
+      <div class="bento-card bento-card-poster fade-in">
+        <div class="p-6 text-center">
+          <h3 class="mb-6 text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-3 fas fa-image" style="color: var(--color-primary);"></i>
+            À l'affiche
+          </h3>
+          <div class="inline-block overflow-hidden shadow-lg rounded-xl">
+            <%= content.image_tag(:home_poster_image, {}, {class: "max-w-full h-auto", alt: "Affiche Les Dés'Calés"}) %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+
+    </div>
   </div>
-  <div class="relative z-10 max-w-4xl px-4 mx-auto text-center">
-  <h1 class="font-bold text-7xl"><%= content.text(:hero_title) %></h1>
-  <h2 class="text-xl text-center font-poppins text-dark-charcoal"><%= simple_format content(:hero_description) %></h2>
+</section>
+
+<!-- Section Adhésion HelloAsso -->
+<% if content(:home_adhesion_embed).present? %>
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="max-w-4xl mx-auto">
+    <div class="bento-card bento-card-adhesion fade-in">
+      <div class="p-8">
+        <h3 class="mb-8 text-2xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+          <i class="mr-3 fas fa-heart" style="color: var(--color-primary);"></i>
+          Rejoignez-nous !
+        </h3>
+        <div class="embed-container">
+          <%= content(:home_adhesion_embed).html_safe %>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+<% end %>

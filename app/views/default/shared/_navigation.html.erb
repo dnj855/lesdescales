@@ -1,10 +1,13 @@
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b bg-cream/70 backdrop-blur-md border-gray-200/50 ease-standard shadow-nav">
-  <div class="px-6 mx-auto max-w-7xl lg:px-8">
+<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-gray-200/50 backdrop-blur-md shadow-sm bg-background/90" 
+     role="navigation" 
+     aria-label="Navigation principale">
+  <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo/Brand -->
-      <div class="flex items-center">
+      <div class="flex items-center flex-shrink-0">
         <%= link_to current_spina_account.name, root_path, 
-            class: "text-2xl font-bold text-warm-orange hover:text-deep-red transition-colors duration-200 ease-micro tracking-tight" %>
+            class: "text-2xl font-bold transition-colors duration-200 tracking-tight text-primary hover:text-primary-dark",
+            style: "font-family: var(--font-family-heading);" %>
       </div>
       
       <!-- Desktop Navigation -->
@@ -13,10 +16,11 @@
           <% nav_items.each do |nav_item| %>
             <% is_active = nav_item_active?(nav_item.materialized_path, current_page.materialized_path) %>
             <%= link_to nav_item.menu_title, nav_item.materialized_path, 
-                class: "relative px-3 py-2 text-sm font-medium transition-all duration-200 ease-micro
+                class: "relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md
                          #{is_active ? 
-                           'text-warm-orange after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-warm-orange after:rounded-full' : 
-                           'text-warm-gray hover:text-dark-charcoal hover:bg-soft-peach/50 rounded-md'}" %>
+                           'text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full' : 
+                           'text-gray-600 hover:text-gray-900 hover:bg-background-pale/50'}",
+                style: "font-family: var(--font-family-body);" %>
           <% end %>
         </div>
       </div>
@@ -24,14 +28,20 @@
       <!-- Mobile menu button -->
       <div class="md:hidden">
         <button type="button" 
-                class="inline-flex items-center justify-center p-2 transition-all duration-200 rounded-md text-warm-gray hover:text-dark-charcoal hover:bg-soft-peach/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-warm-orange ease-micro"
+                id="mobile-menu-button"
+                class="inline-flex items-center justify-center p-2 transition-all duration-200 rounded-md text-gray-600 hover:text-gray-900 hover:bg-background-pale/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
                 aria-controls="mobile-menu" 
                 aria-expanded="false"
+                aria-label="Ouvrir le menu de navigation"
                 onclick="toggleMobileMenu()">
-          <span class="sr-only">Ouvrir le menu principal</span>
+          <span class="sr-only">Basculer le menu de navigation</span>
           <!-- Hamburger icon -->
-          <svg class="block w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+          <svg class="block w-6 h-6 transition-transform duration-200" id="hamburger-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <!-- Close icon (hidden by default) -->
+          <svg class="hidden w-6 h-6 transition-transform duration-200" id="close-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
@@ -39,15 +49,17 @@
   </div>
 
   <!-- Mobile Navigation Menu -->
-  <div class="hidden md:hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 border-t bg-cream/70 backdrop-blur-md border-gray-200/50 shadow-card">
+  <div class="hidden" id="mobile-menu">
+    <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200/50 bg-background/95 backdrop-blur-md shadow-sm">
       <% nav_items.each do |nav_item| %>
         <% is_active = nav_item_active?(nav_item.materialized_path, current_page.materialized_path) %>
         <%= link_to nav_item.menu_title, nav_item.materialized_path, 
-            class: "block px-3 py-2 text-base font-medium transition-all duration-200 ease-micro rounded-md
+            class: "block px-3 py-2 text-base font-medium transition-all duration-200 rounded-md mobile-nav-link
                      #{is_active ? 
-                       'text-warm-orange bg-soft-peach/70 border-l-4 border-warm-orange' : 
-                       'text-warm-gray hover:text-dark-charcoal hover:bg-soft-peach/50'}" %>
+                       'text-primary bg-background-pale/70 border-l-4 border-primary' : 
+                       'text-gray-600 hover:text-gray-900 hover:bg-background-pale/50'}", 
+            style: "font-family: var(--font-family-body);",
+            onclick: "closeMobileMenu()" %>
       <% end %>
     </div>
   </div>
@@ -56,6 +68,75 @@
 <script>
   function toggleMobileMenu() {
     const menu = document.getElementById('mobile-menu');
-    menu.classList.toggle('hidden');
+    const button = document.getElementById('mobile-menu-button');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    
+    const isHidden = menu.classList.contains('hidden');
+    
+    if (isHidden) {
+      // Ouvrir le menu
+      menu.classList.remove('hidden');
+      
+      // Changer les icônes
+      hamburgerIcon.classList.add('hidden');
+      closeIcon.classList.remove('hidden');
+      
+      // Mettre à jour aria-expanded
+      button.setAttribute('aria-expanded', 'true');
+    } else {
+      // Fermer le menu
+      menu.classList.add('hidden');
+      
+      // Changer les icônes
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      
+      // Mettre à jour aria-expanded
+      button.setAttribute('aria-expanded', 'false');
+    }
   }
+  
+  function closeMobileMenu() {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    const hamburgerIcon = document.getElementById('hamburger-icon');
+    const closeIcon = document.getElementById('close-icon');
+    
+    if (!menu.classList.contains('hidden')) {
+      menu.classList.add('hidden');
+      
+      hamburgerIcon.classList.remove('hidden');
+      closeIcon.classList.add('hidden');
+      button.setAttribute('aria-expanded', 'false');
+    }
+  }
+  
+  // Fermer le menu mobile lors du redimensionnement de la fenêtre
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 768) { // md breakpoint
+      closeMobileMenu();
+    }
+  });
+  
+  // Fermer le menu mobile lors du clic à l'extérieur
+  document.addEventListener('click', function(event) {
+    const menu = document.getElementById('mobile-menu');
+    const button = document.getElementById('mobile-menu-button');
+    
+    if (!menu.classList.contains('hidden') && 
+        !menu.contains(event.target) && 
+        !button.contains(event.target)) {
+      closeMobileMenu();
+    }
+  });
+  
+  // Gestion du clavier pour l'accessibilité
+  document.addEventListener('keydown', function(event) {
+    const menu = document.getElementById('mobile-menu');
+    
+    if (event.key === 'Escape' && !menu.classList.contains('hidden')) {
+      closeMobileMenu();
+    }
+  });
 </script>

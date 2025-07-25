@@ -92,3 +92,370 @@
     --ring-offset-width: 2px;
     --ring-color: var(--color-primary);
 }
+
+/* === STYLES PERSONNALISÉS POUR LES COMPOSANTS === */
+
+/* Container pour les embeds responsifs */
+.embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+}
+
+/* Container pour iframe HelloAsso */
+.helloasso-iframe-container {
+  position: relative;
+  padding-bottom: 56.25%; /* Ratio 16:9 pour HelloAsso */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+  border: 2px solid var(--color-gray-200);
+  min-height: 400px; /* Hauteur minimum pour les formulaires */
+}
+
+.embed-container iframe,
+.embed-container object,
+.embed-container embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius-lg);
+}
+
+
+.myludo-preview {
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.myludo-icon {
+  font-size: 3rem;
+  color: var(--color-primary);
+  flex-shrink: 0;
+}
+
+.myludo-content {
+  flex: 1;
+}
+
+.myludo-title {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-gray-900);
+  margin: 0 0 0.5rem 0;
+}
+
+.myludo-description {
+  font-family: var(--font-family-body);
+  color: var(--color-gray-600);
+  margin: 0 0 1rem 0;
+  line-height: 1.4;
+}
+
+.myludo-cta {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  color: var(--color-primary);
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .myludo-preview {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  
+  .myludo-icon {
+    font-size: 2.5rem;
+  }
+}
+
+/* Styles pour iframe HelloAsso */
+.helloasso-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background-color: var(--color-white);
+}
+
+/* Styles responsifs pour HelloAsso */
+@media (max-width: 768px) {
+  .helloasso-iframe-container {
+    padding-bottom: 100%; /* Plus de hauteur sur mobile pour les formulaires */
+    min-height: 500px;
+  }
+}
+
+/* === RESPONSIVE BENTO OPTIMIZATIONS === */
+
+/* Amélioration de la grille mobile */
+@media (max-width: 1023px) {
+  .bento-card {
+    min-height: 200px;
+  }
+  
+  .bento-card-large {
+    min-height: 250px;
+  }
+  
+  .bento-card-poster {
+    min-height: 400px;
+  }
+}
+
+/* Optimisation tablette */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bento-card {
+    min-height: 220px;
+  }
+  
+  .bento-card-large {
+    min-height: 280px;
+  }
+}
+
+/* Ajustements mobile spécifiques */
+@media (max-width: 767px) {
+  .bento-card {
+    min-height: 180px;
+  }
+  
+  .bento-card-large {
+    min-height: 220px;
+  }
+  
+  .bento-card-poster {
+    min-height: 350px;
+  }
+  
+  /* Réduction des paddings sur mobile */
+  .bento-card .p-6 {
+    padding: 1rem;
+  }
+  
+  .bento-card .p-8 {
+    padding: 1.5rem;
+  }
+}
+
+/* === STYLES BENTO CARDS === */
+
+/* Base des cartes bento */
+.bento-card {
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease-out;
+  border: 1px solid rgba(227, 21, 7, 0.1);
+  backdrop-filter: blur(10px);
+  will-change: transform;
+}
+
+.bento-card:hover {
+  transform: translateY(-4px) rotate(0.5deg);
+  box-shadow: 
+    0 12px 40px rgba(227, 21, 7, 0.12),
+    0 0 20px rgba(227, 21, 7, 0.08);
+  border-color: rgba(227, 21, 7, 0.25);
+}
+
+/* Cartes spécialisées */
+.bento-card-large {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 249, 224, 0.95) 100%);
+}
+
+.bento-card-poster {
+  background: linear-gradient(180deg, rgba(255, 249, 224, 0.95) 0%, rgba(255, 255, 255, 0.95) 100%);
+}
+
+.bento-card-meetup {
+  background: linear-gradient(135deg, rgba(255, 179, 71, 0.2) 0%, rgba(255, 249, 224, 0.95) 100%);
+}
+
+.bento-card-myludo {
+  background: linear-gradient(135deg, rgba(255, 249, 224, 0.95) 0%, rgba(232, 244, 253, 0.9) 100%);
+}
+
+.bento-card-adhesion {
+  background: linear-gradient(135deg, rgba(255, 249, 224, 0.95) 0%, rgba(255, 228, 225, 0.9) 100%);
+}
+
+/* Effets groupe harmonisés pour desktop */
+.myludo-icon,
+.fas.fa-image,
+.fas.fa-calendar-alt,
+.fas.fa-users,
+.fas.fa-heart {
+  transition: transform 0.4s ease-in-out;
+}
+
+.group:hover .myludo-icon {
+  transform: scale(1.15) rotate(15deg);
+}
+
+.group:hover .fas.fa-image {
+  transform: scale(1.12);
+}
+
+.group:hover .fas.fa-calendar-alt {
+  transform: scale(1.12) rotate(-3deg);
+}
+
+.group:hover .fas.fa-users {
+  transform: scale(1.08);
+}
+
+.group:hover .fas.fa-heart {
+  transform: scale(1.15);
+  animation: heartbeat 0.6s ease-out;
+}
+
+@keyframes heartbeat {
+  0% { transform: scale(1); }
+  25% { transform: scale(1.15); }
+  50% { transform: scale(1.1); }
+  75% { transform: scale(1.15); }
+  100% { transform: scale(1.15); }
+}
+
+/* Styles pour les sections de la homepage */
+.homepage-section {
+  scroll-margin-top: 80px; /* Pour la navigation sticky */
+}
+
+/* Compensation pour la navbar fixe */
+.homepage-section:first-child {
+  padding-top: 64px; /* hauteur de la navbar (h-16) */
+  min-height: calc(100vh - 64px); /* hauteur écran moins navbar */
+}
+
+@media (min-width: 768px) {
+  .homepage-section:first-child {
+    padding-top: 80px; /* un peu plus d'espace sur desktop */
+    min-height: calc(100vh - 64px); /* maintenir la même logique */
+  }
+}
+
+/* Style spécial pour la bannière avec overlay */
+.banner-overlay {
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.2) 0%,
+    rgba(0, 0, 0, 0.4) 100%
+  );
+}
+
+/* Animations subtiles */
+.fade-in {
+  animation: fadeIn 0.8s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Animation de stagger pour les cartes */
+.fade-in:nth-child(1) { animation-delay: 0.1s; }
+.fade-in:nth-child(2) { animation-delay: 0.2s; }
+.fade-in:nth-child(3) { animation-delay: 0.3s; }
+.fade-in:nth-child(4) { animation-delay: 0.4s; }
+.fade-in:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 30px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* Amélioration de l'accessibilité pour les focus */
+.focus-visible {
+  outline: var(--ring-width) solid var(--ring-color);
+  outline-offset: var(--ring-offset-width);
+}
+
+/* Styles pour les boutons dans les embeds si nécessaire */
+.embed-container .btn {
+  display: inline-block;
+  padding: var(--spacing-3) var(--spacing-6);
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  text-decoration: none;
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-medium);
+  transition: all 0.3s ease-out;
+  will-change: transform;
+}
+
+.embed-container .btn:hover {
+  background-color: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(227, 21, 7, 0.25);
+}
+
+/* Optimisations pour les images et éléments interactifs */
+.bento-card img {
+  transition: transform 0.3s ease-out;
+  will-change: transform;
+}
+
+.bento-card:hover img {
+  transform: scale(1.02);
+}
+
+/* Réduction des animations sur mobile pour les performances */
+@media (max-width: 767px) {
+  .bento-card {
+    will-change: auto;
+  }
+  
+  .bento-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(227, 21, 7, 0.12);
+  }
+  
+  .group:hover .myludo-icon,
+  .group:hover .fas {
+    transform: scale(1.05);
+    transition: transform 0.2s ease-out;
+  }
+}
+
+/* Optimisation pour les utilisateurs qui préfèrent réduire les animations */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    animation: none;
+  }
+  
+  .bento-card,
+  .embed-container .btn,
+  .bento-card img {
+    transition: none;
+  }
+  
+  .group:hover .myludo-icon,
+  .group:hover .fas {
+    transform: none;
+  }
+}
