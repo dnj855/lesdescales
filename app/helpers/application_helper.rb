@@ -12,6 +12,10 @@ module ApplicationHelper
     socials
   end
 
+  def short_description
+    current_spina_account.fr_content.find { |p| p.name == 'short_description' }
+  end
+
   def events
     @events ||= Spina::Resource.find_by(name: 'events')&.pages&.live || []
   end
