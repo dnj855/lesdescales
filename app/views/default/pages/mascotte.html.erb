@@ -38,9 +38,9 @@
       <div class="order-1 lg:order-2">
         <% if content(:mascotte_illustrations).present? %>
           <div class="bento-card fade-in overflow-hidden">
-            <div class="p-4">
+            <div class="p-4" data-controller="swiper">
               <!-- Swiper container -->
-              <div class="swiper mascotte-swiper">
+              <div data-swiper-target="container" class="swiper mascotte-swiper">
                 <div class="swiper-wrapper">
                   <% images(:mascotte_illustrations) do |image| %>
                     <div class="swiper-slide">
@@ -56,7 +56,7 @@
               </div>
               
               <!-- Pagination outside swiper container -->
-              <div class="swiper-pagination-custom mt-4"></div>
+              <div data-swiper-target="pagination" class="swiper-pagination-custom mt-4"></div>
               
               <!-- Légende optionnelle -->
               <div class="mt-4 text-center">
@@ -251,77 +251,3 @@
   }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    // Initialize Swiper for mascotte gallery
-    const swiper = new Swiper('.mascotte-swiper', {
-      // Basic parameters
-      loop: true,
-      speed: 600,
-      spaceBetween: 30,
-      centeredSlides: true,
-      
-      // Autoplay
-      autoplay: {
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      },
-      
-      // Navigation arrows
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      
-      // Pagination
-      pagination: {
-        el: '.swiper-pagination-custom',
-        clickable: true,
-        dynamicBullets: true,
-      },
-      
-      // Touch/Mouse events
-      grabCursor: true,
-      
-      // Effects
-      effect: 'fade',
-      fadeEffect: {
-        crossFade: true
-      },
-      
-      // Responsive breakpoints
-      breakpoints: {
-        640: {
-          slidesPerView: 1,
-          spaceBetween: 20,
-        },
-        768: {
-          slidesPerView: 1,
-          spaceBetween: 30,
-        },
-        1024: {
-          slidesPerView: 1,
-          spaceBetween: 30,
-        },
-      },
-      
-      // Keyboard control
-      keyboard: {
-        enabled: true,
-        onlyInViewport: true,
-      },
-      
-      // Accessibility
-      a11y: {
-        enabled: true,
-        prevSlideMessage: 'Image précédente',
-        nextSlideMessage: 'Image suivante',
-        firstSlideMessage: 'Première image',
-        lastSlideMessage: 'Dernière image',
-        paginationBulletMessage: 'Aller à l\'image {{index}}',
-      },
-    });
-  });
-</script>
