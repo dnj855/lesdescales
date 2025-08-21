@@ -26,11 +26,14 @@ Spina::Theme.register do |theme|
     { name: 'description', title: 'Description / Texte principal', part_type: 'Spina::Parts::Text' },
     { name: 'image_full', title: 'Image pleine largeur', part_type: 'Spina::Parts::Image' },
     { name: 'gallery', title: 'Galerie d\'images', part_type: 'Spina::Parts::ImageCollection' },
+    { name: 'short_description', title: 'Description courte', part_type: 'Spina::Parts::MultiLine' },
 
     # --- Blocs Spécifiques à l'Accueil ---
     { name: 'home_banner_image', title: 'Image de la bannière d\'accueil (Desktop)', part_type: 'Spina::Parts::Image' },
-    { name: 'home_banner_image_tablet', title: 'Image de la bannière d\'accueil (Tablette)', part_type: 'Spina::Parts::Image' },
-    { name: 'home_banner_image_mobile', title: 'Image de la bannière d\'accueil (Mobile)', part_type: 'Spina::Parts::Image' },
+    { name: 'home_banner_image_tablet', title: 'Image de la bannière d\'accueil (Tablette)',
+      part_type: 'Spina::Parts::Image' },
+    { name: 'home_banner_image_mobile', title: 'Image de la bannière d\'accueil (Mobile)',
+      part_type: 'Spina::Parts::Image' },
     { name: 'home_intro_text', title: 'Texte d\'introduction', part_type: 'Spina::Parts::Text' },
     { name: 'home_who_we_are_text', title: 'Paragraphe "Qui sommes-nous ?"', part_type: 'Spina::Parts::Text' },
     { name: 'home_meetup_text', title: 'Paragraphe "Rendez-vous"', part_type: 'Spina::Parts::Text' },
@@ -56,7 +59,8 @@ Spina::Theme.register do |theme|
     # --- Blocs pour les Liens Sociaux (Layout Parts) ---
     { name: 'facebook_url', title: 'URL Facebook', part_type: 'Spina::Parts::Line' },
     { name: 'instagram_url', title: 'URL Instagram', part_type: 'Spina::Parts::Line' },
-    { name: 'youtube_url', title: 'URL YouTube', part_type: 'Spina::Parts::Line' }
+    { name: 'youtube_url', title: 'URL YouTube', part_type: 'Spina::Parts::Line' },
+    { name: 'tiktok_url', title: 'URL TikTok', part_type: 'Spina::Parts::Line' }
     # etc... pour les autres réseaux
   ]
 
@@ -65,7 +69,8 @@ Spina::Theme.register do |theme|
   # You define which parts you want to enable for every view template
   # by referencing them from the theme.parts configuration above.
   theme.view_templates = [
-    { name: 'homepage', title: 'Page d\'accueil', parts: %w[home_banner_image home_banner_image_tablet home_banner_image_mobile home_who_we_are_text home_meetup_text home_poster_image home_myludo_url home_adhesion_embed] },
+    { name: 'homepage', title: 'Page d\'accueil',
+      parts: %w[home_banner_image home_banner_image_tablet home_banner_image_mobile home_who_we_are_text home_meetup_text home_poster_image home_myludo_url home_adhesion_embed] },
     { name: 'mascotte', title: 'Notre mascotte', parts: %w[title mascotte_story mascotte_illustrations] },
     { name: 'festival', title: 'Festival annuel', parts: %w[title description image_full] },
     { name: 'animations', title: 'Nos animations', parts: %w[title description] },
@@ -101,7 +106,7 @@ Spina::Theme.register do |theme|
   # Layout parts (optional)
   # You can create global content that doesn't belong to one specific page. We call these layout parts.
   # You only have to reference the name of the parts you want to have here.
-  theme.layout_parts = %w[facebook_url instagram_url youtube_url tiktok_url twitter_url linkedin_url pinterest_url]
+  theme.layout_parts = %w[facebook_url instagram_url youtube_url tiktok_url short_description]
 
   # Resources (optional)
   # Think of resources as a collection of pages. They are managed separately in Spina

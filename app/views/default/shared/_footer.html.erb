@@ -1,89 +1,182 @@
 <!-- Footer principal -->
-<footer class="bg-[var(--color-dark-surface)] text-[var(--color-dark-text-primary)] py-[var(--spacing-12)]">
-  <div class="max-w-[var(--container-7xl)] mx-auto px-[var(--spacing-4)]">
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-[var(--spacing-8)] lg:gap-[var(--spacing-12)] pb-[var(--spacing-8)]">
+<footer class="bg-white border-t-4 border-[#E31507] py-12 relative overflow-hidden">
+  <!-- Motif décoratif en arrière-plan -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-0 left-0 w-96 h-96 bg-gradient-to-br from-[#FF8A00] to-transparent rounded-full blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+    <div class="absolute bottom-0 right-0 w-96 h-96 bg-gradient-to-tl from-[#FFB347] to-transparent rounded-full blur-3xl transform translate-x-1/2 translate-y-1/2"></div>
+  </div>
+
+  <div class="relative z-10 px-4 mx-auto max-w-7xl">
+    <div class="grid grid-cols-1 gap-8 pb-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
       
-      <!-- Colonne de gauche - À propos -->
-      <div class="space-y-[var(--spacing-4)]">
-        <div class="space-y-[var(--spacing-3)]">
-          <div class="w-[var(--icon-large)] h-[var(--icon-large)] bg-[var(--color-warm-orange)] rounded-[var(--radius-sm)] flex items-center justify-center">
-            <i class="fa-solid fa-dice"></i>
+      <!-- Colonne 1 - À propos -->
+      <div class="space-y-4 lg:col-span-1">
+        <div class="space-y-3">
+          <div class="inline-flex gap-3 items-center">
+            <div class="flex overflow-hidden justify-center items-center w-12 h-12 rounded-lg shadow-lg">
+              <%= image_tag "logos/logo_main.webp", 
+                  alt: current_spina_account.name, 
+                  class: "w-full h-full object-contain",
+                  loading: "lazy" %>
+            </div>
+            <h2 class="text-2xl font-bold text-[#333333]" style="font-family: 'Antonio', sans-serif;">
+              <%= current_spina_account.name %>
+            </h2>
           </div>
-          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
-            <%= current_spina_account.name %>
-          </h3>
         </div>
         
-        <p class="text-[var(--text-body)] leading-[var(--text-body--line-height)]">
-          Association de jeux de société à Barentin. Plus de 240 jeux à découvrir, des soirées conviviales et des événements toute l'année. Rejoignez notre communauté passionnée !
+        <% if short_description.present? %>
+        <p class="text-base leading-relaxed text-[#666666]" style="font-family: 'Sniglet', cursive;">
+          <%= short_description.content %>
         </p>
-
+        <% end %>
       </div>
 
-      <!-- Colonne du milieu - Liens rapides -->
-      <div class="space-y-[var(--spacing-4)]">
-        <div class="space-y-[var(--spacing-3)]">
-          <div class="w-[var(--icon-large)] h-[var(--icon-large)]"></div>
-          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
-            Liens Rapides
-          </h3>
-        </div>
-        <div class="flex flex-col">
-          <% nav_items.each do |nav_item| %>
-            <%= link_to nav_item.menu_title, nav_item.materialized_path, 
-                class: "text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]" %>
-          <% end %>
-        </div>
+      <!-- Colonne 2 - Navigation -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-[#333333] flex items-center gap-2" style="font-family: 'Antonio', sans-serif;">
+          <i class="fa-solid fa-compass text-[#E31507] text-sm"></i>
+          Navigation
+        </h3>
+        <nav aria-label="Navigation footer">
+          <ul class="space-y-2">
+            <% nav_items.each do |nav_item| %>
+              <li>
+                <%= link_to nav_item.materialized_path, 
+                    class: "group inline-flex items-center gap-2 text-base text-[#666666] hover:text-[#E31507] transition-all duration-200" do %>
+                  <span class="w-1 h-1 bg-[#E0E0E0] group-hover:bg-[#E31507] rounded-full transition-colors duration-200"></span>
+                  <span style="font-family: 'Sniglet', cursive;"><%= nav_item.menu_title %></span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </nav>
       </div>
 
-      <!-- Colonne de droite - Réseaux sociaux -->
-      <div class="space-y-[var(--spacing-4)]">
-        <div class="space-y-[var(--spacing-3)]">
-          <div class="w-[var(--icon-large)] h-[var(--icon-large)]"></div>
-          <h3 class="text-[var(--text-h3)] font-[var(--font-weight-semibold)] text-white">
-            Restons en contact
-          </h3>
-        </div>
+      <!-- Colonne 3 - Informations pratiques -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-[#333333] flex items-center gap-2" style="font-family: 'Antonio', sans-serif;">
+          <i class="fa-solid fa-info-circle text-[#E31507] text-sm"></i>
+          Informations
+        </h3>
         
-        <!-- Réseaux sociaux -->
-        <div class="flex space-x-[var(--spacing-4)]">
-          <% social_networks.each do |network, url| %>
-            <a href="<%= url %>" class="w-[var(--button-height-compact)] h-[var(--button-height-compact)] bg-[var(--color-warm-gray)] hover:bg-[var(--color-warm-orange)] rounded-[var(--radius-md)] flex items-center justify-center transition-colors duration-[var(--duration-micro)]"
-               aria-label="<%= network %>">
-              <i class="fa-brands fa-<%= network %> fa-xl"></i>
-            </a>
+        <div class="space-y-3">
+          <% if current_spina_account.address.present? %>
+          <!-- Adresse -->
+          <div class="flex gap-3 items-start group">
+            <div class="w-8 h-8 bg-[#FFF9E0] rounded-md flex items-center justify-center flex-shrink-0 group-hover:bg-[#FFE698] transition-colors duration-200">
+              <i class="fa-solid fa-location-dot text-[#E31507] text-xs"></i>
+            </div>
+            <address class="not-italic text-sm text-[#666666]" style="font-family: 'Sniglet', cursive;">
+              <%= current_spina_account.address %><br />
+              <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
+            </address>
+          </div>
           <% end %>
-        </div>
-
-        <div class="space-y-[var(--spacing-2)] text-[var(--text-small)]">
-          <p class="font-[var(--font-weight-medium)] text-[var(--color-dark-text-secondary)]">
-            <%= current_spina_account.address %><br />
-            <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
-          </p>
-          <p>
-            <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)] text-[var(--color-dark-text-secondary)]" href="mailto:<%= current_spina_account.email %>">
+          <% if current_spina_account.email.present? %>
+          <!-- Email -->
+          <div class="flex gap-3 items-center group">
+            <div class="w-8 h-8 bg-[#FFF9E0] rounded-md flex items-center justify-center flex-shrink-0 group-hover:bg-[#FFE698] transition-colors duration-200">
+              <i class="fa-solid fa-envelope text-[#E31507] text-xs"></i>
+            </div>
+            <a href="mailto:<%= current_spina_account.email %>" 
+               class="text-sm text-[#666666] hover:text-[#E31507] transition-colors duration-200 break-all"
+               style="font-family: 'Sniglet', cursive;">
               <%= current_spina_account.email %>
             </a>
-          </p>
-          <p>
-            <a class="hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)] text-[var(--color-dark-text-secondary)]" href="tel:<%= current_spina_account.phone %>">
+          </div>
+          <% end %>
+          <% if current_spina_account.phone.present? %>
+          <!-- Téléphone -->
+          <div class="flex gap-3 items-center group">
+            <div class="w-8 h-8 bg-[#FFF9E0] rounded-md flex items-center justify-center flex-shrink-0 group-hover:bg-[#FFE698] transition-colors duration-200">
+              <i class="fa-solid fa-phone text-[#E31507] text-xs"></i>
+            </div>
+            <a href="tel:<%= current_spina_account.phone %>" 
+               class="text-sm text-[#666666] hover:text-[#E31507] transition-colors duration-200"
+               style="font-family: 'Sniglet', cursive;">
               <%= current_spina_account.phone %>
             </a>
-          </p>
+          </div>
+      <% end %>
+        </div>
+      </div>
+      
+      <!-- Colonne 4 - Réseaux sociaux & Newsletter -->
+      <div class="space-y-4">
+        <h3 class="text-lg font-semibold text-[#333333] flex items-center gap-2" style="font-family: 'Antonio', sans-serif;">
+          <i class="fa-solid fa-share-nodes text-[#E31507] text-sm"></i>
+          Restons connectés
+        </h3>
+        
+        <!-- Réseaux sociaux -->
+        <% if social_networks.any? %>
+          <div class="flex flex-wrap gap-2">
+            <% social_networks.each do |network, url| %>
+              <a href="<%= url %>" 
+                 class="group relative w-10 h-10 bg-[#FFF9E0] hover:bg-[#E31507] rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-110 border border-[#E0E0E0] hover:border-[#E31507]"
+                 aria-label="Suivez-nous sur <%= network.capitalize %>"
+                 target="_blank"
+                 rel="noopener noreferrer">
+                <i class="fa-brands fa-<%= network %> text-[#666666] group-hover:text-white transition-colors duration-200"></i>
+                <!-- Tooltip -->
+                <span class="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-[#333333] text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap">
+                  <%= network.capitalize %>
+                </span>
+              </a>
+            <% end %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+
+    <!-- Séparateur avec dégradé -->
+    <div class="relative my-8">
+      <div class="flex absolute inset-0 items-center">
+        <div class="w-full border-t border-[#E0E0E0]"></div>
+      </div>
+      <div class="flex relative justify-center">
+        <div class="px-6 bg-white">
+          <i class="fa-solid fa-dice-d20 text-[#FF8A00] text-xl opacity-50"></i>
         </div>
       </div>
     </div>
 
-    <!-- Ligne de séparation et copyright -->
-    <div class="border-t border-[var(--color-dark-border)] pt-[var(--spacing-6)]">
-      <div class="flex flex-col md:flex-row justify-between items-center space-y-[var(--spacing-4)] md:space-y-0">
-        <p class="text-[var(--text-small)]">
-          <% require 'date'%>
-          © <%= Date.today.year %> Les Dés'Calés. Tous droits réservés.
-        </p>
+    <!-- Copyright et liens légaux -->
+    <div class="pt-4">
+      <div class="flex flex-col gap-4 justify-between items-center md:flex-row">
+        <!-- Copyright -->
+        <div class="flex flex-col gap-2 items-center md:flex-row md:gap-3">
+          <p class="text-sm text-[#666666]" style="font-family: 'Sniglet', cursive;">
+            <% require 'date' %>
+            © <%= Date.today.year %> <%= current_spina_account.name %>. Tous droits réservés.
+          </p>
+          <span class="hidden md:inline text-[#E0E0E0]">•</span>
+          <p class="text-sm text-[#666666]" style="font-family: 'Sniglet', cursive;">
+            Créé avec <i class="fa-solid fa-heart text-[#E31507] text-xs"></i> à Barentin
+          </p>
+        </div>
         
-        <nav class="flex space-x-[var(--spacing-6)]">
-          <%= link_to 'Mentions légales', page_path('mentions-legales'), class: 'text-[var(--text-small)] text-[var(--color-dark-text-secondary)] hover:text-[var(--color-warm-orange)] transition-colors duration-[var(--duration-micro)]' %>
+        <!-- Liens légaux -->
+        <nav aria-label="Liens légaux" class="flex gap-6 items-center">
+          <%= link_to page_path('mentions-legales'), 
+              class: 'text-sm text-[#666666] hover:text-[#E31507] transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-[#E31507] hover:after:w-full after:transition-all after:duration-200',
+              style: 'font-family: "Sniglet", cursive;' do %>
+            Mentions légales
+          <% end %>
+          
+          <%= link_to page_path('politique-de-confidentialite'), 
+              class: 'text-sm text-[#666666] hover:text-[#E31507] transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-[#E31507] hover:after:w-full after:transition-all after:duration-200',
+              style: 'font-family: "Sniglet", cursive;' do %>
+            Confidentialité
+          <% end %>
+          
+          <%= link_to page_path('cgv'), 
+              class: 'text-sm text-[#666666] hover:text-[#E31507] transition-colors duration-200 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-px after:bg-[#E31507] hover:after:w-full after:transition-all after:duration-200',
+              style: 'font-family: "Sniglet", cursive;' do %>
+            CGV
+          <% end %>
         </nav>
       </div>
     </div>
