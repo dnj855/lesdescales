@@ -1,0 +1,253 @@
+<!-- Section Titre -->
+<% if content(:title).present? %>
+<section class="mt-16 px-4 py-12" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-4xl text-center">
+    <h1 class="text-4xl md:text-5xl font-bold mb-4" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+      <%= content(:title) %>
+    </h1>
+  </div>
+</section>
+<% end %>
+
+<!-- Section principale : Histoire et illustrations intégrées -->
+<% if content(:mascotte_story).present? || content(:mascotte_illustrations).present? %>
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
+      
+      <!-- Colonne de gauche : Histoire -->
+      <div class="order-2 lg:order-1">
+        <% if content(:mascotte_story).present? %>
+          <div class="bento-card fade-in lg:sticky lg:top-8">
+            <div class="p-8">
+              <div class="flex items-center mb-6">
+                <i class="mr-4 text-3xl fas fa-star" style="color: var(--color-primary);"></i>
+                <h2 class="text-3xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                  Notre histoire
+                </h2>
+              </div>
+              <div class="leading-relaxed prose prose-lg max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+                <%= content(:mascotte_story).html_safe %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      
+      <!-- Colonne de droite : Slider d'illustrations -->
+      <div class="order-1 lg:order-2">
+        <% if content(:mascotte_illustrations).present? %>
+          <div class="bento-card fade-in overflow-hidden">
+            <div class="p-4" data-controller="swiper">
+              <!-- Swiper container -->
+              <div data-swiper-target="container" class="swiper mascotte-swiper">
+                <div class="swiper-wrapper">
+                  <% images(:mascotte_illustrations) do |image| %>
+                    <div class="swiper-slide">
+                      <%= content.image_tag image, {}, 
+                          {class: "w-full h-auto object-cover rounded-lg", style: "max-height: 500px;"} %>
+                    </div>
+                  <% end %>
+                </div>
+                
+                <!-- Navigation buttons -->
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-button-next"></div>
+              </div>
+              
+              <!-- Pagination outside swiper container -->
+              <div data-swiper-target="pagination" class="swiper-pagination-custom mt-4"></div>
+              
+              <!-- Légende optionnelle -->
+              <div class="mt-4 text-center">
+                <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+                  <i class="mr-2 fas fa-images" style="color: var(--color-primary);"></i>
+                  Découvrez notre mascotte à travers nos événements
+                </p>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section CTA -->
+<section class="px-4 py-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-4xl text-center">
+    <div class="bento-card bento-card-cta fade-in">
+      <div class="p-8">
+        <h3 class="text-2xl font-semibold mb-4" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+          <i class="mr-3 fas fa-dice" style="color: var(--color-primary);"></i>
+          Envie de nous rencontrer ?
+        </h3>
+        <p class="mb-6 text-lg" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+          Retrouvez notre mascotte et toute l'équipe lors de nos événements !
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white transition-colors duration-200 rounded-lg" 
+             style="background-color: var(--color-primary); font-family: var(--font-family-body);">
+            <i class="mr-2 fas fa-calendar-check"></i>
+            Voir nos animations
+          </a>
+          <a href="/contact" class="inline-flex items-center px-6 py-3 border-2 transition-colors duration-200 rounded-lg"
+             style="border-color: var(--color-primary); color: var(--color-primary); font-family: var(--font-family-body);">
+            <i class="mr-2 fas fa-envelope"></i>
+            Nous contacter
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Aspect ratios */
+  .aspect-w-16 {
+    position: relative;
+    padding-bottom: 75%;
+  }
+  
+  .aspect-w-16 > * {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+  
+  /* Swiper custom styles */
+  .mascotte-swiper {
+    width: 100%;
+    height: auto;
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+  
+  .mascotte-swiper .swiper-slide {
+    text-align: center;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+  
+  .mascotte-swiper .swiper-slide img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .mascotte-swiper .swiper-button-next,
+  .mascotte-swiper .swiper-button-prev {
+    color: var(--color-primary);
+    background: rgba(255, 255, 255, 0.9);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+  }
+  
+  .mascotte-swiper .swiper-button-next:hover,
+  .mascotte-swiper .swiper-button-prev:hover {
+    background: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+  }
+  
+  .mascotte-swiper .swiper-button-next:after,
+  .mascotte-swiper .swiper-button-prev:after {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+  
+  /* Custom pagination styles */
+  .swiper-pagination-custom {
+    position: relative;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  .swiper-pagination-custom .swiper-pagination-bullet {
+    background: transparent;
+    border: 2px solid var(--color-primary);
+    opacity: 1;
+    width: 10px;
+    height: 10px;
+    margin: 0 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .swiper-pagination-custom .swiper-pagination-bullet-active {
+    background: var(--color-primary);
+    transform: scale(1.2);
+  }
+  
+  .swiper-pagination-custom .swiper-pagination-bullet:hover:not(.swiper-pagination-bullet-active) {
+    background: rgba(var(--color-primary-rgb), 0.3);
+  }
+  
+  /* Animation d'apparition */
+  .fade-in {
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+  
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+  
+  /* Hover effects pour les cartes */
+  .bento-card {
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+  
+  .bento-card:hover {
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+  }
+  
+  /* Carte CTA spéciale */
+  .bento-card-cta {
+    background: linear-gradient(135deg, var(--color-white) 0%, #f8f9fa 100%);
+  }
+  
+  /* Sticky positioning pour le texte sur desktop */
+  @media (min-width: 1024px) {
+    .lg\:sticky {
+      position: sticky !important;
+    }
+    
+    .lg\:top-8 {
+      top: 2rem !important;
+    }
+  }
+  
+  /* Responsive typography */
+  @media (max-width: 768px) {
+    .prose {
+      font-size: 1rem;
+    }
+    
+    .prose-lg {
+      font-size: 1.125rem;
+    }
+    
+    .mascotte-swiper .swiper-button-next,
+    .mascotte-swiper .swiper-button-prev {
+      width: 35px;
+      height: 35px;
+    }
+  }
+</style>
+
