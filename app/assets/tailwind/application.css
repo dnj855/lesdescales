@@ -458,4 +458,8 @@
   .group:hover .fas {
     transform: none;
   }
+
+  .swiper-test {
+    min-width: 0;
+  }
 }
