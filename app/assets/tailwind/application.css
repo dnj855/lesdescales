@@ -458,8 +458,134 @@
   .group:hover .fas {
     transform: none;
   }
+}
 
-  .swiper-test {
-    min-width: 0;
+ /* Swiper custom styles */
+ .mascotte-swiper {
+  width: 100%;
+  height: auto;
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.mascotte-swiper .swiper-slide {
+  text-align: center;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+}
+
+.mascotte-swiper .swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.mascotte-swiper .swiper-button-next,
+.mascotte-swiper .swiper-button-prev {
+  color: var(--color-primary);
+  background: rgba(255, 255, 255, 0.9);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.mascotte-swiper .swiper-button-next:hover,
+.mascotte-swiper .swiper-button-prev:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+
+.mascotte-swiper .swiper-button-next:after,
+.mascotte-swiper .swiper-button-prev:after {
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+/* Custom pagination styles */
+.swiper-pagination-custom {
+  position: relative;
+  text-align: center;
+  padding: 10px 0;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet {
+  background: transparent;
+  border: 2px solid var(--color-primary);
+  opacity: 1;
+  width: 10px;
+  height: 10px;
+  margin: 0 4px;
+  transition: all 0.3s ease;
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet-active {
+  background: var(--color-primary);
+  transform: scale(1.2);
+}
+
+.swiper-pagination-custom .swiper-pagination-bullet:hover:not(.swiper-pagination-bullet-active) {
+  background: rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Animation d'apparition */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Hover effects pour les cartes */
+.bento-card {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.3s ease;
+}
+
+.bento-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+}
+
+/* Carte CTA spéciale */
+.bento-card-cta {
+  background: linear-gradient(135deg, var(--color-white) 0%, #f8f9fa 100%);
+}
+
+/* Sticky positioning pour le texte sur desktop */
+@media (min-width: 1024px) {
+  .lg\:sticky {
+    position: sticky !important;
+  }
+  
+  .lg\:top-8 {
+    top: 2rem !important;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .prose {
+    font-size: 1rem;
+  }
+  
+  .prose-lg {
+    font-size: 1.125rem;
+  }
+  
+  .mascotte-swiper .swiper-button-next,
+  .mascotte-swiper .swiper-button-prev {
+    width: 35px;
+    height: 35px;
   }
 }
