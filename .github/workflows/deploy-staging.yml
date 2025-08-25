@@ -1,0 +1,101 @@
+name: Deploy to Staging
+
+# --- Déclencheur ---
+# Ce workflow se lancera à chaque push sur la branche 'main'
+on:
+  push:
+    branches:
+      - master
+
+# --- Variables d'environnement globales ---
+# Disponibles pour tous les jobs du workflow
+env:
+  # Le nom de l'image Docker qui sera construite.
+  # Format : ghcr.io/VOTRE_NOM_GITHUB/NOM_DE_VOTRE_REPO
+  # Assurez-vous de remplacer les valeurs !
+  IMAGE_NAME: ghcr.io/${{ github.repository }}
+
+jobs:
+  # --- Premier job : Tester l'application ---
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_HOST_AUTH_METHOD: trust # Permet une connexion sans mot de passe pour les tests
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Mise en place de Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.5 # Mettez votre version de Ruby exacte
+          bundler-cache: true
+
+      - name: Lancer les tests
+        env:
+          RAILS_ENV: test
+          DATABASE_URL: postgresql://postgres@localhost:5432/myapp_test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          bundle exec rails db:create
+          bundle exec rails db:schema:load
+          bundle exec rails test # Ou `bundle exec rspec` si vous utilisez RSpec
+
+  # --- Deuxième job : Construire et déployer ---
+  # Ce job ne se lancera QUE si le job 'test' a réussi ('needs: test')
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout du code
+        uses: actions/checkout@v3
+
+      - name: Connexion au GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.DOCKER_USER }}
+          password: ${{ secrets.DOCKER_TOKEN }}
+
+      - name: Construire et pousser l'image Docker
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          # On tague l'image avec le nom de la branche (:main)
+          tags: ${{ env.IMAGE_NAME }}:master
+          push: true
+          # On passe la RAILS_MASTER_KEY de manière sécurisée pendant le build
+          secrets: |
+            "rails_master_key=${{ secrets.RAILS_MASTER_KEY }}"
+
+      - name: Déploiement sur le VPS
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VPS_SSH_HOST }}
+          username: ${{ secrets.VPS_SSH_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            # On se place dans le bon répertoire
+            cd ${{ secrets.DEPLOY_PATH }}
+
+            # On crée le fichier .env.staging avec les secrets de GitHub
+            # Chaque déploiement écrase l'ancien, c'est sécurisé
+            echo "DATABASE_URL=${{ secrets.DATABASE_URL_STAGING }}" > .env.staging
+            echo "RAILS_MASTER_KEY=${{ secrets.RAILS_MASTER_KEY }}" >> .env.staging
+            echo "CLOUDINARY_URL=${{ secrets.CLOUDINARY_URL }}" >> .env.staging
+            # Ajoutez ici d'autres variables d'environnement si nécessaire
+
+            # On lance le script de déploiement sur le serveur
+            ./deploy.sh ${{ env.IMAGE_NAME }}:master staging ${{ secrets.STAGING_HOSTNAME }}
