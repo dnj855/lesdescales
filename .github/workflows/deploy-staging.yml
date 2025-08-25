@@ -99,4 +99,4 @@ jobs:
             # Ajoutez ici d'autres variables d'environnement si nécessaire
 
             # On lance le script de déploiement sur le serveur
-            ./deploy.sh ${{ env.IMAGE_NAME }}:master staging ${{ secrets.STAGING_HOSTNAME }}
+            ./deploy.sh ${{ env.IMAGE_NAME }}:master staging ${{ secrets.STAGING_HOSTNAME }} ${{ secrets.DOCKER_USER }} ${{ secrets.DOCKER_TOKEN }}
