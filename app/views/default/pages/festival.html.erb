@@ -1,0 +1,471 @@
+<!-- Section Hero -->
+<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <% if content(:title).present? %>
+        <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
+          <%= content(:title) %>
+        </h1>
+      <% end %>
+      <% if content(:description).present? %>
+        <div class="mx-auto max-w-4xl">
+          <div class="text-lg leading-relaxed fade-in" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+            <%= content(:description).html_safe %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Section Prochain Festival -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    
+    <!-- Titre de section -->
+    <div class="relative mb-8 text-center sm:mb-12">
+      <!-- Décoration de fond -->
+      <div class="absolute inset-x-0 top-1/2 h-px opacity-20 -translate-y-1/2" style="background: linear-gradient(to right, transparent, var(--color-primary), var(--color-orange), var(--color-primary), transparent);"></div>
+      
+      <div class="inline-block relative px-4 py-3 rounded-2xl sm:px-8 sm:py-4" style="background-color: var(--color-white); box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);">
+        <h2 class="mb-2 text-2xl font-bold leading-tight sm:mb-3 sm:text-3xl lg:text-4xl fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+          <i class="mr-2 text-lg animate-pulse sm:mr-3 lg:mr-4 sm:text-2xl lg:text-3xl fas fa-star" style="color: var(--color-orange);"></i>
+          <span class="inline-block">Prochaine Édition</span>
+          <i class="ml-2 text-lg animate-pulse sm:ml-3 lg:ml-4 sm:text-2xl lg:text-3xl fas fa-star" style="color: var(--color-orange);"></i>
+        </h2>
+        <div class="mx-auto w-16 h-1 rounded-full sm:w-24" style="background: linear-gradient(90deg, var(--color-primary), var(--color-orange));"></div>
+      </div>
+    </div>
+
+    <% if content(:festival_next_teasing_mode).present? && content(:festival_next_teasing_mode) == "true" %>
+      <!-- Mode Teasing -->
+      <div class="flex justify-center">
+        <div class="overflow-hidden relative max-w-4xl bento-card bento-card-large fade-in group">
+
+          <div class="relative">
+            <% if content(:festival_next_teasing_image).present? %>
+              <div class="overflow-hidden relative h-80 rounded-t-xl">
+                <%= content.image_tag(:festival_next_teasing_image, {}, {
+                  class: "w-full h-full object-cover transition-all ease-in-out duration-500 group-hover:scale-110",
+                  alt: "#{content(:festival_next_title) || 'Prochain Festival'} Les Dés'Calés"
+                }) %>
+                <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/60"></div>
+                <div class="absolute inset-0 bg-gradient-to-r via-transparent from-black/10 to-black/10"></div>
+              </div>
+            <% elsif content(:festival_next_image).present? %>
+              <div class="overflow-hidden relative h-80 rounded-t-xl">
+                <%= content.image_tag(:festival_next_image, {}, {
+                  class: "w-full h-full object-cover transition-all ease-in-out duration-500 group-hover:scale-110",
+                  alt: "#{content(:festival_next_title) || 'Prochain Festival'} Les Dés'Calés"
+                }) %>
+                <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/60"></div>
+                <div class="absolute inset-0 bg-gradient-to-r via-transparent from-black/10 to-black/10"></div>
+              </div>
+            <% else %>
+              <!-- Image de fond par défaut avec motif -->
+              <div class="overflow-hidden relative h-80 rounded-t-xl" style="background: linear-gradient(135deg, var(--color-primary)/20, var(--color-orange)/20);">
+                <div class="absolute inset-0 opacity-10">
+                  <div class="grid grid-cols-8 gap-4 p-8 h-full">
+                    <% 32.times do %>
+                      <i class="text-4xl fas fa-dice-d20" style="color: var(--color-primary);"></i>
+                    <% end %>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            
+            <div class="p-8 text-center">
+              <!-- En-tête avec décoration -->
+              <div class="flex justify-center items-center mb-6">
+                <div class="flex-shrink-0 mr-4">
+                  <div class="p-4 rounded-full animate-bounce" style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange));">
+                    <i class="text-3xl text-white fas fa-dice-d20"></i>
+                  </div>
+                </div>
+                <div>
+                  <h3 class="mb-2 text-3xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+                    <%= content(:festival_next_title).present? ? content(:festival_next_title) : 'Festival des jeux' %>
+                  </h3>
+                  <p class="text-lg font-medium" style="color: var(--color-orange);">
+                    L'aventure commence bientôt...
+                  </p>
+                </div>
+              </div>
+              
+              <% if content(:festival_next_teasing_text).present? %>
+                <div class="mx-auto mb-8 max-w-2xl">
+                  <p class="text-lg leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-gray-700);">
+                    <%= content(:festival_next_teasing_text).html_safe %>
+                  </p>
+                </div>
+              <% else %>
+                <div class="mx-auto mb-8 max-w-2xl">
+                  <p class="mb-4 text-lg leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-gray-700);">
+                    Une nouvelle aventure ludique se prépare...
+                  </p>
+                  <p class="text-base" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+                    Restez connectés pour découvrir toutes les surprises de notre prochaine édition !
+                  </p>
+                </div>
+              <% end %>
+
+              <% if content(:festival_next_date).present? %>
+                <div class="inline-flex items-center px-6 py-4 rounded-xl shadow-lg" style="background: linear-gradient(135deg, var(--color-primary)/10, var(--color-orange)/10);">
+                  <i class="mr-3 text-2xl fas fa-calendar-alt" style="color: var(--color-orange);"></i>
+                  <span class="text-xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+                    <%= content(:festival_next_date) %>
+                  </span>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% else %>
+      <!-- Mode Normal -->
+      <div class="grid gap-6 md:grid-cols-1 lg:grid-cols-5 xl:grid-cols-6">
+        
+        <!-- Image principale verticale -->
+        <% if content(:festival_next_image).present? %>
+          <div class="overflow-hidden relative md:col-span-1 lg:col-span-2 xl:col-span-2 bento-card bento-card-poster fade-in group">
+            <div class="relative h-full min-h-[350px] sm:min-h-[400px] lg:min-h-[500px]">
+              <%= content.image_tag(:festival_next_image, {}, {
+                class: "absolute inset-0 w-full h-full object-cover transition-all duration-500 group-hover:scale-110",
+                alt: "#{content(:festival_next_title) || 'Prochain Festival'} Les Dés'Calés"
+              }) %>
+              <div class="absolute inset-0 bg-gradient-to-t to-transparent from-black/80 via-black/20"></div>
+              <div class="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/10"></div>
+              
+              <!-- Overlay avec titre au bas -->
+              <div class="absolute right-0 bottom-0 left-0 z-10 p-4 text-white sm:p-6">
+                <div class="flex items-center mb-2">
+                  <i class="mr-2 text-xl drop-shadow-lg sm:text-2xl fas fa-dice-d20" style="color: var(--color-orange);"></i>
+                  <h3 class="text-lg font-bold leading-tight drop-shadow-lg sm:text-2xl" style="font-family: var(--font-family-heading);">
+                    <%= content(:festival_next_title).present? ? content(:festival_next_title) : 'Festival Annuel des Jeux' %>
+                  </h3>
+                </div>
+                
+                <% if content(:festival_next_date).present? %>
+                  <div class="flex items-center text-base font-semibold drop-shadow-lg sm:text-lg" style="color: var(--color-orange);">
+                    <i class="mr-2 fas fa-calendar-alt"></i>
+                    <%= content(:festival_next_date) %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <!-- Fallback sans image - carte décorative -->
+          <div class="overflow-hidden relative md:col-span-1 lg:col-span-2 xl:col-span-2 bento-card bento-card-poster fade-in">
+            <div class="relative h-full min-h-[350px] sm:min-h-[400px] lg:min-h-[500px]" style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange));">
+              <!-- Pattern de fond -->
+              <div class="absolute inset-0 opacity-20">
+                <div class="grid grid-cols-4 gap-4 p-8 h-full lg:grid-cols-6">
+                  <% 24.times do %>
+                    <i class="text-2xl text-white fas fa-dice-d20 lg:text-4xl"></i>
+                  <% end %>
+                </div>
+              </div>
+              
+              <!-- Contenu centré -->
+              <div class="flex absolute inset-0 justify-center items-center p-6 text-center">
+                <div class="text-white">
+                  <div class="mb-6">
+                    <i class="text-6xl drop-shadow-lg lg:text-8xl fas fa-dice-d20"></i>
+                  </div>
+                  <h3 class="mb-4 text-xl font-bold leading-tight drop-shadow-lg sm:text-2xl lg:text-3xl" style="font-family: var(--font-family-heading);">
+                    <%= content(:festival_next_title).present? ? content(:festival_next_title) : 'Festival Annuel des Jeux' %>
+                  </h3>
+                  <% if content(:festival_next_date).present? %>
+                    <div class="flex justify-center items-center text-lg font-semibold drop-shadow-lg">
+                      <i class="mr-2 fas fa-calendar-alt"></i>
+                      <%= content(:festival_next_date) %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+        
+        <!-- Informations détaillées -->
+        <div class="md:col-span-1 lg:col-span-3 xl:col-span-4 bento-card bento-card-large fade-in">
+          <div class="flex flex-col justify-between p-6 h-full sm:p-8">
+            
+            <!-- En-tête avec décoration -->
+            <div>
+              <div class="flex items-center mb-4 sm:mb-6">
+                <div class="flex-shrink-0 mr-3 sm:mr-4">
+                  <div class="p-2 rounded-full sm:p-3" style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange));">
+                    <i class="text-xl text-white sm:text-2xl fas fa-trophy"></i>
+                  </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="mb-1 text-xl font-bold leading-tight sm:text-2xl lg:text-3xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+                    <%= content(:festival_next_title).present? ? content(:festival_next_title) : 'Festival Annuel des Jeux' %>
+                  </h3>
+                  <% if content(:festival_next_description).present? %>
+                    <span class="text-sm font-medium sm:text-base lg:text-lg" style="color: var(--color-orange);">
+                      <%= content(:festival_next_description).html_safe %>
+                    </span>
+                  <% else %>
+                    <span class="text-sm font-medium sm:text-base lg:text-lg" style="color: var(--color-orange);">
+                      Le rendez-vous incontournable des passionnés de jeux
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+
+              <!-- Informations clés avec style amélioré -->
+              <div class="grid gap-3 mb-6 sm:gap-4 sm:mb-8 sm:grid-cols-2">
+                <% if content(:festival_next_date).present? %>
+                  <div class="flex items-center p-4 rounded-lg" style="background-color: var(--color-background-pale);">
+                    <div class="flex-shrink-0 mr-3">
+                      <i class="text-xl fas fa-calendar-alt" style="color: var(--color-primary);"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium" style="color: var(--color-gray-600);">Date</p>
+                      <p class="text-base font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                        <%= content(:festival_next_date) %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+                
+                <% if content(:festival_next_location).present? %>
+                  <div class="flex items-center p-4 rounded-lg" style="background-color: var(--color-background-pale);">
+                    <div class="flex-shrink-0 mr-3">
+                      <i class="text-xl fas fa-map-marker-alt" style="color: var(--color-orange);"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium" style="color: var(--color-gray-600);">Lieu</p>
+                      <p class="text-base font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                        <%= content(:festival_next_location) %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+                
+                <% if content(:festival_next_price).present? %>
+                  <div class="flex items-center p-4 rounded-lg" style="background-color: var(--color-background-pale);">
+                    <div class="flex-shrink-0 mr-3">
+                      <i class="text-xl fas fa-ticket-alt" style="color: var(--color-primary);"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm font-medium" style="color: var(--color-gray-600);">Tarif</p>
+                      <p class="text-base font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                        <%= content(:festival_next_price) %>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Boutons d'action améliorés -->
+            <div class="flex flex-col gap-3 sm:flex-row sm:gap-4">
+              <a href="#programme" class="inline-flex justify-center items-center px-4 py-3 text-sm font-bold text-white rounded-xl transition-all duration-300 transform sm:px-6 sm:text-base hover:scale-105 hover:shadow-lg" 
+                 style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange)); font-family: var(--font-family-heading);">
+                <i class="mr-2 sm:mr-3 fas fa-list-ul"></i>
+                <span class="sm:hidden">Le programme</span>
+                <span class="hidden sm:inline">Découvrir le programme</span>
+                <i class="ml-2 transition-transform fas fa-arrow-right group-hover:translate-x-1"></i>
+              </a>
+              <a href="/contact" class="inline-flex justify-center items-center px-4 py-3 text-sm font-bold rounded-xl border-2 transition-all duration-300 transform sm:px-6 sm:text-base hover:scale-105 hover:shadow-lg hover:bg-opacity-10" 
+                 style="border-color: var(--color-primary); color: var(--color-primary); font-family: var(--font-family-heading);">
+                <i class="mr-2 sm:mr-3 fas fa-envelope"></i>
+                Nous contacter
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<!-- Section Programme -->
+<% if content(:festival_program_days).present? || content(:festival_partners).present? %>
+<section id="programme" class="px-4 py-12" style="background-color: var(--color-background-pale);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-calendar-check" style="color: var(--color-orange);"></i>
+        Programme
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      
+      <% repeater(:festival_program_days) do |day| %>
+        <div class="bento-card fade-in">
+          <div class="p-4">
+            <div class="flex items-center mb-3">
+              <% day_name = day.content(:program_day_name).to_s.downcase %>
+              <% if day_name.include?('samedi') || day_name.include?('saturday') %>
+                <i class="mr-2 text-lg fas fa-sun" style="color: var(--color-orange);"></i>
+              <% elsif day_name.include?('dimanche') || day_name.include?('sunday') %>
+                <i class="mr-2 text-lg fas fa-moon" style="color: var(--color-primary);"></i>
+              <% elsif day_name.include?('vendredi') || day_name.include?('friday') || day_name.include?('soir') %>
+                <i class="mr-2 text-lg fas fa-star" style="color: var(--color-orange);"></i>
+              <% else %>
+                <i class="mr-2 text-lg fas fa-calendar-day" style="color: var(--color-primary);"></i>
+              <% end %>
+              
+              <div>
+                <h3 class="text-lg font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                  <%= day.content(:program_day_name) %>
+                </h3>
+                <% if day.content(:program_day_hours).present? %>
+                  <p class="text-sm font-medium" style="color: var(--color-orange);">
+                    <%= day.content(:program_day_hours) %>
+                  </p>
+                <% end %>
+              </div>
+            </div>
+            
+            <% if day.content(:program_day_content).present? %>
+              <div class="text-sm leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+                <%= day.content(:program_day_content).html_safe %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if content(:festival_partners).present? %>
+        <div class="bento-card fade-in">
+          <div class="p-4">
+            <div class="flex items-center mb-3">
+              <i class="mr-2 text-lg fas fa-handshake" style="color: var(--color-orange);"></i>
+              <h3 class="text-lg font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                Nos Partenaires
+              </h3>
+            </div>
+            <div class="text-sm leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+              <%= content(:festival_partners).html_safe %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Éditions Précédentes -->
+<% if festival_editions.any? %>
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-history" style="color: var(--color-orange);"></i>
+        Nos Éditions Précédentes
+      </h2>
+      <p class="text-base fade-in" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+        Revivez les moments forts de nos festivals passés
+      </p>
+    </div>
+
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+      <% festival_editions.each do |edition| %>
+        <div class="bento-card fade-in group">
+          <div class="flex flex-col h-full">
+            <!-- Image d'affiche verticale -->
+            <% if edition.content(:edition_poster_image).present? %>
+              <div class="overflow-hidden relative rounded-t-xl aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200">
+                <%= edition.content.image_tag(:edition_poster_image, {}, {
+                  class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                  alt: "Affiche #{edition.title}"
+                }) %>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+              </div>
+            <% elsif edition.content(:gallery).present? %>
+              <div class="overflow-hidden relative rounded-t-xl aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-200">
+                <%= edition.content.image_tag(edition.content(:gallery).first, {}, {
+                  class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                  alt: "#{edition.title}"
+                }) %>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent"></div>
+              </div>
+            <% else %>
+              <div class="relative rounded-t-xl aspect-[3/4] bg-gradient-to-br from-orange-100 to-orange-200">
+                <div class="flex justify-center items-center w-full h-full">
+                  <div class="text-center">
+                    <i class="mb-3 text-4xl fas fa-images" style="color: var(--color-orange);"></i>
+                    <p class="text-sm font-medium" style="color: var(--color-orange);">Affiche à venir</p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+            
+            <!-- Contenu de la carte -->
+            <div class="flex flex-col justify-between flex-1 p-4">
+              <div>
+                <div class="flex items-center mb-2">
+                  <i class="mr-2 text-base fas fa-calendar" style="color: var(--color-primary);"></i>
+                  <h3 class="text-lg font-semibold leading-tight" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                    <%= edition.title %>
+                    <% if edition.content(:edition_year).present? %>
+                      <span class="text-sm font-medium ml-1" style="color: var(--color-orange);">
+                        (<%= edition.content(:edition_year) %>)
+                      </span>
+                    <% end %>
+                  </h3>
+                </div>
+                
+                <% if edition.content(:description).present? %>
+                  <div class="mb-4 text-sm leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+                    <%= truncate(strip_tags(edition.content(:description).html_safe), length: 100) %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <div class="mt-auto">
+                <%= link_to edition.materialized_path, 
+                    class: "inline-flex items-center text-sm font-medium transition-colors hover:underline",
+                    style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
+                  <span>Découvrir cette édition</span>
+                  <i class="ml-1 fas fa-arrow-right"></i>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section CTA finale -->
+<section class="px-4 py-12" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-4xl text-center">
+    <div class="bento-card bento-card-cta fade-in">
+      <div class="p-6">
+        <h3 class="mb-3 text-xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+          <i class="mr-2 fas fa-calendar-plus" style="color: var(--color-primary);"></i>
+          Restez Informés !
+        </h3>
+        <p class="mb-6 text-base" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+          Ne manquez aucune information sur notre prochain festival. Suivez-nous sur nos réseaux sociaux 
+          ou contactez-nous directement pour plus de détails.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/contact" class="inline-flex items-center px-4 py-2 text-sm font-medium text-white rounded-lg transition-all duration-200 hover:scale-105" 
+             style="background-color: var(--color-primary); font-family: var(--font-family-body);">
+            <i class="mr-2 fas fa-envelope"></i>
+            Nous contacter
+          </a>
+          <a href="/" class="inline-flex items-center px-4 py-2 text-sm font-medium rounded-lg border-2 transition-all duration-200 hover:scale-105" 
+             style="border-color: var(--color-primary); color: var(--color-primary); font-family: var(--font-family-body);">
+            <i class="mr-2 fas fa-home"></i>
+            Retour à l'accueil
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

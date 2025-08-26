@@ -56,6 +56,41 @@ Spina::Theme.register do |theme|
     { name: 'map_embed_code', title: 'Code d\'intégration de la carte', part_type: 'Spina::Parts::MultiLine' },
     { name: 'iframe_embed_code', title: 'Code d\'intégration (iframe)', part_type: 'Spina::Parts::MultiLine' },
 
+    # --- Blocs Spécifiques au Festival ---
+    { name: 'festival_next_title', title: 'Titre du prochain festival', part_type: 'Spina::Parts::Line' },
+    { name: 'festival_next_date', title: 'Dates du prochain festival', part_type: 'Spina::Parts::Line' },
+    { name: 'festival_next_location', title: 'Lieu du prochain festival', part_type: 'Spina::Parts::Line' },
+    { name: 'festival_next_description', title: 'Description du prochain festival', part_type: 'Spina::Parts::Text' },
+    { name: 'festival_next_image', title: 'Image principale du prochain festival', part_type: 'Spina::Parts::Image' },
+    { name: 'festival_next_price', title: 'Prix d\'entrée', part_type: 'Spina::Parts::Line' },
+    { name: 'festival_next_teasing_mode', title: 'Mode Teasing', part_type: 'Spina::Parts::Option',
+      options: %w[true false] },
+    { name: 'festival_next_teasing_text', title: 'Texte du mode Teasing', part_type: 'Spina::Parts::Text' },
+    { name: 'festival_next_teasing_image', title: 'Image du mode Teasing', part_type: 'Spina::Parts::Image' },
+    { name: 'festival_next_teasing_image_tablet', title: 'Image du mode Teasing (Tablette)',
+      part_type: 'Spina::Parts::Image' },
+    { name: 'festival_next_teasing_image_mobile', title: 'Image du mode Teasing (Mobile)',
+      part_type: 'Spina::Parts::Image' },
+    
+    # --- Statistiques d'Édition du Festival ---
+    { name: 'edition_year', title: 'Année de l\'édition', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_visitors_count', title: 'Nombre de visiteurs', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_games_count', title: 'Nombre de jeux proposés', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_tournaments_count', title: 'Nombre de tournois organisés', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_hours_count', title: 'Nombre d\'heures de jeu', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_date', title: 'Dates de l\'édition', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_location', title: 'Lieu de l\'édition', part_type: 'Spina::Parts::Line' },
+    { name: 'edition_poster_image', title: 'Affiche de l\'édition', part_type: 'Spina::Parts::Image' },
+    # --- Programme Flexible par Jour ---
+    { name: 'festival_program_days', title: 'Programme par Jour', part_type: 'Spina::Parts::Repeater',
+      parts: %w[program_day_name program_day_hours program_day_content] },
+    { name: 'program_day_name', title: 'Nom du jour (ex: Samedi, Dimanche, Vendredi soir...)',
+      part_type: 'Spina::Parts::Line' },
+    { name: 'program_day_hours', title: 'Horaires du jour (ex: 10h-18h)', part_type: 'Spina::Parts::Line' },
+    { name: 'program_day_content', title: 'Programme et activités du jour', part_type: 'Spina::Parts::Text' },
+
+    { name: 'festival_partners', title: 'Nos partenaires', part_type: 'Spina::Parts::Text' },
+
     # --- Blocs pour les Liens Sociaux (Layout Parts) ---
     { name: 'facebook_url', title: 'URL Facebook', part_type: 'Spina::Parts::Line' },
     { name: 'instagram_url', title: 'URL Instagram', part_type: 'Spina::Parts::Line' },
@@ -72,14 +107,16 @@ Spina::Theme.register do |theme|
     { name: 'homepage', title: 'Page d\'accueil',
       parts: %w[home_banner_image home_banner_image_tablet home_banner_image_mobile home_who_we_are_text home_meetup_text home_poster_image home_myludo_url home_adhesion_embed] },
     { name: 'mascotte', title: 'Notre mascotte', parts: %w[title mascotte_story mascotte_illustrations] },
-    { name: 'festival', title: 'Festival annuel', parts: %w[title description image_full] },
+    { name: 'festival', title: 'Festival annuel',
+      parts: %w[title description festival_next_teasing_mode festival_next_title festival_next_date festival_next_location festival_next_description festival_next_image festival_next_price festival_next_teasing_text festival_next_teasing_image festival_next_teasing_image_tablet festival_next_teasing_image_mobile festival_program_days festival_partners] },
     { name: 'animations', title: 'Nos animations', parts: %w[title description] },
     { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
     { name: 'contact', title: 'Contact', parts: %w[title description map_embed_code] },
     { name: 'adhesion', title: 'Adhésion', parts: %w[title description iframe_embed_code] },
     { name: 'legal', title: 'Page légale', parts: %w[title description] },
     { name: 'animation_show', title: 'Détail d\'une animation', parts: %w[title description gallery] },
-    { name: 'festival_edition_show', title: 'Détail d\'une édition du festival', parts: %w[title description gallery] }
+    { name: 'festival_edition_show', title: 'Détail d\'une édition du festival', 
+      parts: %w[title description gallery edition_year edition_visitors_count edition_games_count edition_tournaments_count edition_hours_count edition_date edition_location edition_poster_image] }
   ]
 
   # Custom pages

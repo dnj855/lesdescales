@@ -20,6 +20,10 @@ module ApplicationHelper
     @events ||= Spina::Resource.find_by(name: 'events')&.pages&.live || []
   end
 
+  def festival_editions
+    @festival_editions ||= Spina::Resource.find_by(name: 'festival_editions')&.pages&.live || []
+  end
+
   def nav_items
     @nav_items ||= Spina::Navigation.find_by(name: 'main').navigation_items.roots.sorted
   end
