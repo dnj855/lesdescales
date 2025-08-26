@@ -416,7 +416,7 @@
 
 /* Optimisations pour les images et éléments interactifs */
 .bento-card img {
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-in-out;
   will-change: transform;
 }
 

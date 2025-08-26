@@ -1,0 +1,254 @@
+<!-- Section Hero -->
+<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-6xl">
+    <!-- Navigation retour -->
+    <%= link_to "/festival", class: "inline-flex items-center mb-6 text-sm font-medium transition-colors fade-in hover:underline", style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
+      <i class="mr-2 fas fa-arrow-left"></i>
+      Retour au Festival
+    <% end %>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      <!-- Contenu principal -->
+      <div class="lg:col-span-2">
+        <div class="mb-6">
+          <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
+            <i class="mr-3 fas fa-dice-d20" style="color: var(--color-orange);"></i>
+            <%= current_page.title %>
+            <% if content(:edition_year).present? %>
+              <span class="text-2xl font-medium ml-2" style="color: var(--color-orange);">
+                (<%= content(:edition_year) %>)
+              </span>
+            <% end %>
+          </h1>
+          
+          <!-- Infos édition en ligne -->
+          <% if content(:edition_date).present? || content(:edition_location).present? %>
+            <div class="flex flex-wrap gap-4 mb-4 text-sm fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+              <% if content(:edition_date).present? %>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-calendar" style="color: var(--color-primary);"></i>
+                  <%= content(:edition_date) %>
+                </div>
+              <% end %>
+              <% if content(:edition_location).present? %>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-map-marker-alt" style="color: var(--color-primary);"></i>
+                  <%= content(:edition_location) %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Description -->
+        <% if content(:description).present? %>
+          <div class="text-lg leading-relaxed fade-in" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <%= content(:description).html_safe %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Affiche -->
+      <% if content(:edition_poster_image).present? %>
+        <div class="lg:col-span-1">
+          <div class="bento-card fade-in">
+            <div class="p-4">
+              <%= content.image_tag(:edition_poster_image, {}, {
+                class: "w-full h-auto rounded-lg",
+                alt: "Affiche #{current_page.title}"
+              }) %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Section Galerie Photos -->
+<% if content(:gallery).present? %>
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-images" style="color: var(--color-orange);"></i>
+        Galerie Photos
+      </h2>
+      <p class="text-base fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+        Revivez les meilleurs moments de cette édition
+      </p>
+    </div>
+
+    <div class="bento-card fade-in">
+      <div class="p-6" data-controller="swiper">
+        <div data-swiper-target="container" class="swiper gallery-swiper">
+          <div class="swiper-wrapper">
+            <% images(:gallery) do |image| %>
+              <div class="swiper-slide">
+                <%= content.image_tag image, {}, 
+                    {class: "w-full h-auto object-cover rounded-lg max-h-[500px]"} %>
+              </div>
+            <% end %>
+          </div>
+          
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        
+        <div data-swiper-target="pagination" class="mt-4 swiper-pagination-custom"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Statistiques -->
+<% if content(:edition_visitors_count).present? || content(:edition_games_count).present? || content(:edition_tournaments_count).present? || content(:edition_hours_count).present? %>
+<%
+  # Count actual statistics to determine grid layout
+  stats_count = 0
+  stats_count += 1 if content(:edition_visitors_count).present?
+  stats_count += 1 if content(:edition_games_count).present?
+  stats_count += 1 if content(:edition_tournaments_count).present?
+  stats_count += 1 if content(:edition_hours_count).present?
+  
+  # Dynamic grid classes based on stats count
+  grid_classes = case stats_count
+    when 1 then "grid gap-6 justify-center"
+    when 2 then "grid gap-6 md:grid-cols-2 justify-center"
+    when 3 then "grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+    else "grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+  end
+%>
+<section class="px-4 py-12" style="background-color: var(--color-background-pale);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-chart-bar" style="color: var(--color-orange);"></i>
+        Cette Édition en Chiffres
+      </h2>
+    </div>
+
+    <div class="<%= grid_classes %>">
+      <% if content(:edition_visitors_count).present? %>
+        <div class="bento-card bento-card-small fade-in">
+          <div class="p-6 text-center">
+            <i class="mb-3 text-3xl fas fa-users" style="color: var(--color-primary);"></i>
+            <div class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <%= content(:edition_visitors_count) %>
+            </div>
+            <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+              Visiteurs accueillis
+            </p>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if content(:edition_games_count).present? %>
+        <div class="bento-card bento-card-small fade-in">
+          <div class="p-6 text-center">
+            <i class="mb-3 text-3xl fas fa-dice" style="color: var(--color-orange);"></i>
+            <div class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <%= content(:edition_games_count) %>
+            </div>
+            <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+              Jeux proposés
+            </p>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if content(:edition_tournaments_count).present? %>
+        <div class="bento-card bento-card-small fade-in">
+          <div class="p-6 text-center">
+            <i class="mb-3 text-3xl fas fa-trophy" style="color: var(--color-primary);"></i>
+            <div class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <%= content(:edition_tournaments_count) %>
+            </div>
+            <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+              Tournois organisés
+            </p>
+          </div>
+        </div>
+      <% end %>
+      
+      <% if content(:edition_hours_count).present? %>
+        <div class="bento-card bento-card-small fade-in">
+          <div class="p-6 text-center">
+            <i class="mb-3 text-3xl fas fa-clock" style="color: var(--color-orange);"></i>
+            <div class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <%= content(:edition_hours_count) %>
+            </div>
+            <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+              Heures de plaisir
+            </p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Autres Éditions -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-history" style="color: var(--color-orange);"></i>
+        Découvrir Nos Autres Éditions
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% festival_editions.reject { |edition| edition.id == current_page.id }.first(6).each do |edition| %>
+        <div class="bento-card bento-card-poster fade-in group">
+          <%= link_to edition.materialized_path, class: "block" do %>
+            <div class="p-4">
+              <div class="flex items-center mb-3">
+                <i class="mr-2 text-lg fas fa-calendar" style="color: var(--color-primary);"></i>
+                <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                  <%= edition.title %>
+                  <% if edition.content(:edition_year).present? %>
+                    <span class="text-sm font-medium ml-1" style="color: var(--color-orange);">
+                      (<%= edition.content(:edition_year) %>)
+                    </span>
+                  <% end %>
+                </h3>
+              </div>
+              
+              <% if edition.content(:gallery).present? %>
+                <div class="h-40 mb-3 overflow-hidden rounded-lg">
+                  <%= edition.content.image_tag(edition.content(:gallery).first, {}, {
+                    class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    alt: edition.title
+                  }) %>
+                </div>
+              <% else %>
+                <div class="h-40 mb-3 flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-100 to-orange-200">
+                  <i class="text-3xl fas fa-images" style="color: var(--color-orange);"></i>
+                </div>
+              <% end %>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-sm" style="color: var(--color-primary); font-family: var(--font-family-body);">
+                  Découvrir cette édition
+                </span>
+                <i class="transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8 text-center">
+      <%= link_to "/festival", 
+          class: "inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg transition-all duration-200 hover:scale-105",
+          style: "background-color: var(--color-primary); font-family: var(--font-family-body);" do %>
+        <i class="mr-2 fas fa-list"></i>
+        Voir Toutes Nos Éditions
+      <% end %>
+    </div>
+  </div>
+</section>
