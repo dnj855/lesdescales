@@ -71,7 +71,7 @@ Spina::Theme.register do |theme|
       part_type: 'Spina::Parts::Image' },
     { name: 'festival_next_teasing_image_mobile', title: 'Image du mode Teasing (Mobile)',
       part_type: 'Spina::Parts::Image' },
-    
+
     # --- Statistiques d'Édition du Festival ---
     { name: 'edition_year', title: 'Année de l\'édition', part_type: 'Spina::Parts::Line' },
     { name: 'edition_visitors_count', title: 'Nombre de visiteurs', part_type: 'Spina::Parts::Line' },
@@ -88,6 +88,10 @@ Spina::Theme.register do |theme|
       part_type: 'Spina::Parts::Line' },
     { name: 'program_day_hours', title: 'Horaires du jour (ex: 10h-18h)', part_type: 'Spina::Parts::Line' },
     { name: 'program_day_content', title: 'Programme et activités du jour', part_type: 'Spina::Parts::Text' },
+
+    # --- Blocs Spécifiques aux Animations (pages individuelles) ---
+    { name: 'animation_date', title: 'Date(s) de l\'animation', part_type: 'Spina::Parts::Line' },
+    { name: 'animation_location', title: 'Lieu de l\'animation', part_type: 'Spina::Parts::Line' },
 
     { name: 'festival_partners', title: 'Nos partenaires', part_type: 'Spina::Parts::Text' },
 
@@ -110,12 +114,14 @@ Spina::Theme.register do |theme|
     { name: 'festival', title: 'Festival annuel',
       parts: %w[title description festival_next_teasing_mode festival_next_title festival_next_date festival_next_location festival_next_description festival_next_image festival_next_price festival_next_teasing_text festival_next_teasing_image festival_next_teasing_image_tablet festival_next_teasing_image_mobile festival_program_days festival_partners] },
     { name: 'animations', title: 'Nos animations', parts: %w[title description] },
+    { name: 'animations_archives', title: 'Archives des animations', parts: %w[title description] },
     { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
     { name: 'contact', title: 'Contact', parts: %w[title description map_embed_code] },
     { name: 'adhesion', title: 'Adhésion', parts: %w[title description iframe_embed_code] },
     { name: 'legal', title: 'Page légale', parts: %w[title description] },
-    { name: 'animation_show', title: 'Détail d\'une animation', parts: %w[title description gallery] },
-    { name: 'festival_edition_show', title: 'Détail d\'une édition du festival', 
+    { name: 'animation_show', title: 'Détail d\'une animation',
+      parts: %w[title description animation_date animation_location gallery] },
+    { name: 'festival_edition_show', title: 'Détail d\'une édition du festival',
       parts: %w[title description gallery edition_year edition_visitors_count edition_games_count edition_tournaments_count edition_hours_count edition_date edition_location edition_poster_image] }
   ]
 
@@ -127,6 +133,8 @@ Spina::Theme.register do |theme|
     { name: 'mascotte', title: 'Notre mascotte', deletable: false, view_template: 'mascotte' },
     { name: 'festival', title: 'Festival annuel', deletable: false, view_template: 'festival' },
     { name: 'animations', title: 'Nos animations', deletable: false, view_template: 'animations' },
+    { name: 'animations_archives', title: 'Archives des animations', deletable: false,
+      view_template: 'animations_archives' },
     { name: 'galleries', title: 'Galeries photos', deletable: false, view_template: 'gallery_index' },
     { name: 'contact', title: 'Contact', deletable: false, view_template: 'contact' },
     { name: 'adhesion', title: 'Adhésion', deletable: false, view_template: 'adhesion' },

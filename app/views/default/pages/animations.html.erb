@@ -1,0 +1,120 @@
+<!-- Section Titre -->
+<% if content(:title).present? %>
+<section class="px-4 py-12 mt-16 bg-background">
+  <div class="mx-auto max-w-6xl text-center">
+    <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl font-family-heading">
+      <%= content(:title) %>
+    </h1>
+    <% if content(:description).present? %>
+      <div class="mx-auto max-w-3xl mt-6 text-lg leading-relaxed text-gray-600 font-family-body">
+        <%= content(:description).html_safe %>
+      </div>
+    <% end %>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Animations -->
+<section class="px-4 py-12 bg-white">
+  <div class="mx-auto max-w-6xl">
+    <!-- En-tête avec lien vers les archives -->
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-8">
+      <h2 class="text-2xl font-bold text-gray-900 mb-4 sm:mb-0 font-family-heading">
+        Nos animations actuelles
+      </h2>
+      <div class="flex gap-3">
+        <%= link_to animations_archives_path, class: "inline-flex items-center gap-2 px-4 py-2 text-sm text-gray-600 hover:text-primary border border-gray-300 hover:border-primary rounded-lg transition-colors duration-200 font-family-body" do %>
+          <i class="fas fa-archive"></i>
+          <span>Voir les archives</span>
+        <% end %>
+      </div>
+    </div>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% animations.each do |animation| %>
+        <div class="bento-card bento-card-poster fade-in group">
+          <%= link_to animation.materialized_path, class: "block" do %>
+            <div class="p-4">
+              <div class="flex items-center mb-3">
+                <i class="mr-2 text-lg fas fa-calendar-check" style="color: var(--color-primary);"></i>
+                <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                  <%= animation.title %>
+                </h3>
+              </div>
+              
+              <!-- Infos pratiques -->
+              <div class="mb-4 space-y-2">
+                <% if animation.content(:animation_date).present? %>
+                  <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+                    <i class="fas fa-calendar" style="color: var(--color-primary);"></i>
+                    <%= animation.content(:animation_date) %>
+                  </div>
+                <% end %>
+                <% if animation.content(:animation_location).present? %>
+                  <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+                    <i class="fas fa-map-marker-alt" style="color: var(--color-primary);"></i>
+                    <%= animation.content(:animation_location) %>
+                  </div>
+                <% end %>
+              </div>
+              
+              <!-- Image ou placeholder -->
+              <% if animation.content(:gallery).present? %>
+                <div class="h-40 mb-3 overflow-hidden rounded-lg">
+                  <%= animation.content.image_tag(animation.content(:gallery).first, {}, {
+                    class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    alt: animation.title
+                  }) %>
+                </div>
+              <% else %>
+                <div class="h-40 mb-3 flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-100 to-orange-200">
+                  <i class="text-3xl fas fa-images" style="color: var(--color-orange);"></i>
+                </div>
+              <% end %>
+              
+              <!-- Description courte -->
+              <% if animation.content(:description).present? %>
+                <div class="mb-3 text-sm line-clamp-3" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+                  <%= strip_tags(animation.content(:description).to_s).truncate(120) %>
+                </div>
+              <% end %>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-sm" style="color: var(--color-primary); font-family: var(--font-family-body);">
+                  Découvrir cette animation
+                </span>
+                <i class="transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Section CTA -->
+<section class="px-4 py-16 bg-background">
+  <div class="mx-auto max-w-4xl text-center">
+    <div class="bento-card bento-card-cta fade-in">
+      <div class="p-8">
+        <h3 class="mb-4 text-2xl font-semibold text-gray-900 font-family-heading">
+          <i class="mr-3 text-primary fas fa-users"></i>
+          Rejoignez-nous !
+        </h3>
+        <p class="mb-6 text-lg text-gray-900 font-family-body">
+          Participez à nos animations et découvrez l'univers du jeu de société avec notre équipe !
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/contact" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary hover:bg-primary/90 font-family-body">
+            <i class="mr-2 fas fa-envelope"></i>
+            Nous contacter
+          </a>
+          <a href="/adhesion" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary hover:bg-primary hover:text-white font-family-body">
+            <i class="mr-2 fas fa-heart"></i>
+            Adhérer à l'association
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

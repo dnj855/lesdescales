@@ -1,0 +1,156 @@
+<!-- Section Hero -->
+<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-6xl">
+    <!-- Navigation retour -->
+    <%= link_to "/animations", class: "inline-flex items-center mb-6 text-sm font-medium transition-colors fade-in hover:underline", style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
+      <i class="mr-2 fas fa-arrow-left"></i>
+      Retour aux Animations
+    <% end %>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      <!-- Contenu principal -->
+      <div class="lg:col-span-2">
+        <div class="mb-6">
+          <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
+            <i class="mr-3 fas fa-calendar-check" style="color: var(--color-orange);"></i>
+            <%= current_page.title %>
+          </h1>
+          
+          <!-- Infos animation en ligne -->
+          <% if content(:animation_date).present? || content(:animation_location).present? %> 
+            <div class="flex flex-wrap gap-4 mb-4 text-sm fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+              <% if content(:animation_date).present? %>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-calendar" style="color: var(--color-primary);"></i>
+                  <%= content(:animation_date) %>
+                </div>
+              <% end %>
+              <% if content(:animation_location).present? %>
+                <div class="flex items-center gap-2">
+                  <i class="fas fa-map-marker-alt" style="color: var(--color-primary);"></i>
+                  <%= content(:animation_location) %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Description -->
+        <% if content(:description).present? %>
+          <div class="text-lg leading-relaxed fade-in" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <%= content(:description).html_safe %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Placeholder pour image principale si pas de galerie -->
+      <% if content(:gallery).blank? %>
+        <div class="lg:col-span-1">
+          <div class="bento-card fade-in">
+            <div class="h-full min-h-[300px] flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-50 to-orange-100">
+              <div class="text-center">
+                <i class="mb-3 text-4xl text-orange-300 fas fa-images"></i>
+                <p class="text-sm text-orange-600 font-family-body">Photos à venir</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- Section Galerie Photos -->
+<% if content(:gallery).present? %>
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-images" style="color: var(--color-orange);"></i>
+        Galerie Photos
+      </h2>
+      <p class="text-base fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+        Découvrez cette animation en images
+      </p>
+    </div>
+
+    <div class="bento-card fade-in">
+      <div class="p-6" data-controller="swiper">
+        <div data-swiper-target="container" class="swiper animation-gallery-swiper">
+          <div class="swiper-wrapper">
+            <% images(:gallery) do |image| %>
+              <div class="swiper-slide">
+                <%= content.image_tag image, {}, 
+                    {class: "w-full h-auto object-cover rounded-lg max-h-[500px]"} %>
+              </div>
+            <% end %>
+          </div>
+          
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-button-next"></div>
+        </div>
+        
+        <div data-swiper-target="pagination" class="mt-4 swiper-pagination-custom"></div>
+      </div>
+    </div>
+  </div>
+</section>
+<% end %>
+
+<!-- Section Autres Animations -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-6xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-calendar-alt" style="color: var(--color-orange);"></i>
+        Découvrir Nos Autres Animations
+      </h2>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <% animations.reject { |animation| animation.id == current_page.id }.first(6).each do |animation| %>
+        <div class="bento-card bento-card-poster fade-in group">
+          <%= link_to animation.materialized_path, class: "block" do %>
+            <div class="p-4">
+              <div class="flex items-center mb-3">
+                <i class="mr-2 text-lg fas fa-calendar-check" style="color: var(--color-primary);"></i>
+                <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                  <%= animation.title %>
+                </h3>
+              </div>
+              
+              <% if animation.content(:gallery).present? %>
+                <div class="h-40 mb-3 overflow-hidden rounded-lg">
+                  <%= animation.content.image_tag(animation.content(:gallery).first, {}, {
+                    class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    alt: animation.title
+                  }) %>
+                </div>
+              <% else %>
+                <div class="h-40 mb-3 flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-100 to-orange-200">
+                  <i class="text-3xl fas fa-images" style="color: var(--color-orange);"></i>
+                </div>
+              <% end %>
+              
+              <div class="flex justify-between items-center">
+                <span class="text-sm" style="color: var(--color-primary); font-family: var(--font-family-body);">
+                  Découvrir cette animation
+                </span>
+                <i class="transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mt-8 text-center">
+      <%= link_to "/animations", 
+          class: "inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg transition-all duration-200 hover:scale-105",
+          style: "background-color: var(--color-primary); font-family: var(--font-family-body);" do %>
+        <i class="mr-2 fas fa-list"></i>
+        Voir Toutes Nos Animations
+      <% end %>
+    </div>
+  </div>
+</section>
