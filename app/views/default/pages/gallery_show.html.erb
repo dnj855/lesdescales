@@ -1,0 +1,218 @@
+<!-- Section Hero -->
+<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-7xl">
+    <!-- Navigation retour -->
+    <%= link_to "/galleries", class: "inline-flex items-center mb-6 text-sm font-medium transition-colors fade-in hover:underline", style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
+      <i class="mr-2 fas fa-arrow-left"></i>
+      Retour aux Galeries
+    <% end %>
+
+    <div class="grid gap-8 lg:grid-cols-3">
+      <!-- Contenu principal -->
+      <div class="lg:col-span-2">
+        <div class="mb-6">
+          <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
+            <i class="mr-3 fas fa-camera-retro" style="color: var(--color-orange);"></i>
+            <%= current_page.title %>
+          </h1>
+          
+          <!-- Infos galerie en ligne -->
+          <% if content(:gallery).present? %> 
+            <div class="flex flex-wrap gap-4 mb-4 text-sm fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+              <div class="flex items-center gap-2">
+                <i class="fas fa-images" style="color: var(--color-primary);"></i>
+                <%= content(:gallery).count %> photos
+              </div>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Description -->
+        <% if content(:description).present? %>
+          <div class="text-lg leading-relaxed fade-in" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <%= content(:description).html_safe %>
+          </div>
+        <% end %>
+      </div>
+
+      <!-- Placeholder pour image principale si pas de galerie -->
+      <% if content(:gallery).blank? %>
+        <div class="lg:col-span-1">
+          <div class="bento-card fade-in">
+            <div class="h-full min-h-[300px] flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-50 to-orange-100">
+              <div class="text-center">
+                <i class="mb-3 text-4xl text-orange-300 fas fa-images"></i>
+                <p class="text-sm text-orange-600 font-family-body">Photos à venir</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+
+<!-- Section Galerie Photos -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-7xl">
+    
+    <% if content(:gallery).present? && content(:gallery).any? %>
+      
+      <!-- Galerie Swiper -->
+      <div class="overflow-hidden min-w-0 max-w-full bento-card fade-in">
+        <div class="p-4" data-controller="swiper">
+          <!-- Swiper container -->
+          <div data-swiper-target="container" class="swiper gallery-swiper">
+            <div class="swiper-wrapper">
+              <% content(:gallery).each_with_index do |image, index| %>
+                <div class="swiper-slide">
+                  <a href="<%= main_app.rails_blob_url(image) %>" 
+                     data-lightbox="gallery" 
+                     data-title="<%= current_page.title %> - Photo <%= index + 1 %>">
+                    <div class="overflow-hidden relative rounded-lg aspect-[4/3] bg-gray-100">
+                      <%= content.image_tag(image, { resize_to_fill: [800, 600] }, {
+                          class: "w-full h-full object-cover transition-all duration-300 hover:scale-105",
+                          loading: "lazy",
+                          alt: "#{current_page.title} - Photo #{index + 1}"
+                      }) %>
+                      <div class="absolute inset-0 flex justify-center items-center opacity-0 transition-opacity duration-300 hover:opacity-100">
+                        <div class="p-3 rounded-full" style="background-color: rgba(0,0,0,0.7);">
+                          <i class="text-2xl text-white fas fa-expand"></i>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+              <% end %>
+            </div>
+            
+            <!-- Navigation buttons -->
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+          </div>
+          
+          <!-- Pagination outside swiper container -->
+          <div data-swiper-target="pagination" class="mt-4 swiper-pagination-custom"></div>
+        </div>
+      </div>
+      
+    <% else %>
+      <!-- Message si pas de photos -->
+      <div class="text-center">
+        <div class="bento-card bento-card-large fade-in">
+          <div class="p-12">
+            <i class="mb-6 text-6xl fas fa-camera-retro" style="color: var(--color-orange);"></i>
+            <h3 class="mb-4 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              Aucune photo dans cette galerie
+            </h3>
+            <p class="mb-6 text-lg" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+              Les photos seront bientôt ajoutées à cette galerie.
+            </p>
+            <a href="/galleries" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 hover:scale-105" style="background-color: var(--color-primary); font-family: var(--font-family-body);">
+              <i class="mr-2 fas fa-arrow-left"></i>
+              Retour aux galeries
+            </a>
+          </div>
+        </div>
+      </div>
+    <% end %>
+    
+  </div>
+</section>
+
+<!-- Section Autres Galeries -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-7xl">
+    <div class="mb-8 text-center">
+      <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+        <i class="mr-3 fas fa-camera-retro" style="color: var(--color-orange);"></i>
+        Découvrir Nos Autres Galeries
+      </h2>
+    </div>
+
+    <% other_galleries = Spina::Resource.find_by(name: 'galleries')&.pages&.live&.sorted&.where.not(id: current_page.id)&.limit(6) || [] %>
+    
+    <% if other_galleries.any? %>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        <% other_galleries.each do |gallery| %>
+          <div class="bento-card bento-card-poster fade-in group">
+            <%= link_to gallery.materialized_path, class: "block" do %>
+              <div class="p-4">
+                <div class="flex items-center mb-3">
+                  <i class="mr-2 text-lg fas fa-camera-retro" style="color: var(--color-primary);"></i>
+                  <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+                    <%= gallery.title %>
+                  </h3>
+                </div>
+                
+                <% if gallery.content(:gallery).present? %>
+                  <div class="h-40 mb-3 overflow-hidden rounded-lg">
+                    <%= gallery.content.image_tag(gallery.content(:gallery).first, {}, {
+                      class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                      alt: gallery.title
+                    }) %>
+                  </div>
+                <% else %>
+                  <div class="h-40 mb-3 flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-100 to-orange-200">
+                    <i class="text-3xl fas fa-camera-retro" style="color: var(--color-orange);"></i>
+                  </div>
+                <% end %>
+                
+                <div class="flex justify-between items-center">
+                  <span class="text-sm" style="color: var(--color-primary); font-family: var(--font-family-body);">
+                    Découvrir cette galerie
+                  </span>
+                  <i class="transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      
+      <div class="mt-8 text-center">
+        <%= link_to "/galleries", 
+            class: "inline-flex items-center px-6 py-3 text-base font-medium text-white rounded-lg transition-all duration-200 hover:scale-105",
+            style: "background-color: var(--color-primary); font-family: var(--font-family-body);" do %>
+          <i class="mr-2 fas fa-camera-retro"></i>
+          Voir Toutes Nos Galeries
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center">
+        <p class="text-lg" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+          Aucune autre galerie disponible pour le moment.
+        </p>
+      </div>
+    <% end %>
+    
+  </div>
+</section>
+
+<!-- Scripts pour la galerie -->
+<script>
+  // Animation fade-in au scroll
+  document.addEventListener('DOMContentLoaded', function() {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+      observer.observe(el);
+    });
+  });
+</script>

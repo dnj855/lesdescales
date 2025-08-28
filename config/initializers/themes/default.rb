@@ -123,6 +123,8 @@ Spina::Theme.register do |theme|
     { name: 'legal', title: 'Page légale', parts: %w[title description] },
     { name: 'animation_show', title: 'Détail d\'une animation',
       parts: %w[title description animation_date animation_location gallery] },
+    { name: 'gallery_show', title: 'Détail d\'une galerie photo',
+      parts: %w[title description gallery] },
     { name: 'festival_edition_show', title: 'Détail d\'une édition du festival',
       parts: %w[title description gallery edition_year edition_visitors_count edition_games_count edition_tournaments_count edition_hours_count edition_date edition_location edition_poster_image] }
   ]
@@ -161,7 +163,8 @@ Spina::Theme.register do |theme|
   theme.resources = [
     { name: 'animations', label: 'Animations', view_template: 'animation_show', slug: 'animations' },
     { name: 'festival_editions', label: 'Éditions du Festival', view_template: 'festival_edition_show',
-      slug: 'festival' }
+      slug: 'festival' },
+    { name: 'galleries', label: 'Galeries photos', view_template: 'gallery_show', slug: 'galleries' }
   ]
 
   # Plugins (optional)
