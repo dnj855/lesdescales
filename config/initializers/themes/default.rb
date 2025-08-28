@@ -23,9 +23,11 @@ Spina::Theme.register do |theme|
   theme.parts = [
     # --- Blocs Génériques ---
     { name: 'title', title: 'Titre de la page', part_type: 'Spina::Parts::Line' },
+    { name: 'subtitle', title: 'Sous-titre de la page', part_type: 'Spina::Parts::Line' },
     { name: 'description', title: 'Description / Texte principal', part_type: 'Spina::Parts::Text' },
     { name: 'image_full', title: 'Image pleine largeur', part_type: 'Spina::Parts::Image' },
     { name: 'gallery', title: 'Galerie d\'images', part_type: 'Spina::Parts::ImageCollection' },
+    { name: 'cta_text', title: 'Texte du CTA', part_type: 'Spina::Parts::Text' },
     { name: 'short_description', title: 'Description courte', part_type: 'Spina::Parts::MultiLine' },
 
     # --- Blocs Spécifiques à l'Accueil ---
@@ -113,7 +115,7 @@ Spina::Theme.register do |theme|
     { name: 'mascotte', title: 'Notre mascotte', parts: %w[title mascotte_story mascotte_illustrations] },
     { name: 'festival', title: 'Festival annuel',
       parts: %w[title description festival_next_teasing_mode festival_next_title festival_next_date festival_next_location festival_next_description festival_next_image festival_next_price festival_next_teasing_text festival_next_teasing_image festival_next_teasing_image_tablet festival_next_teasing_image_mobile festival_program_days festival_partners] },
-    { name: 'animations', title: 'Nos animations', parts: %w[title description] },
+    { name: 'animations', title: 'Nos animations', parts: %w[title subtitle description cta_text] },
     { name: 'animations_archives', title: 'Archives des animations', parts: %w[title description] },
     { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
     { name: 'contact', title: 'Contact', parts: %w[title description map_embed_code] },

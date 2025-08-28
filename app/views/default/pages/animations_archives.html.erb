@@ -1,7 +1,7 @@
 <!-- Section Titre -->
 <% if content(:title).present? %>
 <section class="px-4 py-12 mt-16 bg-background">
-  <div class="mx-auto max-w-6xl text-center">
+  <div class="mx-auto max-w-7xl text-center">
     <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl font-family-heading">
       <%= content(:title) %>
     </h1>
@@ -27,7 +27,7 @@
 
 <!-- Lien retour vers animations -->
 <section class="px-4 py-6 bg-white">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     <%= link_to "/animations", class: "inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 font-family-body" do %>
       <i class="fas fa-arrow-left"></i>
       <span>Retour aux animations actuelles</span>
@@ -37,7 +37,7 @@
 
 <!-- Section Animations Archivées -->
 <section class="px-4 py-12 bg-white">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     <% if archived_animations.any? %>
       <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         <% archived_animations.each do |animation| %>
@@ -132,7 +132,7 @@
 
 <!-- Section CTA -->
 <section class="px-4 py-16 bg-background">
-  <div class="mx-auto max-w-4xl text-center">
+  <div class="mx-auto max-w-7xl text-center">
     <div class="bento-card bento-card-cta fade-in">
       <div class="p-8">
         <h3 class="mb-4 text-2xl font-semibold text-gray-900 font-family-heading">

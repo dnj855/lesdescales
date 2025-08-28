@@ -1,6 +1,6 @@
 <!-- Section Hero -->
 <section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     <div class="mb-8 text-center">
       <% if content(:title).present? %>
         <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
@@ -8,7 +8,7 @@
         </h1>
       <% end %>
       <% if content(:description).present? %>
-        <div class="mx-auto max-w-4xl">
+        <div class="mx-auto max-w-7xl">
           <div class="text-lg leading-relaxed fade-in" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
             <%= content(:description).html_safe %>
           </div>
@@ -20,7 +20,7 @@
 
 <!-- Section Prochain Festival -->
 <section class="px-4 py-12" style="background-color: var(--color-white);">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     
     <!-- Titre de section -->
     <div class="relative mb-8 text-center sm:mb-12">
@@ -40,7 +40,7 @@
     <% if content(:festival_next_teasing_mode).present? && content(:festival_next_teasing_mode) == "true" %>
       <!-- Mode Teasing -->
       <div class="flex justify-center">
-        <div class="overflow-hidden relative max-w-4xl bento-card bento-card-large fade-in group">
+        <div class="overflow-hidden relative max-w-7xl bento-card bento-card-large fade-in group">
 
           <div class="relative">
             <% if content(:festival_next_teasing_image).present? %>
@@ -288,7 +288,7 @@
 <!-- Section Programme -->
 <% if content(:festival_program_days).present? || content(:festival_partners).present? %>
 <section id="programme" class="px-4 py-12" style="background-color: var(--color-background-pale);">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     <div class="mb-8 text-center">
       <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
         <i class="mr-3 fas fa-calendar-check" style="color: var(--color-orange);"></i>
@@ -357,7 +357,7 @@
 <!-- Section Éditions Précédentes -->
 <% if festival_editions.any? %>
 <section class="px-4 py-12" style="background-color: var(--color-white);">
-  <div class="mx-auto max-w-6xl">
+  <div class="mx-auto max-w-7xl">
     
     <div class="mb-8 text-center">
       <h2 class="mb-2 text-3xl font-bold fade-in" style="font-family: var(--font-family-heading); color: var(--color-primary);">
@@ -442,7 +442,7 @@
 
 <!-- Section CTA finale -->
 <section class="px-4 py-12" style="background-color: var(--color-background);">
-  <div class="mx-auto max-w-4xl text-center">
+  <div class="mx-auto max-w-7xl text-center">
     <div class="bento-card bento-card-cta fade-in">
       <div class="p-6">
         <h3 class="mb-3 text-xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
