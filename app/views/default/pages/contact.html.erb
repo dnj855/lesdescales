@@ -1,180 +1,180 @@
-<!-- Section Bannière Contact -->
-<section class="px-4 py-12 mt-16" style="background-color: var(--color-background);">
-  <div class="mx-auto max-w-7xl">
-    <div class="mb-12 text-center fade-in">
-      <h1 class="mb-4 text-4xl font-bold md:text-5xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-        <i class="mr-4 fas fa-envelope"></i>
-        <%= content(:title).presence || "Contactez-nous" %>
-      </h1>
-      <% if content(:subtitle).present? %>
-        <p class="text-xl" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-          <%= content(:subtitle) %>
-        </p>
-      <% end %>
-    </div>
+<!-- Section Titre -->
+<% if content(:title).present? %>
+<section class="px-4 py-12 mt-16 bg-background">
+  <div class="mx-auto max-w-7xl text-center">
+    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl font-heading">
+      <%= content(:title) %>
+    </h1>
   </div>
 </section>
+<% end %>
 
-<!-- Section Informations de Contact -->
-<section class="px-4 py-12" style="background-color: var(--color-white);">
+<!-- Section principale : Contact -->
+<section class="px-4 py-12 bg-white">
   <div class="mx-auto max-w-7xl">
-    <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+    <div class="grid gap-8 items-start lg:grid-cols-2 lg:gap-12">
       
       <!-- Colonne de gauche : Informations -->
-      <div class="rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 fade-in" style="background-color: var(--color-white); border: 1px solid var(--color-gray-200);">
-        <div class="p-8">
-          <h2 class="flex items-center mb-6 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-3 fas fa-info-circle" style="color: var(--color-primary);"></i>
-            Informations pratiques
-          </h2>
-          
-          <div class="space-y-6">
-            <% if current_spina_account.address.present? %>
-              <div class="flex items-start">
-                <i class="mt-1 mr-4 text-xl fas fa-map-marker-alt" style="color: var(--color-primary);"></i>
-                <div>
-                  <h3 class="mb-2 font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                    Adresse
-                  </h3>
-                  <address class="not-italic" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-                    <%= current_spina_account.address %><br>
-                    <% if current_spina_account.postal_code.present? && current_spina_account.city.present? %>
-                      <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
-                    <% end %>
-                  </address>
-                </div>
-              </div>
-            <% end %>
-            
-            <% if current_spina_account.email.present? %>
-              <div class="flex items-start">
-                <i class="mt-1 mr-4 text-xl fas fa-envelope" style="color: var(--color-primary);"></i>
-                <div>
-                  <h3 class="mb-2 font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                    Email
-                  </h3>
-                  <p style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-                    <a href="mailto:<%= current_spina_account.email %>" class="hover:underline" style="color: var(--color-primary);">
-                      <%= current_spina_account.email %>
-                    </a>
-                  </p>
-                </div>
-              </div>
-            <% end %>
-            
-            <% if current_spina_account.phone.present? %>
-              <div class="flex items-start">
-                <i class="mt-1 mr-4 text-xl fas fa-phone" style="color: var(--color-primary);"></i>
-                <div>
-                  <h3 class="mb-2 font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                    Téléphone
-                  </h3>
-                  <p style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-                    <a href="tel:<%= current_spina_account.phone %>" class="hover:underline" style="color: var(--color-primary);">
-                      <%= current_spina_account.phone %>
-                    </a>
-                  </p>
-                </div>
-              </div>
-            <% end %>
-            
-            <% if content(:contact_hours).present? %>
-              <div class="flex items-start">
-                <i class="mt-1 mr-4 text-xl fas fa-clock" style="color: var(--color-primary);"></i>
-                <div>
-                  <h3 class="mb-2 font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                    Horaires
-                  </h3>
-                  <div style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-                    <%= simple_format content(:contact_hours) %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          </div>
-          
-          <!-- Boutons de réseaux sociaux -->
-          <div class="pt-8 mt-8 border-t" style="border-color: var(--color-gray-200);">
-            <h3 class="mb-4 font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Suivez-nous sur les réseaux
-            </h3>
-            <div class="flex space-x-4">
-              <% if current_spina_account.content(:facebook_url).present? %>
-                <a href="<%= current_spina_account.content(:facebook_url) %>" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 hover:text-white"
-                   style="background-color: rgba(227, 21, 7, 0.1);"
-                   onmouseover="this.style.backgroundColor='var(--color-primary)'"
-                   onmouseout="this.style.backgroundColor='rgba(227, 21, 7, 0.1)'"
-                   aria-label="Facebook">
-                  <i class="fab fa-facebook-f"></i>
-                </a>
-              <% end %>
-              
-              <% if current_spina_account.content(:instagram_url).present? %>
-                <a href="<%= current_spina_account.content(:instagram_url) %>" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 hover:text-white"
-                   style="background-color: rgba(227, 21, 7, 0.1);"
-                   onmouseover="this.style.backgroundColor='var(--color-primary)'"
-                   onmouseout="this.style.backgroundColor='rgba(227, 21, 7, 0.1)'"
-                   aria-label="Instagram">
-                  <i class="fab fa-instagram"></i>
-                </a>
-              <% end %>
-              
-              <% if current_spina_account.content(:youtube_url).present? %>
-                <a href="<%= current_spina_account.content(:youtube_url) %>" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 hover:text-white"
-                   style="background-color: rgba(227, 21, 7, 0.1);"
-                   onmouseover="this.style.backgroundColor='var(--color-primary)'"
-                   onmouseout="this.style.backgroundColor='rgba(227, 21, 7, 0.1)'"
-                   aria-label="YouTube">
-                  <i class="fab fa-youtube"></i>
-                </a>
-              <% end %>
-              
-              <% if current_spina_account.content(:tiktok_url).present? %>
-                <a href="<%= current_spina_account.content(:tiktok_url) %>" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 hover:text-white"
-                   style="background-color: rgba(227, 21, 7, 0.1);"
-                   onmouseover="this.style.backgroundColor='var(--color-primary)'"
-                   onmouseout="this.style.backgroundColor='rgba(227, 21, 7, 0.1)'"
-                   aria-label="TikTok">
-                  <i class="fab fa-tiktok"></i>
-                </a>
-              <% end %>
+      <div>
+        <div class="bento-card fade-in lg:sticky lg:top-8">
+          <div class="p-8">
+            <div class="flex items-center mb-6">
+              <i class="mr-4 text-3xl text-primary fas fa-info-circle"></i>
+              <h2 class="text-3xl font-semibold text-primary font-heading">
+                Informations pratiques
+              </h2>
             </div>
+          
+            <div class="space-y-6">
+                <% if current_spina_account.address.present? %>
+                  <div class="flex">
+                    <i class="flex-shrink-0 mr-4 text-xl fas fa-map-marker-alt text-primary"></i>
+                    <div>
+                      <h3 class="mb-2 font-semibold font-heading">
+                        Adresse
+                      </h3>
+                      <address class="not-italic font-body">
+                        <%= current_spina_account.address %><br>
+                        <% if current_spina_account.postal_code.present? && current_spina_account.city.present? %>
+                          <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
+                        <% end %>
+                      </address>
+                    </div>
+                  </div>
+                <% end %>
+                
+                <% if current_spina_account.email.present? %>
+                  <div class="flex">
+                    <i class="flex-shrink-0 mr-4 text-xl fas fa-envelope text-primary"></i>
+                    <div>
+                      <h3 class="mb-2 font-semibold font-heading">
+                        Email
+                      </h3>
+                      <p class="font-body">
+                        <a href="mailto:<%= current_spina_account.email %>" class="hover:underline text-primary">
+                          <%= current_spina_account.email %>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+                
+                <% if current_spina_account.phone.present? %>
+                  <div class="flex">
+                    <i class="flex-shrink-0 mr-4 text-xl fas fa-phone text-primary"></i>
+                    <div>
+                      <h3 class="mb-2 font-semibold font-heading">
+                        Téléphone
+                      </h3>
+                      <p class="font-body">
+                        <a href="tel:<%= current_spina_account.phone %>" class="hover:underline text-primary">
+                          <%= current_spina_account.phone %>
+                        </a>
+                      </p>
+                    </div>
+                  </div>
+                <% end %>
+                
+                <% if content(:contact_hours).present? %>
+                  <div class="flex">
+                    <i class="flex-shrink-0 mr-4 text-xl fas fa-clock text-primary"></i>
+                    <div>
+                      <h3 class="mb-2 font-semibold font-heading">
+                        Horaires
+                      </h3>
+                      <div class="font-body">
+                        <%= simple_format content(:contact_hours) %>
+                      </div>
+                    </div>
+                  </div>
+                <% end %>
+            </div>
+            
+            <!-- Réseaux sociaux -->
+            <% if current_spina_account.content(:facebook_url).present? || current_spina_account.content(:instagram_url).present? || current_spina_account.content(:youtube_url).present? || current_spina_account.content(:tiktok_url).present? %>
+              <div class="pt-8 mt-8 border-t border-gray-200">
+                <h3 class="mb-4 font-semibold font-heading">
+                  Suivez-nous sur les réseaux
+                </h3>
+                <div class="flex space-x-4">
+                  <% if current_spina_account.content(:facebook_url).present? %>
+                    <a href="<%= current_spina_account.content(:facebook_url) %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 bg-primary/10 text-primary hover:bg-primary hover:text-white"
+                       aria-label="Facebook">
+                      <i class="fab fa-facebook-f"></i>
+                    </a>
+                  <% end %>
+                  
+                  <% if current_spina_account.content(:instagram_url).present? %>
+                    <a href="<%= current_spina_account.content(:instagram_url) %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 bg-primary/10 text-primary hover:bg-primary hover:text-white"
+                       aria-label="Instagram">
+                      <i class="fab fa-instagram"></i>
+                    </a>
+                  <% end %>
+                  
+                  <% if current_spina_account.content(:youtube_url).present? %>
+                    <a href="<%= current_spina_account.content(:youtube_url) %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 bg-primary/10 text-primary hover:bg-primary hover:text-white"
+                       aria-label="YouTube">
+                      <i class="fab fa-youtube"></i>
+                    </a>
+                  <% end %>
+                  
+                  <% if current_spina_account.content(:tiktok_url).present? %>
+                    <a href="<%= current_spina_account.content(:tiktok_url) %>" 
+                       target="_blank" 
+                       rel="noopener noreferrer"
+                       class="flex justify-center items-center w-10 h-10 rounded-full transition-all duration-200 bg-primary/10 text-primary hover:bg-primary hover:text-white"
+                       aria-label="TikTok">
+                      <i class="fab fa-tiktok"></i>
+                    </a>
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
       </div>
       
       <!-- Colonne de droite : Carte -->
-      <div class="rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 fade-in" style="background-color: var(--color-white); border: 1px solid var(--color-gray-200);">
-        <div class="p-8">
-          <h2 class="flex items-center mb-6 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-3 fas fa-map" style="color: var(--color-primary);"></i>
-            Nous trouver
-          </h2>
-          
-          <% if content(:map_embed_code).present? %>
-            <div class="relative w-full min-h-[400px] rounded-xl overflow-hidden shadow-lg">
-              <%= content(:map_embed_code).html_safe %>
+      <div>
+        <div class="bento-card fade-in">
+          <div class="p-8">
+            <div class="flex items-center mb-6">
+              <i class="mr-4 text-3xl text-primary fas fa-map"></i>
+              <h2 class="text-3xl font-semibold text-primary font-heading">
+                Nous trouver
+              </h2>
             </div>
-          <% else %>
-            <div class="p-12 text-center rounded-xl" style="background-color: var(--color-gray-200);">
-              <i class="mb-4 text-6xl opacity-30 fas fa-map-marked-alt" style="color: var(--color-primary);"></i>
-              <p style="font-family: var(--font-family-body); color: var(--color-gray-600);">
-                La carte sera affichée ici une fois configurée dans le panneau d'administration
+            
+            <% if content(:map_embed_code).present? %>
+              <div class="relative w-full min-h-[400px] rounded-xl overflow-hidden shadow-lg">
+                <%= content(:map_embed_code).html_safe %>
+              </div>
+            <% else %>
+              <div class="p-12 text-center rounded-xl bg-gray-200">
+                <i class="mb-4 text-6xl opacity-30 fas fa-map-marked-alt text-primary"></i>
+                <p class="font-body">
+                  La carte sera affichée ici une fois configurée dans le panneau d'administration
+                </p>
+              </div>
+            <% end %>
+            
+            <!-- Légende -->
+            <div class="mt-4 text-center">
+              <p class="text-sm text-gray-600 font-body">
+                <i class="mr-2 text-primary fas fa-map-marker-alt"></i>
+                Retrouvez-nous facilement grâce à notre localisation
               </p>
             </div>
-          <% end %>
+          </div>
         </div>
       </div>
       
@@ -183,16 +183,16 @@
 </section>
 
 <!-- Section Adhésion -->
-<section class="px-4 py-12" style="background-color: var(--color-background);">
+<section class="px-4 py-12 bg-background">
   <div class="mx-auto max-w-7xl">
-    <div class="rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 fade-in" style="background: linear-gradient(135deg, var(--color-white) 0%, var(--color-background-pale) 100%); border: 1px solid var(--color-gray-200);">
+    <div class="bento-card bento-card-cta fade-in">
       <div class="p-8">
         <div class="mb-8 text-center">
-          <h2 class="mb-4 text-3xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-3 fas fa-heart" style="color: var(--color-primary);"></i>
+          <h2 class="mb-4 text-3xl font-semibold text-primary font-heading">
+            <i class="mr-3 fas fa-heart text-primary"></i>
             Rejoignez l'association
           </h2>
-          <p class="mx-auto max-w-2xl text-lg" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+          <p class="mx-auto max-w-2xl text-lg text-gray-900 font-body">
             Devenez membre des Dés'Calés et participez à la vie de l'association ! 
             Votre adhésion nous aide à organiser des événements toujours plus ludiques.
           </p>
@@ -203,12 +203,12 @@
             <%= content(:iframe_embed_code).html_safe %>
           </div>
         <% else %>
-          <div class="p-12 text-center rounded-xl border-2 border-dashed" style="background-color: var(--color-white); border-color: var(--color-gray-200);">
-            <i class="mb-4 text-6xl opacity-30 fas fa-user-plus" style="color: var(--color-primary);"></i>
-            <p class="mb-4" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+          <div class="p-12 text-center rounded-xl border-2 border-dashed bg-white border-gray-200">
+            <i class="mb-4 text-6xl opacity-30 fas fa-user-plus text-primary"></i>
+            <p class="mb-4 font-body">
               Le formulaire d'adhésion sera affiché ici une fois configuré dans le panneau d'administration
             </p>
-            <p class="text-sm" style="font-family: var(--font-family-body); color: var(--color-gray-600); opacity: 0.7;">
+            <p class="text-sm text-gray-600 font-body opacity-70">
               Intégrez votre formulaire HelloAsso via le CMS
             </p>
           </div>
@@ -218,23 +218,21 @@
   </div>
 </section>
 
-<!-- Section CTA finale -->
-<section class="px-4 py-12" style="background-color: var(--color-white);">
+<!-- Section CTA -->
+<section class="px-4 py-16 bg-white">
   <div class="mx-auto max-w-7xl text-center">
-    <div class="rounded-2xl shadow-sm transition-all duration-300 hover:shadow-lg hover:-translate-y-1 fade-in" style="background-color: var(--color-white); border: 1px solid var(--color-gray-200);">
+    <div class="bento-card bento-card-cta fade-in">
       <div class="p-8">
-        <h3 class="mb-4 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+        <h3 class="mb-4 text-2xl font-semibold text-primary font-heading">
+          <i class="mr-3 text-primary fas fa-envelope"></i>
           Une question ? Un projet ?
         </h3>
-        <p class="mb-6 text-lg" style="font-family: var(--font-family-body); color: var(--color-gray-600);">
+        <p class="mb-6 text-lg text-gray-900 font-body">
           N'hésitez pas à nous contacter pour toute demande d'information ou pour proposer vos idées !
         </p>
-        <div class="flex flex-col gap-4 justify-center sm:flex-row">
+        <div class="flex flex-wrap gap-4 justify-center">
           <a href="mailto:<%= current_spina_account.email || 'contact@lesdescales.fr' %>" 
-             class="inline-flex justify-center items-center px-6 py-3 font-medium text-white rounded-lg transition-all duration-200 hover:shadow-lg"
-             style="background-color: var(--color-primary);"
-             onmouseover="this.style.backgroundColor='var(--color-primary-dark)'"
-             onmouseout="this.style.backgroundColor='var(--color-primary)'">
+             class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary font-heading hover:bg-primary-dark">
             <i class="mr-2 fas fa-envelope"></i>
             Nous écrire
           </a>

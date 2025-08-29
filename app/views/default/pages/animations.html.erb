@@ -1,37 +1,37 @@
-<!-- Section Titre principal -->
-<section class="px-4 py-12 mt-16" style="background-color: var(--color-background);">
+<!-- Section Titre -->
+<% if content(:title).present? %>
+<section class="px-4 py-12 mt-16 bg-background">
   <div class="mx-auto max-w-7xl text-center">
-    <% if content(:title).present? %>
-      <h1 class="mb-4 text-4xl font-bold md:text-5xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-        <%= content(:title) %>
-      </h1>
-    <% else %>
-      <h1 class="mb-4 text-4xl font-bold md:text-5xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-        Nos animations
-      </h1>
-    <% end %>
-    
+    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl font-heading">
+      <%= content(:title) %>
+    </h1>
     <% if content(:subtitle).present? %>
-      <div class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-orange);">
+      <div class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-gray-600 font-body">
         <%= content(:subtitle).html_safe %>
       </div>
     <% end %>
   </div>
 </section>
+<% end %>
 
-<!-- Section Description et Animations - Desktop : côte à côte -->
-<section class="px-4 py-16" style="background-color: var(--color-white);">
+<!-- Section principale : Description et Animations -->
+<% if content(:description).present? || animations.any? %>
+<section class="px-4 py-12 bg-white">
   <div class="mx-auto max-w-7xl">
-    
-    <!-- Layout Desktop : Description à gauche, Animations à droite -->
-    <div class="hidden gap-8 lg:grid lg:grid-cols-5">
+    <div class="grid gap-8 items-start lg:grid-cols-5 lg:gap-8">
       
-      <!-- Description (2 colonnes) -->
-      <div class="lg:col-span-2">
+      <!-- Colonne de gauche : Description -->
+      <div class="lg:sticky lg:top-20 lg:col-span-2">
         <% if content(:description).present? %>
-          <div class="h-full bento-card bento-card-large fade-in">
+          <div class="bento-card fade-in">
             <div class="p-8">
-              <div class="max-w-none prose prose-lg" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+              <div class="flex items-center mb-6">
+                <i class="mr-4 text-3xl text-primary fas fa-dice-d20"></i>
+                <h2 class="text-3xl font-semibold text-primary font-heading">
+                  Nos animations
+                </h2>
+              </div>
+              <div class="max-w-none leading-relaxed text-gray-900 prose prose-lg font-body">
                 <%= content(:description).html_safe %>
               </div>
             </div>
@@ -39,286 +39,114 @@
         <% end %>
       </div>
       
-      <!-- Animations récentes (3 colonnes) -->
-      <div class="lg:col-span-3">
-        
-        <!-- Grille des animations -->
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-          <% animations.each do |animation| %>
-            <div class="bento-card fade-in group">
-              <%= link_to animation.materialized_path, class: "block h-full" do %>
-                <div class="flex flex-col h-full">
-                  
-                  <!-- Image avec aspect ratio fixe -->
-                  <% if animation.content(:gallery).present? %>
-                    <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
-                      <%= animation.content.image_tag(animation.content(:gallery).first, {}, {
-                        class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
-                        alt: animation.title
-                      }) %>
-                      <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
-                    </div>
-                  <% else %>
-                    <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-orange-100 to-orange-200">
-                      <div class="flex justify-center items-center w-full h-full">
-                        <i class="text-3xl fas fa-dice-d6" style="color: var(--color-orange);"></i>
-                      </div>
-                    </div>
-                  <% end %>
-                  
-                  <!-- Contenu de la carte -->
-                  <div class="flex flex-col flex-1 justify-between p-3">
-                    <div>
-                      <!-- Titre avec icône -->
-                      <div class="flex items-start mb-2">
-                        <i class="mt-1 mr-2 text-sm fas fa-calendar-check" style="color: var(--color-primary);"></i>
-                        <h3 class="text-base font-semibold leading-tight group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                          <%= animation.title %>
-                        </h3>
-                      </div>
-                      
-                      <!-- Infos pratiques avec style compact -->
-                      <div class="mb-2 space-y-1">
-                        <% if animation.content(:animation_date).present? %>
-                          <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                            <i class="mr-1 w-3 fas fa-calendar" style="color: var(--color-orange);"></i>
-                            <%= animation.content(:animation_date) %>
+      <!-- Colonne de droite : Grille des animations -->
+      <div class="min-w-0 lg:col-span-3">
+        <% if animations.any? %>
+            <div class="grid gap-8 lg:grid-cols-3">
+              
+                <% animations.each do |animation| %>
+                  <div class="mb-4">
+                    <div class="h-full bento-card fade-in group">
+                      <%= link_to animation.materialized_path, class: "block h-full" do %>
+                        <div class="flex flex-col h-full">
+                          
+                          <!-- Image avec aspect ratio fixe -->
+                          <% if animation.content(:gallery).present? %>
+                            <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
+                              <%= animation.content.image_tag(animation.content(:gallery).first, {}, {
+                                class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                                alt: animation.title
+                              }) %>
+                              <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
+                            </div>
+                          <% else %>
+                            <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-orange-100 to-orange-200">
+                              <div class="flex justify-center items-center w-full h-full">
+                                <i class="text-3xl fas fa-dice-d6 text-orange"></i>
+                              </div>
+                            </div>
+                          <% end %>
+                          
+                          <!-- Contenu de la carte -->
+                          <div class="flex flex-col flex-1 justify-between p-4">
+                            <div>
+                              <!-- Titre avec icône -->
+                              <div class="flex items-start mb-2">
+                                <i class="mt-1 mr-2 text-base fas fa-calendar-check text-primary"></i>
+                                <h3 class="text-lg font-semibold leading-tight font-heading group-hover:underline">
+                                  <%= animation.title %>
+                                </h3>
+                              </div>
+                              
+                              <!-- Infos pratiques -->
+                              <div class="mb-3 space-y-2">
+                                <% if animation.content(:animation_date).present? %>
+                                  <div class="flex items-center text-sm text-gray-600 font-body">
+                                    <i class="mr-2 w-4 fas fa-calendar text-orange"></i>
+                                    <%= animation.content(:animation_date) %>
+                                  </div>
+                                <% end %>
+                                <% if animation.content(:animation_location).present? %>
+                                  <div class="flex items-center text-sm text-gray-600 font-body">
+                                    <i class="mr-2 w-4 fas fa-map-marker-alt text-orange"></i>
+                                    <%= animation.content(:animation_location) %>
+                                  </div>
+                                <% end %>
+                              </div>
+                              
+                              <!-- Description courte -->
+                              <% if animation.content(:description).present? %>
+                                <p class="mb-3 text-sm leading-relaxed text-gray-600 line-clamp-2 font-body">
+                                  <%= strip_tags(animation.content(:description).to_s).truncate(80) %>
+                                </p>
+                              <% end %>
+                            </div>
+                            
+                            <!-- CTA en bas -->
+                            <div class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100">
+                              <span class="text-sm font-medium text-gray-600 font-body">
+                                En savoir plus
+                              </span>
+                              <i class="text-base transition-transform fas fa-arrow-right group-hover:translate-x-1 text-primary"></i>
+                            </div>
                           </div>
-                        <% end %>
-                        <% if animation.content(:animation_location).present? %>
-                          <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                            <i class="mr-1 w-3 fas fa-map-marker-alt" style="color: var(--color-orange);"></i>
-                            <%= animation.content(:animation_location) %>
-                          </div>
-                        <% end %>
-                      </div>
-                    </div>
-                    
-                    <!-- CTA en bas -->
-                    <div class="flex justify-between items-center pt-2 mt-auto border-t border-gray-100">
-                      <span class="text-xs font-medium" style="color: var(--color-primary); font-family: var(--font-family-body);">
-                        En savoir plus
-                      </span>
-                      <i class="text-sm transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
-                    </div>
-                  </div>
-                </div>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Layout Mobile/Tablet : Stack vertical -->
-    <div class="lg:hidden">
-      
-      <!-- Description -->
-      <% if content(:description).present? %>
-        <div class="mb-8">
-          <div class="bento-card bento-card-large fade-in">
-            <div class="p-6 text-center">
-              <div class="max-w-none prose prose-base" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
-                <%= content(:description).html_safe %>
-              </div>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      
-      <!-- Animations récentes -->
-      <div class="mb-8">
-        <div class="mb-6 text-center">
-          <h2 class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-            <i class="mr-3 fas fa-dice-d20" style="color: var(--color-orange);"></i>
-            Nos animations récentes
-          </h2>
-          <div class="mx-auto w-16 h-1 rounded-full" style="background: linear-gradient(90deg, var(--color-primary), var(--color-orange));"></div>
-        </div>
-        
-        <!-- Grille des animations -->
-        <div class="grid gap-4 sm:grid-cols-2">
-          <% animations.each do |animation| %>
-            <div class="bento-card fade-in group">
-              <%= link_to animation.materialized_path, class: "block h-full" do %>
-                <div class="flex flex-col h-full">
-                  
-                  <!-- Image avec aspect ratio fixe -->
-                  <% if animation.content(:gallery).present? %>
-                    <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
-                      <%= animation.content.image_tag(animation.content(:gallery).first, {}, {
-                        class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
-                        alt: animation.title
-                      }) %>
-                      <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
-                    </div>
-                  <% else %>
-                    <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-orange-100 to-orange-200">
-                      <div class="flex justify-center items-center w-full h-full">
-                        <i class="text-4xl fas fa-dice-d6" style="color: var(--color-orange);"></i>
-                      </div>
-                    </div>
-                  <% end %>
-                  
-                  <!-- Contenu de la carte -->
-                  <div class="flex flex-col flex-1 justify-between p-4">
-                    <div>
-                      <!-- Titre avec icône -->
-                      <div class="flex items-start mb-3">
-                        <i class="mt-1 mr-2 text-base fas fa-calendar-check" style="color: var(--color-primary);"></i>
-                        <h3 class="text-lg font-semibold leading-tight group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                          <%= animation.title %>
-                        </h3>
-                      </div>
-                      
-                      <!-- Infos pratiques avec style compact -->
-                      <div class="mb-3 space-y-2">
-                        <% if animation.content(:animation_date).present? %>
-                          <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                            <i class="mr-2 w-3 fas fa-calendar" style="color: var(--color-orange);"></i>
-                            <%= animation.content(:animation_date) %>
-                          </div>
-                        <% end %>
-                        <% if animation.content(:animation_location).present? %>
-                          <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                            <i class="mr-2 w-3 fas fa-map-marker-alt" style="color: var(--color-orange);"></i>
-                            <%= animation.content(:animation_location) %>
-                          </div>
-                        <% end %>
-                      </div>
-                      
-                      <!-- Description courte -->
-                      <% if animation.content(:description).present? %>
-                        <p class="mb-3 text-sm leading-relaxed line-clamp-2" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                          <%= strip_tags(animation.content(:description).to_s).truncate(80) %>
-                        </p>
+                        </div>
                       <% end %>
                     </div>
-                    
-                    <!-- CTA en bas -->
-                    <div class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100">
-                      <span class="text-xs font-medium" style="color: var(--color-primary); font-family: var(--font-family-body);">
-                        En savoir plus
-                      </span>
-                      <i class="text-sm transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
-                    </div>
                   </div>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             </div>
-          <% end %>
-        </div>
+        <% end %>
       </div>
-      
     </div>
-    
   </div>
 </section>
+<% end %>
 
-<!-- Section Archives et CTA -->
-<section class="px-4 py-12" style="background-color: var(--color-background-pale);">
-  <div class="mx-auto max-w-7xl">
-    
-    <!-- Layout Desktop : Archives et CTA côte à côte -->
-    <div class="hidden gap-8 lg:grid lg:grid-cols-3">
-      
-      <!-- Archives -->
-      <div class="col-span-1 h-full bento-card bento-card-poster fade-in group">
-        <%= link_to animations_archives_path, class: "block h-full p-8 text-decoration-none" do %>
-          <div class="flex flex-col justify-center items-center h-full text-center">
-            <div class="p-6 mx-auto mb-6 rounded-full w-fit" style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange));">
-              <i class="text-3xl text-white fas fa-archive"></i>
-            </div>
-            <h3 class="mb-4 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Archives des animations
-            </h3>
-            <p class="mb-6 text-base leading-relaxed" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-              Découvrez nos animations passées et revivez les meilleurs moments de nos événements
-            </p>
-            <div class="inline-flex items-center text-base font-medium transition-colors group-hover:underline" style="color: var(--color-primary); font-family: var(--font-family-body);">
-              <span>Voir les archives</span>
-              <i class="ml-3 transition-transform fas fa-arrow-right group-hover:translate-x-1"></i>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      
-      <!-- CTA -->
-      <% if content(:cta_text).present? %>
-        <div class="col-span-2 h-full bento-card bento-card-cta fade-in">
-          <div class="flex flex-col justify-center items-center p-8 h-full text-left">
-            <div class="flex justify-center items-center">
-            <i class="mr-2 w-12 h-12 text-4xl fas fa-thumbs-up" style="color: var(--color-primary);"></i>
-            <h3 class="mb-4 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Vous êtes intéressés ?
-            </h3>
-            </div>
-            <div class="mb-6 max-w-none prose prose-base" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
-              <%= content(:cta_text).html_safe %>
-            </div>
-            <div class="flex flex-col gap-4 justify-center sm:flex-row">
-              <a href="/contact" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 hover:scale-105" style="background-color: var(--color-primary); font-family: var(--font-family-body);">
-                <i class="mr-2 fas fa-envelope"></i>
-                Nous contacter
-              </a>
-            </div>
-          </div>
+<!-- Section CTA -->
+<section class="px-4 py-16 bg-background">
+  <div class="mx-auto max-w-7xl text-center">
+    <div class="bento-card bento-card-cta fade-in">
+      <div class="p-8">
+        <h3 class="mb-4 text-2xl font-semibold text-primary font-heading">
+          <i class="mr-3 text-primary fas fa-calendar-plus"></i>
+          Vous souhaitez organiser un événement ?
+        </h3>
+        <p class="mb-6 text-lg text-gray-900 font-body">
+          Découvrez nos animations et contactez-nous pour organiser votre événement !
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/animations-archives" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary font-heading hover:bg-primary-dark">
+            <i class="mr-2 text-white fas fa-archive"></i>
+            Voir toutes nos animations
+          </a>
+          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary font-heading hover:bg-primary hover:text-white">
+            <i class="mr-2 fas fa-envelope"></i>
+            Nous contacter
+          </a>
         </div>
-      <% end %>
-      
-    </div>
-
-    <!-- Layout Mobile/Tablet : Stack vertical -->
-    <div class="space-y-6 lg:hidden">
-      
-      <!-- Archives -->
-      <div class="bento-card bento-card-poster fade-in group">
-        <%= link_to animations_archives_path, class: "block p-6 text-decoration-none" do %>
-          <div class="text-center">
-            <div class="p-4 mx-auto mb-4 rounded-full w-fit" style="background: linear-gradient(135deg, var(--color-primary), var(--color-orange));">
-              <i class="text-2xl text-white fas fa-archive"></i>
-            </div>
-            <h3 class="mb-3 text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Archives des animations
-            </h3>
-            <p class="mb-4 text-sm leading-relaxed" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-              Découvrez nos animations passées
-            </p>
-            <div class="inline-flex items-center text-sm font-medium transition-colors group-hover:underline" style="color: var(--color-primary); font-family: var(--font-family-body);">
-              <span>Voir les archives</span>
-              <i class="ml-2 transition-transform fas fa-arrow-right group-hover:translate-x-1"></i>
-            </div>
-          </div>
-        <% end %>
       </div>
-      
-      <!-- CTA -->
-      <% if content(:cta_text).present? %>
-        <div class="bento-card bento-card-cta fade-in">
-          <div class="p-6 text-center">
-            <i class="mb-4 text-3xl fas fa-users" style="color: var(--color-primary);"></i>
-            <h3 class="mb-3 text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Vous êtes intéressés ?
-            </h3>
-            <div class="mb-4 max-w-none prose prose-sm" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
-              <%= content(:cta_text).html_safe %>
-            </div>
-            <div class="flex flex-col gap-3 justify-center">
-              <a href="/contact" class="inline-flex justify-center items-center px-6 py-3 text-white rounded-lg transition-colors duration-200" style="background-color: var(--color-primary); font-family: var(--font-family-body);">
-                <i class="mr-2 fas fa-envelope"></i>
-                Nous contacter
-              </a>
-              <a href="/adhesion" class="inline-flex justify-center items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200" style="border-color: var(--color-primary); color: var(--color-primary); font-family: var(--font-family-body);">
-                <i class="mr-2 fas fa-heart"></i>
-                Adhérer à l'association
-              </a>
-            </div>
-          </div>
-        </div>
-      <% end %>
-      
     </div>
-    
   </div>
 </section>

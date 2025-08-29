@@ -1,18 +1,10 @@
-<!-- Section Hero -->
-<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
-  <div class="mx-auto max-w-7xl">
-    <!-- Navigation retour -->
-    <%= link_to root_path, class: "inline-flex items-center mb-6 text-sm font-medium transition-colors fade-in hover:underline", style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
-      <i class="mr-2 fas fa-arrow-left"></i>
-      Retour à l'accueil
-    <% end %>
-
-    <div class="mb-8">
-      <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
-        <i class="mr-3 fas fa-gavel" style="color: var(--color-orange);"></i>
-        Mentions Légales
-      </h1>
-    </div>
+<!-- Section Titre -->
+<section class="px-4 py-12 mt-16 bg-background">
+  <div class="mx-auto max-w-7xl text-center">
+    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl font-heading">
+      <i class="mr-3 fas fa-gavel"></i>
+      Mentions Légales
+    </h1>
   </div>
 </section>
 
@@ -26,11 +18,11 @@
         <!-- Éditeur du site -->
         <div class="mb-6 bento-card fade-in">
           <div class="p-6">
-            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-              <i class="mr-3 text-lg fas fa-building" style="color: var(--color-orange);"></i>
+            <h2 class="flex items-center mb-4 text-2xl font-bold font-heading text-primary">
+              <i class="mr-3 text-lg fas fa-building text-orange"></i>
               Éditeur du site
             </h2>
-            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <div class="space-y-3 text-gray-700 font-body">
               <p><%= current_spina_account.name %></p>
               <p>Association loi 1901</p>
               <% if current_spina_account.address.present? %>
@@ -62,15 +54,15 @@
         <!-- Directeur de publication -->
         <div class="mb-6 bento-card fade-in">
           <div class="p-6">
-            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-              <i class="mr-3 text-lg fas fa-user-tie" style="color: var(--color-orange);"></i>
+            <h2 class="flex items-center mb-4 text-2xl font-bold font-heading text-primary">
+              <i class="mr-3 text-lg fas fa-user-tie text-orange"></i>
               <% if content(:president_name).present? && content(:president_gender).present? && content(:president_gender) == 'F' %>
               Directrice de la publication
               <% else %>
               Directeur de la publication
               <% end %>
             </h2>
-            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <div class="space-y-3 text-gray-700 font-body">
               <% if content(:president_name).present? %>
               <p><%= content(:president_name) %>, président<%= content(:president_gender) == 'F' ? 'e' : '' %> de l'association</p>
               <% else %>
@@ -84,11 +76,11 @@
         <% if content(:host_name).present? && content(:host_address).present? %>
         <div class="mb-6 bento-card fade-in">
           <div class="p-6">
-            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-              <i class="mr-3 text-lg fas fa-server" style="color: var(--color-orange);"></i>
+            <h2 class="flex items-center mb-4 text-2xl font-bold font-heading text-primary">
+              <i class="mr-3 text-lg fas fa-server text-orange"></i>
               Hébergement
             </h2>
-            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <div class="space-y-3 text-gray-700 font-body">
               <p>Ce site est hébergé par :</p>
               <p><%= content(:host_name) %></p>
               <p><%= content(:host_address) %></p>
@@ -101,11 +93,11 @@
         <% if content(:rgpd).present? && content(:rgpd) == 'true' %>
         <div class="mb-6 bento-card fade-in">
           <div class="p-6">
-            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-              <i class="mr-3 text-lg fas fa-shield-alt" style="color: var(--color-orange);"></i>
+            <h2 class="flex items-center mb-4 text-2xl font-bold font-heading text-primary">
+              <i class="mr-3 text-lg fas fa-shield-alt text-orange"></i>
               Protection des données personnelles
             </h2>
-            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <div class="space-y-3 text-gray-700 font-body">
               <p>
                 Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée, 
                 vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
@@ -133,10 +125,10 @@
         <% repeater(:legal_content) do |legal| %>
         <div class="mb-6 bento-card fade-in">
           <div class="p-6">
-            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+            <h2 class="flex items-center mb-4 text-2xl font-bold font-heading text-primary">
               <%= legal.content(:legal_title) %>
             </h2>
-            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+            <div class="space-y-3 text-gray-700 font-body">
               <%= legal.content(:legal_text).html_safe %>
             </div>
           </div>
@@ -151,12 +143,16 @@
 </section>
 
 <!-- Section Date de mise à jour -->
-<section class="px-4 py-8" style="background-color: var(--color-background-pale);">
+<section class="px-4 py-16 bg-background">
   <div class="mx-auto max-w-7xl text-center">
-    <p class="text-sm" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-      <i class="mr-2 fas fa-calendar-check" style="color: var(--color-orange);"></i>
-      <% require 'date' %>
-      Dernière mise à jour des mentions légales : <%= Date.today.strftime("%d/%m/%Y") %>
-    </p>
+    <div class="bento-card fade-in">
+      <div class="p-8">
+        <p class="text-lg text-gray-900 font-body">
+          <i class="mr-2 fas fa-calendar-check text-primary"></i>
+          <% require 'date' %>
+          Dernière mise à jour des mentions légales : <%= Date.today.strftime("%d/%m/%Y") %>
+        </p>
+      </div>
+    </div>
   </div>
 </section>

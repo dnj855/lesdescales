@@ -1,244 +1,117 @@
-<!-- Section Titre principal -->
-<section class="px-4 py-12 mt-16" style="background-color: var(--color-background);">
+<!-- Section Titre -->
+<% if content(:title).present? %>
+<section class="px-4 py-12 mt-16 bg-background">
   <div class="mx-auto max-w-7xl text-center">
-    <% if content(:title).present? %>
-      <h1 class="mb-4 text-4xl font-bold md:text-5xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-        <%= content(:title) %>
-      </h1>
-    <% else %>
-      <h1 class="mb-4 text-4xl font-bold md:text-5xl" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-        Galeries photos
-      </h1>
-    <% end %>
-    
+    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl font-heading">
+      <%= content(:title) %>
+    </h1>
     <% if content(:subtitle).present? %>
-      <div class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed" style="font-family: var(--font-family-body); color: var(--color-orange);">
+      <div class="mx-auto mt-6 max-w-3xl text-lg leading-relaxed text-gray-600 font-body">
         <%= content(:subtitle).html_safe %>
       </div>
     <% end %>
   </div>
 </section>
+<% end %>
 
-<!-- Section Description et Galeries - Desktop : côte à côte -->
-<section class="px-4 py-16" style="background-color: var(--color-white);">
+<!-- Section principale : Galeries -->
+<% galleries = Spina::Resource.find_by(name: 'galleries')&.pages&.live&.sorted || [] %>
+<% if galleries.any? %>
+<section class="px-4 py-12 bg-white">
   <div class="mx-auto max-w-7xl">
     
-    <% galleries = Spina::Resource.find_by(name: 'galleries')&.pages&.live&.sorted || [] %>
     
-    <!-- Layout Desktop : Description à gauche, Galeries à droite -->
-    <div class="hidden gap-8 lg:grid lg:grid-cols-5">
-      
-      <!-- Description (2 colonnes) -->
-      <div class="lg:col-span-2">
-        <% if content(:description).present? %>
-          <div class="h-full bento-card bento-card-large fade-in">
-            <div class="p-8">
-              <div class="max-w-none prose prose-lg" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
-                <%= content(:description).html_safe %>
-              </div>
-            </div>
-          </div>
-        <% end %>
-      </div>
-      
-      <!-- Galeries récentes (3 colonnes) -->
-      <div class="lg:col-span-3">
-        <% if galleries.any? %>
-        <!-- Grille des galeries -->
-        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3">
-        <% galleries.each do |gallery| %>
-          <div class="bento-card fade-in group">
-            <%= link_to gallery.materialized_path, class: "block h-full" do %>
-              <div class="flex flex-col h-full">
-                
-                <!-- Image preview avec aspect ratio fixe -->
-                <% if gallery.content(:gallery).present? %>
-                  <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
-                    <%= gallery.content.image_tag(gallery.content(:gallery).first, {}, {
-                      class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
-                      alt: gallery.title
-                    }) %>
-                    <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
-                    
-                    <!-- Badge nombre de photos -->
-                    <div class="flex absolute top-4 right-4 items-center px-3 py-1 rounded-full shadow-lg backdrop-blur-sm bg-white/95">
-                      <i class="mr-1 text-xs fas fa-images" style="color: var(--color-primary);"></i>
-                      <span class="text-xs font-semibold" style="color: var(--color-gray-900);">
-                        <%= gallery.content(:gallery).count %> photos
-                      </span>
-                    </div>
-                  </div>
-                <% else %>
-                  <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-orange-100 to-orange-200">
-                    <div class="flex justify-center items-center w-full h-full">
-                      <i class="text-4xl fas fa-camera-retro" style="color: var(--color-orange);"></i>
-                    </div>
-                  </div>
-                <% end %>
-                
-                <!-- Contenu de la carte -->
-                <div class="flex flex-col flex-1 justify-between p-3">
-                  <div>
-                    <!-- Titre avec icône -->
-                    <div class="flex items-start mb-2">
-                      <i class="mt-1 mr-2 text-sm fas fa-camera-retro" style="color: var(--color-primary);"></i>
-                      <h3 class="text-base font-semibold leading-tight group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                        <%= gallery.title %>
-                      </h3>
-                    </div>
-                    
-                    <!-- Infos pratiques avec style compact -->
-                    <div class="mb-2 space-y-1">
-                      <% if gallery.content(:gallery).present? %>
-                        <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                          <i class="mr-1 w-3 fas fa-images" style="color: var(--color-orange);"></i>
-                          <%= gallery.content(:gallery).count %> photos
-                        </div>
-                      <% end %>
-                    </div>
-                    
-                    <!-- Description courte -->
-                    <% if gallery.content(:description).present? %>
-                      <p class="mb-2 text-sm leading-relaxed line-clamp-2" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                        <%= strip_tags(gallery.content(:description).to_s).truncate(80) %>
-                      </p>
-                    <% end %>
-                  </div>
+    <!-- Grille des galeries -->
+    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <% galleries.each do |gallery| %>
+        <div class="bento-card fade-in group">
+          <%= link_to gallery.materialized_path, class: "block h-full" do %>
+            <div class="flex flex-col h-full">
+              
+              <!-- Image preview avec aspect ratio fixe -->
+              <% if gallery.content(:gallery).present? %>
+                <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
+                  <%= gallery.content.image_tag(gallery.content(:gallery).first, {}, {
+                    class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
+                    alt: gallery.title
+                  }) %>
+                  <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
                   
-                  <!-- CTA en bas -->
-                  <div class="flex justify-between items-center pt-2 mt-auto border-t border-gray-100">
-                    <span class="text-xs font-medium" style="color: var(--color-primary); font-family: var(--font-family-body);">
-                      Voir la galerie
+                  <!-- Badge nombre de photos -->
+                  <div class="flex absolute top-4 right-4 items-center px-3 py-1 rounded-full shadow-lg backdrop-blur-sm bg-white/95">
+                    <i class="mr-1 text-xs fas fa-images text-primary"></i>
+                    <span class="text-xs text-gray-900 font-body">
+                      <%= gallery.content(:gallery).count %> photos
                     </span>
-                    <i class="text-sm transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
                   </div>
                 </div>
-              </div>
-            <% end %>
-          </div>
-        <% end %>
-        </div>
-      </div>
-      
-    </div>
-
-    <!-- Layout Mobile/Tablet : Stack vertical -->
-    <div class="lg:hidden">
-      
-      <!-- Description -->
-      <% if content(:description).present? %>
-        <div class="mb-8">
-          <div class="bento-card bento-card-large fade-in">
-            <div class="p-6 text-center">
-              <div class="max-w-none prose prose-base" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
-                <%= content(:description).html_safe %>
+              <% else %>
+                <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-primary/10 to-primary/20">
+                  <div class="flex justify-center items-center w-full h-full">
+                    <i class="text-4xl fas fa-camera-retro text-primary"></i>
+                  </div>
+                </div>
+              <% end %>
+              
+              <!-- Contenu de la carte -->
+              <div class="flex flex-col flex-1 justify-between p-4">
+                <div>
+                  <!-- Titre avec icône -->
+                  <div class="flex items-start mb-3">
+                    <i class="mt-1 mr-2 text-base fas fa-camera-retro text-primary"></i>
+                    <h3 class="text-lg font-semibold leading-tight group-hover:underline text-primary font-heading">
+                      <%= gallery.title %>
+                    </h3>
+                  </div>
+                  
+                  <!-- Description courte -->
+                  <% if gallery.content(:description).present? %>
+                    <p class="mb-3 text-sm leading-relaxed text-gray-600 line-clamp-2 font-body">
+                      <%= strip_tags(gallery.content(:description).to_s).truncate(80) %>
+                    </p>
+                  <% end %>
+                </div>
+                
+                <!-- CTA en bas -->
+                <div class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100">
+                  <span class="text-sm font-medium text-gray-600 font-body">
+                    <i class="mr-2 text-primary fas fa-images"></i>
+                    <%= gallery.content(:gallery).count %> photos
+                  </span>
+                  <i class="text-sm transition-transform fas fa-arrow-right group-hover:translate-x-1 text-primary"></i>
+                </div>
               </div>
             </div>
-          </div>
+          <% end %>
         </div>
       <% end %>
-      
-      <!-- Galeries récentes -->
-      <% if galleries.any? %>
-        <div class="mb-8">
-          <div class="mb-6 text-center">
-            <h2 class="mb-2 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
-              <i class="mr-3 fas fa-camera-retro" style="color: var(--color-orange);"></i>
-              Nos galeries photos
-            </h2>
-            <div class="mx-auto w-16 h-1 rounded-full" style="background: linear-gradient(90deg, var(--color-primary), var(--color-orange));"></div>
-          </div>
-          
-          <!-- Grille des galeries -->
-          <div class="grid gap-4 sm:grid-cols-2">
-            <% galleries.each do |gallery| %>
-              <div class="bento-card fade-in group">
-                <%= link_to gallery.materialized_path, class: "block h-full" do %>
-                  <div class="flex flex-col h-full">
-                    
-                    <!-- Image avec aspect ratio fixe -->
-                    <% if gallery.content(:gallery).present? %>
-                      <div class="overflow-hidden relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-gray-100 to-gray-200">
-                        <%= gallery.content.image_tag(gallery.content(:gallery).first, {}, {
-                          class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
-                          alt: gallery.title
-                        }) %>
-                        <div class="absolute inset-0 bg-gradient-to-t via-transparent to-transparent from-black/30"></div>
-                      </div>
-                    <% else %>
-                      <div class="relative rounded-t-xl aspect-[4/3] bg-gradient-to-br from-orange-100 to-orange-200">
-                        <div class="flex justify-center items-center w-full h-full">
-                          <i class="text-4xl fas fa-camera-retro" style="color: var(--color-orange);"></i>
-                        </div>
-                      </div>
-                    <% end %>
-                    
-                    <!-- Contenu de la carte -->
-                    <div class="flex flex-col flex-1 justify-between p-4">
-                      <div>
-                        <!-- Titre avec icône -->
-                        <div class="flex items-start mb-3">
-                          <i class="mt-1 mr-2 text-base fas fa-camera-retro" style="color: var(--color-primary);"></i>
-                          <h3 class="text-lg font-semibold leading-tight group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-                            <%= gallery.title %>
-                          </h3>
-                        </div>
-                        
-                        <!-- Infos pratiques avec style compact -->
-                        <div class="mb-3 space-y-2">
-                          <% if gallery.content(:gallery).present? %>
-                            <div class="flex items-center text-xs" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                              <i class="mr-2 w-3 fas fa-images" style="color: var(--color-orange);"></i>
-                              <%= gallery.content(:gallery).count %> photos
-                            </div>
-                          <% end %>
-                        </div>
-                        
-                        <!-- Description courte -->
-                        <% if gallery.content(:description).present? %>
-                          <p class="mb-3 text-sm leading-relaxed line-clamp-2" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-                            <%= strip_tags(gallery.content(:description).to_s).truncate(80) %>
-                          </p>
-                        <% end %>
-                      </div>
-                      
-                      <!-- CTA en bas -->
-                      <div class="flex justify-between items-center pt-3 mt-auto border-t border-gray-100">
-                        <span class="text-xs font-medium" style="color: var(--color-primary); font-family: var(--font-family-body);">
-                          Voir la galerie
-                        </span>
-                        <i class="text-sm transition-transform fas fa-arrow-right group-hover:translate-x-1" style="color: var(--color-primary);"></i>
-                      </div>
-                    </div>
-                  </div>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-      <% end %>
-      
     </div>
-    <% else %>
-      <!-- Message quand il n'y a pas de galeries -->
-      <div class="text-center">
-        <div class="bento-card bento-card-large fade-in">
-          <div class="p-12">
-            <i class="mb-6 text-6xl fas fa-camera-retro" style="color: var(--color-orange);"></i>
-            <h3 class="mb-4 text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              Aucune galerie disponible
-            </h3>
-            <p class="mb-6 text-lg" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
-              Les galeries photos seront bientôt disponibles. Revenez nous voir !
-            </p>
-            <a href="/" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 hover:scale-105" style="background-color: var(--color-primary); font-family: var(--font-family-body);">
-              <i class="mr-2 fas fa-home"></i>
-              Retour à l'accueil
-            </a>
-          </div>
+  </div>
+</section>
+<% end %>
+<!-- Section CTA -->
+<section class="px-4 py-16 bg-background">
+  <div class="mx-auto max-w-7xl text-center">
+    <div class="bento-card bento-card-cta fade-in">
+      <div class="p-8">
+        <h3 class="mb-4 text-2xl font-semibold text-primary font-heading">
+          <i class="mr-3 text-primary fas fa-camera-retro"></i>
+          Découvrez nos moments
+        </h3>
+        <p class="mb-6 text-lg text-gray-900 font-body">
+          Explorez toutes nos galeries photos et revivez nos événements magiques !
+        </p>
+        <div class="flex flex-wrap gap-4 justify-center">
+          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary font-heading hover:bg-primary-dark">
+            <i class="mr-2 text-primary fas fa-calendar-check"></i>
+            Voir nos animations
+          </a>
+          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary font-heading hover:bg-primary hover:text-white">
+            <i class="mr-2 fas fa-envelope"></i>
+            Nous contacter
+          </a>
         </div>
       </div>
-    <% end %>
-    
+    </div>
   </div>
 </section>
