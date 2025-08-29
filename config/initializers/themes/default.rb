@@ -55,6 +55,7 @@ Spina::Theme.register do |theme|
     { name: 'album_gallery', title: 'Galerie de l\'album', part_type: 'Spina::Parts::ImageCollection' },
 
     # --- Blocs Spécifiques au Contact et Adhésion ---
+    { name: 'contact_hours', title: 'Horaires', part_type: 'Spina::Parts::MultiLine' },
     { name: 'map_embed_code', title: 'Code d\'intégration de la carte', part_type: 'Spina::Parts::MultiLine' },
     { name: 'iframe_embed_code', title: 'Code d\'intégration (iframe)', part_type: 'Spina::Parts::MultiLine' },
 
@@ -118,7 +119,7 @@ Spina::Theme.register do |theme|
     { name: 'animations', title: 'Nos animations', parts: %w[title subtitle description cta_text] },
     { name: 'animations_archives', title: 'Archives des animations', parts: %w[title description] },
     { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
-    { name: 'contact', title: 'Contact', parts: %w[title description map_embed_code] },
+    { name: 'contact', title: 'Contact', parts: %w[title subtitle contact_hours map_embed_code iframe_embed_code] },
     { name: 'adhesion', title: 'Adhésion', parts: %w[title description iframe_embed_code] },
     { name: 'legal', title: 'Page légale', parts: %w[title description] },
     { name: 'animation_show', title: 'Détail d\'une animation',
