@@ -15,7 +15,7 @@
             <i class="mr-3 fas fa-dice-d20" style="color: var(--color-orange);"></i>
             <%= current_page.title %>
             <% if content(:edition_year).present? %>
-              <span class="text-2xl font-medium ml-2" style="color: var(--color-orange);">
+              <span class="ml-2 text-2xl font-medium" style="color: var(--color-orange);">
                 (<%= content(:edition_year) %>)
               </span>
             <% end %>
@@ -25,13 +25,13 @@
           <% if content(:edition_date).present? || content(:edition_location).present? %>
             <div class="flex flex-wrap gap-4 mb-4 text-sm fade-in" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
               <% if content(:edition_date).present? %>
-                <div class="flex items-center gap-2">
+                <div class="flex gap-2 items-center">
                   <i class="fas fa-calendar" style="color: var(--color-primary);"></i>
                   <%= content(:edition_date) %>
                 </div>
               <% end %>
               <% if content(:edition_location).present? %>
-                <div class="flex items-center gap-2">
+                <div class="flex gap-2 items-center">
                   <i class="fas fa-map-marker-alt" style="color: var(--color-primary);"></i>
                   <%= content(:edition_location) %>
                 </div>
@@ -210,7 +210,7 @@
                 <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
                   <%= edition.title %>
                   <% if edition.content(:edition_year).present? %>
-                    <span class="text-sm font-medium ml-1" style="color: var(--color-orange);">
+                    <span class="ml-1 text-sm font-medium" style="color: var(--color-orange);">
                       (<%= edition.content(:edition_year) %>)
                     </span>
                   <% end %>
@@ -218,14 +218,14 @@
               </div>
               
               <% if edition.content(:gallery).present? %>
-                <div class="h-40 mb-3 overflow-hidden rounded-lg">
+                <div class="overflow-hidden mb-3 h-40 rounded-lg">
                   <%= edition.content.image_tag(edition.content(:gallery).first, {}, {
                     class: "w-full h-full object-cover transition-transform duration-300 group-hover:scale-105",
                     alt: edition.title
                   }) %>
                 </div>
               <% else %>
-                <div class="h-40 mb-3 flex items-center justify-center rounded-lg bg-gradient-to-br from-orange-100 to-orange-200">
+                <div class="flex justify-center items-center mb-3 h-40 bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg">
                   <i class="text-3xl fas fa-images" style="color: var(--color-orange);"></i>
                 </div>
               <% end %>

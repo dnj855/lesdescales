@@ -29,6 +29,7 @@ Spina::Theme.register do |theme|
     { name: 'gallery', title: 'Galerie d\'images', part_type: 'Spina::Parts::ImageCollection' },
     { name: 'cta_text', title: 'Texte du CTA', part_type: 'Spina::Parts::Text' },
     { name: 'short_description', title: 'Description courte', part_type: 'Spina::Parts::MultiLine' },
+    { name: 'content', title: 'Contenu', part_type: 'Spina::Parts::Text' },
 
     # --- Blocs Spécifiques à l'Accueil ---
     { name: 'home_banner_image', title: 'Image de la bannière d\'accueil (Desktop)', part_type: 'Spina::Parts::Image' },
@@ -102,8 +103,21 @@ Spina::Theme.register do |theme|
     { name: 'facebook_url', title: 'URL Facebook', part_type: 'Spina::Parts::Line' },
     { name: 'instagram_url', title: 'URL Instagram', part_type: 'Spina::Parts::Line' },
     { name: 'youtube_url', title: 'URL YouTube', part_type: 'Spina::Parts::Line' },
-    { name: 'tiktok_url', title: 'URL TikTok', part_type: 'Spina::Parts::Line' }
+    { name: 'tiktok_url', title: 'URL TikTok', part_type: 'Spina::Parts::Line' },
     # etc... pour les autres réseaux
+
+    # --- Blocs pour les mentions légales ---
+    { name: 'legal_content', title: 'Contenu des mentions légales', part_type: 'Spina::Parts::Repeater',
+      parts: %w[legal_title legal_text] },
+    { name: 'legal_title', title: 'Titre de la section', part_type: 'Spina::Parts::Line' },
+    { name: 'legal_text', title: 'Contenu de la section', part_type: 'Spina::Parts::Text' },
+    { name: 'president_name', title: 'Nom du président', part_type: 'Spina::Parts::Line' },
+    { name: 'president_gender', title: 'Genre du président', part_type: 'Spina::Parts::Option',
+      options: %w[M F] },
+    { name: 'host_name', title: 'Nom de l\'hébergeur', part_type: 'Spina::Parts::Line' },
+    { name: 'host_address', title: 'Adresse de l\'hébergeur', part_type: 'Spina::Parts::Line' },
+    { name: 'rgpd', title: 'Afficher le bloc RGPD ?', part_type: 'Spina::Parts::Option',
+      options: %w[true false] }
   ]
 
   # View templates
@@ -120,8 +134,8 @@ Spina::Theme.register do |theme|
     { name: 'animations_archives', title: 'Archives des animations', parts: %w[title description] },
     { name: 'gallery_index', title: 'Galeries photos', parts: %w[title photo_albums] },
     { name: 'contact', title: 'Contact', parts: %w[title subtitle contact_hours map_embed_code iframe_embed_code] },
-    { name: 'adhesion', title: 'Adhésion', parts: %w[title description iframe_embed_code] },
-    { name: 'legal', title: 'Page légale', parts: %w[title description] },
+    { name: 'legal', title: 'Page légale',
+      parts: %w[title legal_content president_name president_gender host_name host_address rgpd] },
     { name: 'animation_show', title: 'Détail d\'une animation',
       parts: %w[title description animation_date animation_location gallery] },
     { name: 'gallery_show', title: 'Détail d\'une galerie photo',
@@ -142,7 +156,6 @@ Spina::Theme.register do |theme|
       view_template: 'animations_archives' },
     { name: 'galleries', title: 'Galeries photos', deletable: false, view_template: 'gallery_index' },
     { name: 'contact', title: 'Contact', deletable: false, view_template: 'contact' },
-    { name: 'adhesion', title: 'Adhésion', deletable: false, view_template: 'adhesion' },
     { name: 'legal', title: 'Mentions légales', deletable: false, view_template: 'legal' }
   ]
 

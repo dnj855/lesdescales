@@ -1,0 +1,162 @@
+<!-- Section Hero -->
+<section class="px-4 py-8 mt-16" style="background-color: var(--color-background);">
+  <div class="mx-auto max-w-7xl">
+    <!-- Navigation retour -->
+    <%= link_to root_path, class: "inline-flex items-center mb-6 text-sm font-medium transition-colors fade-in hover:underline", style: "color: var(--color-primary); font-family: var(--font-family-body);" do %>
+      <i class="mr-2 fas fa-arrow-left"></i>
+      Retour à l'accueil
+    <% end %>
+
+    <div class="mb-8">
+      <h1 class="mb-4 text-4xl font-bold fade-in" style="font-family: var(--font-family-display); color: var(--color-primary);">
+        <i class="mr-3 fas fa-gavel" style="color: var(--color-orange);"></i>
+        Mentions Légales
+      </h1>
+    </div>
+  </div>
+</section>
+
+<!-- Section Contenu -->
+<section class="px-4 py-12" style="background-color: var(--color-white);">
+  <div class="mx-auto max-w-7xl">
+    <div class="grid gap-8 lg:grid-cols-3">
+      <!-- Contenu principal -->
+      <div class="lg:col-span-2">
+        
+        <!-- Éditeur du site -->
+        <div class="mb-6 bento-card fade-in">
+          <div class="p-6">
+            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+              <i class="mr-3 text-lg fas fa-building" style="color: var(--color-orange);"></i>
+              Éditeur du site
+            </h2>
+            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+              <p><%= current_spina_account.name %></p>
+              <p>Association loi 1901</p>
+              <% if current_spina_account.address.present? %>
+              <p>
+                <%= current_spina_account.address %><br>
+                <%= current_spina_account.postal_code %> <%= current_spina_account.city %>
+              </p>
+              <% end %>
+              <% if current_spina_account.email.present? %>
+              <p>
+                Email : 
+                <a href="mailto:<%= current_spina_account.email %>" class="hover:underline" style="color: var(--color-primary);">
+                  <%= current_spina_account.email %>
+                </a>
+              </p>
+              <% end %>
+              <% if current_spina_account.phone.present? %>
+              <p>
+                Téléphone : 
+                <a href="tel:<%= current_spina_account.phone %>" class="hover:underline" style="color: var(--color-primary);">
+                  <%= current_spina_account.phone %>
+                </a>
+              </p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Directeur de publication -->
+        <div class="mb-6 bento-card fade-in">
+          <div class="p-6">
+            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+              <i class="mr-3 text-lg fas fa-user-tie" style="color: var(--color-orange);"></i>
+              <% if content(:president_name).present? && content(:president_gender).present? && content(:president_gender) == 'F' %>
+              Directrice de la publication
+              <% else %>
+              Directeur de la publication
+              <% end %>
+            </h2>
+            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+              <% if content(:president_name).present? %>
+              <p><%= content(:president_name) %>, président<%= content(:president_gender) == 'F' ? 'e' : '' %> de l'association</p>
+              <% else %>
+              <p>Le Président de l'association <%= current_spina_account.name %></p>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hébergement -->
+        <% if content(:host_name).present? && content(:host_address).present? %>
+        <div class="mb-6 bento-card fade-in">
+          <div class="p-6">
+            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+              <i class="mr-3 text-lg fas fa-server" style="color: var(--color-orange);"></i>
+              Hébergement
+            </h2>
+            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+              <p>Ce site est hébergé par :</p>
+              <p><%= content(:host_name) %></p>
+              <p><%= content(:host_address) %></p>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <!-- Données personnelles -->
+        <% if content(:rgpd).present? && content(:rgpd) == 'true' %>
+        <div class="mb-6 bento-card fade-in">
+          <div class="p-6">
+            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+              <i class="mr-3 text-lg fas fa-shield-alt" style="color: var(--color-orange);"></i>
+              Protection des données personnelles
+            </h2>
+            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+              <p>
+                Conformément au Règlement Général sur la Protection des Données (RGPD) et à la loi « Informatique et Libertés » du 6 janvier 1978 modifiée, 
+                vous disposez d'un droit d'accès, de rectification, de suppression et d'opposition aux données personnelles vous concernant.
+              </p>
+              <p>
+                Les informations recueillies sur ce site sont enregistrées dans un fichier informatisé par <%= current_spina_account.name %> 
+                pour la gestion des contacts et la communication avec les membres et participants.
+              </p>
+              <p>
+                Pour exercer ces droits ou pour toute question sur le traitement de vos données dans ce dispositif, vous pouvez nous contacter :
+              </p>
+              <ul class="ml-4 space-y-1 list-disc list-inside">
+                <% if current_spina_account.email.present? %>
+                <li>Par email : <a href="mailto:<%= current_spina_account.email %>" class="hover:underline" style="color: var(--color-primary);"><%= current_spina_account.email %></a></li>
+                <% end %>
+                <% if current_spina_account.address.present? %>
+                <li>Par courrier : <%= current_spina_account.address %>, <%= current_spina_account.postal_code %> <%= current_spina_account.city %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <% repeater(:legal_content) do |legal| %>
+        <div class="mb-6 bento-card fade-in">
+          <div class="p-6">
+            <h2 class="flex items-center mb-4 text-2xl font-bold" style="font-family: var(--font-family-heading); color: var(--color-primary);">
+              <%= legal.content(:legal_title) %>
+            </h2>
+            <div class="space-y-3" style="color: var(--color-gray-700); font-family: var(--font-family-body);">
+              <%= legal.content(:legal_text).html_safe %>
+            </div>
+          </div>
+        </div>
+
+        <% end %>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Section Date de mise à jour -->
+<section class="px-4 py-8" style="background-color: var(--color-background-pale);">
+  <div class="mx-auto max-w-7xl text-center">
+    <p class="text-sm" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+      <i class="mr-2 fas fa-calendar-check" style="color: var(--color-orange);"></i>
+      <% require 'date' %>
+      Dernière mise à jour des mentions légales : <%= Date.today.strftime("%d/%m/%Y") %>
+    </p>
+  </div>
+</section>
