@@ -98,6 +98,11 @@
 /* Container pour les embeds responsifs */
 .embed-container {
   position: relative;
+  padding-bottom: 56.25%; /* Ratio 16:9 */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: var(--radius-lg);
 }
 
 /* Container pour iframe HelloAsso */
