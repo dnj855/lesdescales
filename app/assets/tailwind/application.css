@@ -100,24 +100,6 @@
   position: relative;
 }
 
-/* Stabilisation des iframes - Évite les glitches */
-.iframe-stable {
-  will-change: auto;
-  contain: layout;
-}
-
-.iframe-stable iframe {
-  will-change: auto;
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
-  padding-bottom: 56.25%; /* Ratio 16:9 */
-  height: 0;
-  overflow: hidden;
-  max-width: 100%;
-  border-radius: var(--radius-lg);
-}
-
 /* Container pour iframe HelloAsso */
 .helloasso-iframe-container {
   position: relative;
