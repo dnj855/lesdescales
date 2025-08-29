@@ -22,7 +22,7 @@
 <% end %>
 
 <!-- Grille Bento principale -->
-<section class="px-4 py-12" style="background-color: var(--color-background);">
+<section class="px-4 py-12 bg-background">
   <div class="mx-auto max-w-7xl">
     
     <!-- Grille Desktop -->
@@ -31,14 +31,14 @@
       <!-- Qui sommes-nous - Grande carte principale -->
       <% if content(:home_who_we_are_text).present? %>
       <div class="lg:col-span-8 lg:row-span-4 bento-card bento-card-large fade-in group">
-        <div class="flex flex-col justify-center h-full p-8">
+        <div class="flex flex-col justify-center p-8 h-full">
           <div class="flex items-center mb-6">
-            <i class="mr-4 text-3xl fas fa-users" style="color: var(--color-primary);"></i>
-            <h2 class="text-3xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-4 text-3xl fas fa-users text-primary"></i>
+            <h2 class="text-3xl font-semibold text-gray-900 font-heading">
               Qui sommes-nous ?
             </h2>
           </div>
-          <div class="leading-relaxed prose prose-lg max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+          <div class="max-w-none leading-relaxed text-gray-900 prose prose-lg font-body">
             <%= simple_format content(:home_who_we_are_text) %>
           </div>
         </div>
@@ -48,13 +48,13 @@
       <!-- Affiche - Carte verticale -->
       <% if content(:home_poster_image).present? %>
       <div class="lg:col-span-4 lg:row-span-6 bento-card bento-card-poster fade-in group">
-        <div class="flex flex-col h-full p-6">
-          <h3 class="mb-4 text-xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-3 fas fa-image" style="color: var(--color-primary);"></i>
+        <div class="flex flex-col p-6 h-full">
+          <h3 class="mb-4 text-xl font-semibold text-center text-gray-900 font-heading">
+            <i class="mr-3 fas fa-image text-primary"></i>
             À l'affiche
           </h3>
-          <div class="flex items-center justify-center flex-1">
-            <div class="overflow-hidden transition-shadow duration-300 shadow-lg rounded-xl hover:shadow-2xl">
+          <div class="flex flex-1 justify-center items-center">
+            <div class="overflow-hidden rounded-xl shadow-lg transition-shadow duration-300 hover:shadow-2xl">
               <%= content.image_tag(:home_poster_image, {}, {class: "max-w-full h-auto", alt: "Affiche Les Dés'Calés"}) %>
             </div>
           </div>
@@ -65,14 +65,14 @@
       <!-- Rendez-vous -->
       <% if content(:home_meetup_text).present? %>
       <div class="lg:col-span-4 lg:row-span-2 bento-card bento-card-meetup fade-in group">
-        <div class="flex flex-col justify-center h-full p-6">
+        <div class="flex flex-col justify-center p-6 h-full">
           <div class="flex items-center mb-4">
-            <i class="mr-3 text-2xl fas fa-calendar-alt" style="color: var(--color-primary);"></i>
-            <h2 class="text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-3 text-2xl fas fa-calendar-alt text-primary"></i>
+            <h2 class="text-xl font-semibold text-gray-900 font-heading">
               Rendez-vous
             </h2>
           </div>
-          <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+          <div class="max-w-none leading-relaxed prose font-body" >
             <%= simple_format content(:home_meetup_text) %>
           </div>
         </div>
@@ -85,9 +85,9 @@
         <a href="<%= content(:home_myludo_url) %>" 
            target="_blank" 
            rel="noopener noreferrer"
-           class="block h-full p-6 text-decoration-none">
-          <h3 class="mb-4 text-lg font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-2 fas fa-dice-d6" style="color: var(--color-primary);"></i>
+           class="block p-6 h-full text-decoration-none">
+          <h3 class="mb-4 text-lg font-semibold text-center text-gray-900 font-heading">
+            <i class="mr-2 fas fa-dice-d6 text-primary"></i>
             Notre Ludothèque
           </h3>
           <div class="myludo-preview">
@@ -113,12 +113,12 @@
       <div class="bento-card bento-card-large fade-in">
         <div class="p-6">
           <div class="flex items-center mb-6">
-            <i class="mr-4 text-2xl fas fa-users" style="color: var(--color-primary);"></i>
-            <h2 class="text-2xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+            <i class="mr-4 text-2xl fas fa-users text-primary"></i>
+            <h2 class="text-2xl font-semibold text-gray-900 font-heading">
               Qui sommes-nous ?
             </h2>
           </div>
-          <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+          <div class="max-w-none leading-relaxed text-gray-900 prose font-body">
             <%= simple_format content(:home_who_we_are_text) %>
           </div>
         </div>
@@ -133,12 +133,12 @@
         <div class="bento-card bento-card-meetup fade-in">
           <div class="p-6">
             <div class="flex items-center mb-4">
-              <i class="mr-3 text-2xl fas fa-calendar-alt" style="color: var(--color-primary);"></i>
-              <h2 class="text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
+              <i class="mr-3 text-2xl fas fa-calendar-alt text-primary"></i>
+              <h2 class="text-xl font-semibold text-gray-900 font-heading">
                 Rendez-vous
               </h2>
             </div>
-            <div class="leading-relaxed prose max-w-none" style="font-family: var(--font-family-body); color: var(--color-gray-900);">
+            <div class="max-w-none leading-relaxed text-gray-900 prose font-body" >
               <%= simple_format content(:home_meetup_text) %>
             </div>
           </div>
@@ -151,9 +151,9 @@
           <a href="<%= content(:home_myludo_url) %>" 
              target="_blank" 
              rel="noopener noreferrer"
-             class="block h-full p-6 text-decoration-none">
-            <h3 class="mb-4 text-lg font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-              <i class="mr-2 fas fa-dice-d6" style="color: var(--color-primary);"></i>
+             class="block p-6 h-full text-decoration-none">
+            <h3 class="mb-4 text-lg font-semibold text-center text-gray-900 font-heading">
+              <i class="mr-2 fas fa-dice-d6 text-primary"></i>
               Notre Ludothèque
             </h3>
             <div class="myludo-preview">
@@ -176,11 +176,11 @@
       <% if content(:home_poster_image).present? %>
       <div class="bento-card bento-card-poster fade-in">
         <div class="p-6 text-center">
-          <h3 class="mb-6 text-xl font-semibold" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-            <i class="mr-3 fas fa-image" style="color: var(--color-primary);"></i>
+          <h3 class="mb-6 text-xl font-semibold text-gray-900 font-heading">
+            <i class="mr-3 fas fa-image text-primary"></i>
             À l'affiche
           </h3>
-          <div class="inline-block overflow-hidden shadow-lg rounded-xl">
+          <div class="inline-block overflow-hidden rounded-xl shadow-lg">
             <%= content.image_tag(:home_poster_image, {}, {class: "max-w-full h-auto", alt: "Affiche Les Dés'Calés"}) %>
           </div>
         </div>
@@ -193,12 +193,12 @@
 
 <!-- Section Adhésion HelloAsso -->
 <% if content(:home_adhesion_embed).present? %>
-<section class="px-4 py-12" style="background-color: var(--color-white);">
-  <div class="max-w-7xl mx-auto">
+<section class="px-4 py-12 bg-white">
+  <div class="mx-auto max-w-7xl">
     <div class="bento-card bento-card-adhesion fade-in">
       <div class="p-8">
-        <h3 class="mb-8 text-2xl font-semibold text-center" style="font-family: var(--font-family-heading); color: var(--color-gray-900);">
-          <i class="mr-3 fas fa-heart" style="color: var(--color-primary);"></i>
+        <h3 class="mb-8 text-2xl font-semibold text-center text-gray-900 font-heading">
+          <i class="mr-3 fas fa-heart text-primary"></i>
           Rejoignez-nous !
         </h3>
         <div class="embed-container">

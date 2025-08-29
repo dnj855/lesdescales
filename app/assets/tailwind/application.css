@@ -2,6 +2,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Force la génération des classes personnalisées - supprimé car nous allons les utiliser directement dans les templates */
+
 /* Font Feeling Passionate chargée localement */
 @font-face {
   font-family: 'Feeling Passionate';
@@ -38,9 +40,9 @@
     /* === SYSTÈME TYPOGRAPHIQUE === */
 
     /* Familles de polices */
-    --font-family-display: 'Feeling Passionate', 'Brush Script MT', cursive;
-    --font-family-heading: 'Antonio', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    --font-family-body: 'Sniglet', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-display: 'Feeling Passionate', 'Brush Script MT', cursive;
+    --font-heading: 'Antonio', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-body: 'Sniglet', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
     /* Tailles de texte */
     --font-size-sm: 0.875rem;
@@ -149,7 +151,7 @@
 }
 
 .myludo-title {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--color-gray-900);
@@ -157,14 +159,14 @@
 }
 
 .myludo-description {
-  font-family: var(--font-family-body);
+  font-family: var(--font-body);
   color: var(--color-gray-600);
   margin: 0 0 1rem 0;
   line-height: 1.4;
 }
 
 .myludo-cta {
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-weight: 600;
   color: var(--color-primary);
   font-size: 1rem;
@@ -402,7 +404,7 @@
   color: var(--color-white);
   text-decoration: none;
   border-radius: var(--radius-md);
-  font-family: var(--font-family-heading);
+  font-family: var(--font-heading);
   font-weight: var(--font-weight-medium);
   transition: all 0.3s ease-out;
   will-change: transform;
@@ -535,18 +537,7 @@
 /* Animation d'apparition - Supprimée car en double avec la version complète plus haut */
 /* La classe .fade-in est déjà définie ligne 368-389 avec une animation plus complète */
 
-/* Hover effects pour les cartes */
-.bento-card {
-  background: white;
-  border-radius: 1rem;
-  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
-  transition: all 0.3s ease;
-}
-
-.bento-card:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
-}
+/* Hover effects pour les cartes - définition supprimée car dupliquée avec la version complète aux lignes 264-281 */
 
 /* Carte CTA spéciale */
 .bento-card-cta {

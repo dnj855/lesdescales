@@ -2,11 +2,11 @@
 <% if content(:title).present? %>
 <section class="px-4 py-12 mt-16 bg-background">
   <div class="mx-auto max-w-7xl text-center">
-    <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl font-family-heading">
+    <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl font-heading">
       <%= content(:title) %>
     </h1>
     <% if content(:description).present? %>
-      <div class="mx-auto max-w-3xl mt-6 text-lg leading-relaxed text-gray-600 font-family-body">
+      <div class="mx-auto max-w-3xl mt-6 text-lg leading-relaxed text-gray-600 font-body">
         <%= content(:description).html_safe %>
       </div>
     <% end %>
@@ -15,7 +15,7 @@
     <div class="mx-auto max-w-3xl mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
       <div class="flex items-start gap-3">
         <i class="text-blue-600 fas fa-info-circle mt-1"></i>
-        <div class="text-sm text-blue-800 font-family-body">
+        <div class="text-sm text-blue-800 font-body">
           <strong>Comment ça marche ?</strong><br>
           Les animations créées il y a plus d'un an sont automatiquement archivées et apparaissent sur cette page.
         </div>
@@ -28,7 +28,7 @@
 <!-- Lien retour vers animations -->
 <section class="px-4 py-6 bg-white">
   <div class="mx-auto max-w-7xl">
-    <%= link_to "/animations", class: "inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 font-family-body" do %>
+    <%= link_to "/animations", class: "inline-flex items-center gap-2 text-primary hover:text-primary-dark transition-colors duration-200 font-body" do %>
       <i class="fas fa-arrow-left"></i>
       <span>Retour aux animations actuelles</span>
     <% end %>
@@ -46,13 +46,13 @@
               <div class="p-4">
                 <div class="flex items-center mb-3">
                   <i class="mr-2 text-lg fas fa-archive" style="color: var(--color-gray-500);"></i>
-                  <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-family-heading); color: var(--color-gray-700);">
+                  <h3 class="text-lg font-semibold group-hover:underline" style="font-family: var(--font-heading); color: var(--color-gray-700);">
                     <%= animation.title %>
                   </h3>
                 </div>
                 
                 <!-- Badge Archive -->
-                <div class="inline-flex items-center px-2 py-1 mb-3 text-xs font-medium bg-gray-100 rounded-full text-gray-600 font-family-body">
+                <div class="inline-flex items-center px-2 py-1 mb-3 text-xs font-medium bg-gray-100 rounded-full text-gray-600 font-body">
                   <i class="mr-1 fas fa-clock" style="color: var(--color-gray-500);"></i>
                   Animation archivée
                 </div>
@@ -60,13 +60,13 @@
                 <!-- Infos pratiques -->
                 <div class="mb-4 space-y-2">
                   <% if animation.content(:animation_date).present? %>
-                    <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-500); font-family: var(--font-family-body);">
+                    <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-500); font-family: var(--font-body);">
                       <i class="fas fa-calendar"></i>
                       <%= animation.content(:animation_date) %>
                     </div>
                   <% end %>
                   <% if animation.content(:animation_location).present? %>
-                    <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-500); font-family: var(--font-family-body);">
+                    <div class="flex items-center gap-2 text-sm" style="color: var(--color-gray-500); font-family: var(--font-body);">
                       <i class="fas fa-map-marker-alt"></i>
                       <%= animation.content(:animation_location) %>
                     </div>
@@ -89,13 +89,13 @@
                 
                 <!-- Description courte -->
                 <% if animation.content(:description).present? %>
-                  <div class="mb-3 text-sm line-clamp-3" style="color: var(--color-gray-500); font-family: var(--font-family-body);">
+                  <div class="mb-3 text-sm line-clamp-3" style="color: var(--color-gray-500); font-family: var(--font-body);">
                     <%= strip_tags(animation.content(:description).to_s).truncate(120) %>
                   </div>
                 <% end %>
                 
                 <div class="flex justify-between items-center">
-                  <span class="text-sm" style="color: var(--color-gray-600); font-family: var(--font-family-body);">
+                  <span class="text-sm" style="color: var(--color-gray-600); font-family: var(--font-body);">
                     Voir cette animation archivée
                   </span>
                   <i class="transition-transform fas fa-arrow-right group-hover:translate-x-1 text-gray-600"></i>
@@ -112,14 +112,14 @@
           <div class="mb-6">
             <i class="text-6xl fas fa-archive text-gray-300"></i>
           </div>
-          <h3 class="mb-4 text-xl font-semibold text-gray-700 font-family-heading">
+          <h3 class="mb-4 text-xl font-semibold text-gray-700 font-heading">
             Aucune animation archivée
           </h3>
-          <p class="text-gray-600 font-family-body">
+          <p class="text-gray-600 font-body">
             Les animations passées apparaîtront ici quand elles seront archivées.
           </p>
           <div class="mt-6">
-            <%= link_to "/animations", class: "inline-flex items-center gap-2 px-4 py-2 text-primary hover:text-primary-dark border border-primary hover:bg-primary/5 rounded-lg transition-colors duration-200 font-family-body" do %>
+            <%= link_to "/animations", class: "inline-flex items-center gap-2 px-4 py-2 text-primary hover:text-primary-dark border border-primary hover:bg-primary/5 rounded-lg transition-colors duration-200 font-body" do %>
               <i class="fas fa-arrow-left"></i>
               <span>Découvrir nos animations actuelles</span>
             <% end %>
@@ -135,19 +135,19 @@
   <div class="mx-auto max-w-7xl text-center">
     <div class="bento-card bento-card-cta fade-in">
       <div class="p-8">
-        <h3 class="mb-4 text-2xl font-semibold text-gray-900 font-family-heading">
+        <h3 class="mb-4 text-2xl font-semibold text-gray-900 font-heading">
           <i class="mr-3 text-primary fas fa-calendar-plus"></i>
           Vous avez manqué une animation ?
         </h3>
-        <p class="mb-6 text-lg text-gray-900 font-family-body">
+        <p class="mb-6 text-lg text-gray-900 font-body">
           Découvrez nos animations actuelles et ne manquez plus rien de l'univers des Dés'Calés !
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
-          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary hover:bg-primary/90 font-family-body">
+          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary hover:bg-primary/90 font-body">
             <i class="mr-2 fas fa-calendar-check"></i>
             Voir les animations actuelles
           </a>
-          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary hover:bg-primary hover:text-white font-family-body">
+          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary hover:bg-primary hover:text-white font-body">
             <i class="mr-2 fas fa-envelope"></i>
             Nous contacter
           </a>

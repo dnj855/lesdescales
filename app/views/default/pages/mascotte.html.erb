@@ -2,7 +2,7 @@
 <% if content(:title).present? %>
 <section class="px-4 py-12 mt-16 bg-background">
   <div class="mx-auto max-w-7xl text-center">
-    <h1 class="mb-4 text-4xl font-bold text-gray-900 md:text-5xl font-family-heading">
+    <h1 class="mb-4 text-4xl font-bold text-primary md:text-5xl font-heading">
       <%= content(:title) %>
     </h1>
   </div>
@@ -22,11 +22,11 @@
             <div class="p-8">
               <div class="flex items-center mb-6">
                 <i class="mr-4 text-3xl text-primary fas fa-star"></i>
-                <h2 class="text-3xl font-semibold text-gray-900 font-family-heading">
+                <h2 class="text-3xl font-semibold text-primary font-heading">
                   Notre histoire
                 </h2>
               </div>
-              <div class="max-w-none leading-relaxed text-gray-900 prose prose-lg font-family-body">
+              <div class="max-w-none leading-relaxed text-gray-900 prose prose-lg font-body">
                 <%= content(:mascotte_story).html_safe %>
               </div>
             </div>
@@ -35,7 +35,7 @@
       </div>
       
       <!-- Colonne de droite : Slider d'illustrations -->
-      <div class="overflow-hidden order-1 min-w-0 lg:order-2">
+      <div class="order-1 min-w-0 lg:order-2">
         <% if content(:mascotte_illustrations).present? %>
           <div class="overflow-hidden min-w-0 max-w-full bento-card fade-in">
             <div class="p-4" data-controller="swiper">
@@ -58,9 +58,9 @@
               <!-- Pagination outside swiper container -->
               <div data-swiper-target="pagination" class="mt-4 swiper-pagination-custom"></div>
               
-              <!-- Légende optionnelle -->
+              <!-- Légende -->
               <div class="mt-4 text-center">
-                <p class="text-sm text-gray-600 font-family-body">
+                <p class="text-sm text-gray-600 font-body">
                   <i class="mr-2 text-primary fas fa-images"></i>
                   Découvrez notre mascotte à travers nos événements
                 </p>
@@ -79,19 +79,19 @@
   <div class="mx-auto max-w-7xl text-center">
     <div class="bento-card bento-card-cta fade-in">
       <div class="p-8">
-        <h3 class="mb-4 text-2xl font-semibold text-gray-900 font-family-heading">
+        <h3 class="mb-4 text-2xl font-semibold text-primary font-heading">
           <i class="mr-3 text-primary fas fa-dice"></i>
           Envie de nous rencontrer ?
         </h3>
-        <p class="mb-6 text-lg text-gray-900 font-family-body">
+        <p class="mb-6 text-lg text-gray-900 font-body">
           Retrouvez notre mascotte et toute l'équipe lors de nos événements !
         </p>
         <div class="flex flex-wrap gap-4 justify-center">
-          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary font-family-body" 
+          <a href="/animations" class="inline-flex items-center px-6 py-3 text-white rounded-lg transition-colors duration-200 bg-primary font-heading hover:bg-primary-dark" 
             <i class="mr-2 text-primary fas fa-calendar-check"></i>
             Voir nos animations
           </a>
-          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary font-family-body">
+          <a href="/contact" class="inline-flex items-center px-6 py-3 rounded-lg border-2 transition-colors duration-200 border-primary text-primary font-heading hover:bg-primary hover:text-white">
             <i class="mr-2 fas fa-envelope"></i>
             Nous contacter
           </a>

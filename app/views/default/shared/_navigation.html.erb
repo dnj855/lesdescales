@@ -1,13 +1,12 @@
-<nav class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b border-gray-200/50 backdrop-blur-md shadow-sm bg-background/90" 
+<nav class="fixed top-0 right-0 left-0 z-50 border-b shadow-sm backdrop-blur-md transition-all duration-300 border-gray-200/50 bg-background/90" 
      role="navigation" 
      aria-label="Navigation principale">
   <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
+    <div class="flex justify-between items-center h-16">
       <!-- Logo/Brand -->
-      <div class="flex items-center flex-shrink-0">
+      <div class="flex flex-shrink-0 items-center">
         <%= link_to current_spina_account.name, root_path, 
-            class: "text-2xl font-bold transition-colors duration-200 tracking-tight text-primary hover:text-primary-dark",
-            style: "font-family: var(--font-family-heading);" %>
+            class: "text-2xl font-bold transition-colors duration-200 tracking-tight text-primary hover:text-primary-dark font-heading" %>
       </div>
       
       <!-- Desktop Navigation -->
@@ -16,11 +15,10 @@
           <% nav_items.each do |nav_item| %>
             <% is_active = nav_item_active?(nav_item.materialized_path, current_page.materialized_path) %>
             <%= link_to nav_item.menu_title, nav_item.materialized_path, 
-                class: "relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md
+                class: "relative px-3 py-2 text-sm font-medium transition-all duration-200 rounded-md font-body
                          #{is_active ? 
                            'text-primary after:absolute after:bottom-0 after:left-0 after:right-0 after:h-0.5 after:bg-primary after:rounded-full' : 
-                           'text-gray-600 hover:text-gray-900 hover:bg-background-pale/50'}",
-                style: "font-family: var(--font-family-body);" %>
+                           'text-gray-600 hover:text-gray-900 hover:bg-background-pale/50'}" %>
           <% end %>
         </div>
       </div>
@@ -29,7 +27,7 @@
       <div class="md:hidden">
         <button type="button" 
                 id="mobile-menu-button"
-                class="inline-flex items-center justify-center p-2 transition-all duration-200 rounded-md text-gray-600 hover:text-gray-900 hover:bg-background-pale/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
+                class="inline-flex justify-center items-center p-2 text-gray-600 rounded-md transition-all duration-200 hover:text-gray-900 hover:bg-background-pale/50 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
                 aria-controls="mobile-menu" 
                 aria-expanded="false"
                 aria-label="Ouvrir le menu de navigation"
@@ -50,15 +48,14 @@
 
   <!-- Mobile Navigation Menu -->
   <div class="hidden" id="mobile-menu">
-    <div class="px-2 pt-2 pb-3 space-y-1 border-t border-gray-200/50 bg-background/95 backdrop-blur-md shadow-sm">
+    <div class="px-2 pt-2 pb-3 space-y-1 border-t shadow-sm backdrop-blur-md border-gray-200/50 bg-background/95">
       <% nav_items.each do |nav_item| %>
         <% is_active = nav_item_active?(nav_item.materialized_path, current_page.materialized_path) %>
         <%= link_to nav_item.menu_title, nav_item.materialized_path, 
-            class: "block px-3 py-2 text-base font-medium transition-all duration-200 rounded-md mobile-nav-link
+            class: "block px-3 py-2 text-base font-medium transition-all duration-200 rounded-md mobile-nav-link font-body
                      #{is_active ? 
                        'text-primary bg-background-pale/70 border-l-4 border-primary' : 
                        'text-gray-600 hover:text-gray-900 hover:bg-background-pale/50'}", 
-            style: "font-family: var(--font-family-body);",
             onclick: "closeMobileMenu()" %>
       <% end %>
     </div>
