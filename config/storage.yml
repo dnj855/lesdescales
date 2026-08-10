@@ -8,7 +8,8 @@ local:
 
 cloudinary:
   service: Cloudinary
-  folder: <%= Rails.env %>
+  # ponytail: dossier unique partagé dev/staging/prod, sinon les blobs dumpés du staging ne résolvent pas
+  folder: production
 
 # Use bin/rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
 # amazon:
