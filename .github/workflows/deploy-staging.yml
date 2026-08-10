@@ -1,7 +1,7 @@
 name: Deploy to Staging
 
 # --- Déclencheur ---
-# Ce workflow se lancera à chaque push sur la branche 'main'
+# Ce workflow se lancera à chaque push sur la branche 'master'
 on:
   push:
     branches:
@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Mise en place de Ruby
         uses: ruby/setup-ruby@v1
@@ -60,20 +60,20 @@ jobs:
 
     steps:
       - name: Checkout du code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v7
 
       - name: Connexion au GitHub Container Registry
-        uses: docker/login-action@v2
+        uses: docker/login-action@v4
         with:
           registry: ghcr.io
           username: ${{ secrets.DOCKER_USER }}
           password: ${{ secrets.DOCKER_TOKEN }}
 
       - name: Construire et pousser l'image Docker
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v7
         with:
           context: .
-          # On tague l'image avec le nom de la branche (:main)
+          # On tague l'image avec le nom de la branche (:master)
           tags: ${{ env.IMAGE_NAME }}:master
           push: true
           # On passe la RAILS_MASTER_KEY de manière sécurisée pendant le build
@@ -81,7 +81,7 @@ jobs:
             "rails_master_key=${{ secrets.RAILS_MASTER_KEY }}"
 
       - name: Déploiement sur le VPS
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.2.5
         with:
           host: ${{ secrets.VPS_SSH_HOST }}
           username: ${{ secrets.VPS_SSH_USER }}
