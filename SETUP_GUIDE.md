@@ -78,23 +78,30 @@ rails tailwindcss:install
 ```
 
 #### Environment Configuration
-```bash
-# Create .env file for development
-cat > .env << EOF
-DATABASE_HOST=localhost
-DATABASE_USERNAME=your_username
-DATABASE_PASSWORD=your_password
-RAILS_MAX_THREADS=5
-EOF
 
-# Create .env.local for secrets (not committed)
-cat > .env.local << EOF
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-RAILS_MASTER_KEY=$(rails secret)
+Development uses [direnv](https://direnv.net): variables live in `.envrc` (gitignored).
+There is no `.env` / `.env.local` in this project.
+
+```bash
+cat > .envrc << 'EOF'
+export CLOUDINARY_URL="cloudinary://<api_key>:<api_secret>@<cloud_name>"
 EOF
+direnv allow
 ```
+
+Notes:
+
+- The `cloudinary` gem reads **`CLOUDINARY_URL`** only — not
+  `CLOUDINARY_CLOUD_NAME` / `_API_KEY` / `_API_SECRET`. Without it,
+  `Cloudinary.config.cloud_name` is `nil` and URL generation raises
+  `CloudinaryException: Must supply cloud_name`. Copy staging's value:
+  `ssh eden-labs "docker exec lesdescales-web_staging-1 printenv CLOUDINARY_URL"`.
+- No `DATABASE_URL` is needed: `config/database.yml` targets `lesdescales_development`
+  over the local socket.
+- Do **not** generate a `RAILS_MASTER_KEY` with `rails secret` — that produces a random
+  key that cannot decrypt the committed `config/credentials.yml.enc`. Get the real key
+  from staging if you need it (`printenv RAILS_MASTER_KEY`). It is not required to run
+  the app in development.
 
 ---
 
@@ -111,7 +118,7 @@ sudo -u postgres createuser -s $(whoami)
 rails db:create
 ```
 
-#### Seed Initial Data
+#### Seed Initial Data — ⚠️ fresh database only
 ```bash
 # Run Spina installation
 rails spina:install
@@ -120,6 +127,33 @@ rails spina:install
 # Email: admin@lesdescales.fr
 # Password: [choose secure password]
 ```
+
+⚠️ `rails spina:install` **rewrites `config/initializers/spina.rb` from the gem's
+template**, discarding this project's settings (`config.locales = [:fr]`,
+`backend_title`…). Never run it on an existing install. If you already did:
+`git restore config/initializers/spina.rb`.
+
+#### Replicate staging instead (recommended)
+
+Staging is the source of truth for content — clients fill it in, and it is later cloned
+to production. Skip `spina:install` and copy staging's state:
+
+```bash
+# 1. Dump from the app container (it ships psql and holds its own DATABASE_URL;
+#    the database itself lives on the VPS's shared postgresql-server)
+ssh eden-labs 'docker exec lesdescales-web_staging-1 sh -c "pg_dump -Fc \$DATABASE_URL"' > /tmp/staging.dump
+
+# 2. Restore. --no-owner belongs on pg_restore, not pg_dump: in custom format pg_dump
+#    ignores it and the archive keeps its ALTER ... OWNER TO lesdescales statements
+dropdb --if-exists lesdescales_development && createdb lesdescales_development
+pg_restore --no-owner --no-privileges -d lesdescales_development /tmp/staging.dump
+
+# 3. Match staging's secret_key_base — mandatory, or every image 404s
+#    (see Troubleshooting → Images return 404 after a database dump)
+ssh eden-labs 'docker exec lesdescales-web_staging-1 bin/rails runner "print Rails.application.secret_key_base"' > tmp/local_secret.txt
+```
+
+Then set `CLOUDINARY_URL` in `.envrc` and restart `bin/dev`.
 
 #### Load Sample Data (Optional)
 ```bash
@@ -321,6 +355,56 @@ user.password = 'new_password'
 user.save!
 ```
 
+#### Images return 404 after a database dump
+
+Symptom: pages render their `<img>` tags, but every
+`/rails/active_storage/representations/redirect/...` URL returns 404. The log shows no
+exception, only:
+
+```
+Filter chain halted as :set_blob rendered or redirected
+Completed 404 Not Found in 1ms (ActiveRecord: 0.0ms)
+```
+
+`ActiveRecord: 0.0ms` is the tell: no query ran, so the blob is not missing — the
+**signature failed to verify**. Restarting the server does not help.
+
+Cause: Spina 2.20 stores page content in the jsonb column
+`spina_pages.json_attributes` (**not** in `spina_page_parts`, a legacy table that stays
+empty — do not read its zero count as "no content"). For images it persists a hardcoded
+`signed_blob_id`:
+
+```json
+{"name": "home_banner_image", "type": "Spina::Parts::Image",
+ "image_id": 8, "signed_blob_id": "eyJ…--c9b528cf…"}
+```
+
+That signature depends on the `secret_key_base` of whichever environment saved the page.
+A dump carries it verbatim, so any environment with a different secret cannot verify it.
+
+Fix — align the local secret with staging's:
+
+```bash
+ssh eden-labs 'docker exec lesdescales-web_staging-1 bin/rails runner "print Rails.application.secret_key_base"' > tmp/local_secret.txt
+```
+
+Then restart `bin/dev`. Note that adding `config/master.key` does **not** fix this: in
+development Rails ignores credentials and reads only `tmp/local_secret.txt`
+(`Rails.env.local?` → `generate_development_secret`).
+
+To confirm the diagnosis, sign a URL locally and request it — a 302 proves the
+verifier uses `tmp/local_secret.txt` while the stored signature does not:
+
+```bash
+rails runner 'puts ActiveStorage::Blob.find(26).signed_id'
+```
+
+#### Cloudinary: "Must supply cloud_name"
+
+`CLOUDINARY_URL` is not set in the current shell. It lives in `.envrc`; run
+`direnv allow`. The `cloudinary` gem reads that single variable — not
+`CLOUDINARY_CLOUD_NAME` / `_API_KEY` / `_API_SECRET`.
+
 ---
 
 ## 🏭 Production Setup
@@ -336,8 +420,17 @@ RAILS_LOG_LEVEL=info
 RAILS_SERVE_STATIC_FILES=true
 ```
 
+⚠️ **Production must share staging's `secret_key_base`.** Page content is copied from
+staging by database dump, and `Spina::Parts::Image` stores a `signed_blob_id` computed
+from the signing environment's secret (see *Images return 404 after a database dump*).
+A production instance with its own secret cannot verify those signatures, and **every
+image on the site returns 404** — with no error in the logs beyond a filter-chain halt.
+Deploy production with the same `RAILS_MASTER_KEY` as staging so both resolve
+`secret_key_base` from the shared `config/credentials.yml.enc`.
+
 ### Pre-deployment Checklist
 - [ ] Set all environment variables
+- [ ] Confirm `secret_key_base` matches staging (else all images 404)
 - [ ] Configure SSL certificate
 - [ ] Setup database backups
 - [ ] Configure monitoring
